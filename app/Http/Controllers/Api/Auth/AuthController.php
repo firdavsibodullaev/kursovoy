@@ -21,17 +21,17 @@ class AuthController extends Controller
      */
     public function register(StoreUserRequest $request): array
     {
-//        $user = (new UserService())->create($request->validated());
-//
-//        Auth::attempt(Arr::only($request->validated(), ['username', 'password']));
-//        /** @var User $user */
-//        $token = $user->createToken('user-token')->plainTextToken;
-//
-//        return [
-//            'type' => 'Bearer',
-//            'token' => $token,
-//            'user' => new UserResource($user)
-//        ];
+        $user = (new UserService())->create($request->validated());
+
+        Auth::attempt(Arr::only($request->validated(), ['username', 'password']));
+        /** @var User $user */
+        $token = $user->createToken(json_encode([$request->userAgent(), $request->ip()]))->plainTextToken;
+
+        return [
+            'type' => 'Bearer',
+            'token' => $token,
+            'user' => new UserResource($user)
+        ];
     }
 
     public function login(Request $request)
@@ -46,7 +46,7 @@ class AuthController extends Controller
         }
         /** @var User $user */
         $user = $request->user();
-        $token = $user->createToken('user-token')->plainTextToken;
+        $token = $user->createToken(json_encode([$request->userAgent(), $request->ip()]))->plainTextToken;
 
         return [
             'type' => 'Bearer',
