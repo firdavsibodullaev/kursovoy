@@ -39,9 +39,9 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
-            'remember' => ['required', 'string', Rule::in('yes', 'on')],
+            'remember' => ['required', Rule::in(true, false)],
         ]);
-        if (!Auth::attempt(Arr::except($credentials, 'remember'), $credentials['remember'] === 'yes')) {
+        if (!Auth::attempt(Arr::except($credentials, 'remember'), $credentials['remember'])) {
             return response('Unauthorized', 401);
         }
         /** @var User $user */
@@ -51,6 +51,7 @@ class AuthController extends Controller
         return [
             'type' => 'Bearer',
             'token' => $token,
+            'remember' => $credentials['remember'],
             'user' => new UserResource($user)
         ];
     }

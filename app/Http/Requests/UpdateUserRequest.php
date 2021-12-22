@@ -31,13 +31,12 @@ class UpdateUserRequest extends FormRequest
             'patronymic' => 'required|string|max:255',
             'username' => "required|string|max:255|unique:users,username,{$user->id},id,deleted_at,NULL",
             'password' => [
-                'required',
+                'nullable',
                 'string',
                 'max:255',
                 'confirmed',
                 Password::default()->mixedCase(),
                 Password::default()->numbers(),
-                Password::default()->symbols(),
             ],
             'birthdate' => 'date|nullable',
             'phone' => [

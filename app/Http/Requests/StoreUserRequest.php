@@ -36,7 +36,6 @@ class StoreUserRequest extends FormRequest
                 'confirmed',
                 Password::default()->mixedCase(),
                 Password::default()->numbers(),
-                Password::default()->symbols(),
             ],
             'birthdate' => 'date|nullable',
             'phone' => [
@@ -50,10 +49,10 @@ class StoreUserRequest extends FormRequest
             'department_id' => 'exists:departments,id|nullable',
             'post' => 'exists:roles,id',
             'email' => 'nullable|email|unique:users,email,NULL,id,deleted_at,NULL',
-            'roles' => 'array|required',
+            'roles' => 'array|nullable',
             'roles.*' => 'exists:roles,id|required',
             'permissions' => 'array|nullable',
-            'permissions.*' => 'exists:permissions,id|nullable',
+            'permissions.*' => 'exists:permissions,id|required',
         ];
     }
 }

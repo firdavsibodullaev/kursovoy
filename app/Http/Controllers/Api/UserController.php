@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
@@ -48,7 +49,7 @@ class UserController extends Controller
         $validated = $request->validated();
         /** @var User $user */
         $user = $this->userService->create($validated);
-        (new RolesService())->giveRole($user, $validated['roles']);
+        (new RolesService())->giveRole($user, ($validated['roles'] ?? [$validated['post']]));
         return new UserResource($user);
     }
 
@@ -86,5 +87,10 @@ class UserController extends Controller
         $this->userService->delete($user);
 
         return response('', 204);
+    }
+
+    public function posts(): AnonymousResourceCollection
+    {
+        return PostResource::collection($this->userService->getPosts());
     }
 }

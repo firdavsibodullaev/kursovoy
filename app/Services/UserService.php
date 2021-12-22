@@ -3,9 +3,14 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Spatie\Filters\UserFilter;
+use App\Spatie\Sorts\UserSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Role;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -19,7 +24,15 @@ class UserService
      */
     public function fetchWithPagination(): LengthAwarePaginator
     {
-        return QueryBuilder::for(User::with(['faculty', 'department']))->paginate()->withQueryString();
+        return QueryBuilder::for(User::with(['faculty', 'department']))
+            ->defaultSort('id')
+            ->allowedFilters([
+                AllowedFilter::custom('full_name', new UserFilter)
+            ])
+            ->allowedSorts([
+                AllowedSort::custom('full_name', new UserSorts(), 'full_name')
+            ])
+            ->paginate();
     }
 
     /**
@@ -44,5 +57,10 @@ class UserService
     public function delete(User $user)
     {
         $user->delete();
+    }
+
+    public function getPosts()
+    {
+        return Role::query()->orderBy('id')->get();
     }
 }

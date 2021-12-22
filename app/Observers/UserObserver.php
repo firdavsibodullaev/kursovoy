@@ -26,6 +26,8 @@ class UserObserver
     {
         if (request()->has('password')) {
             $user->password = Hash::make(request()->get('password'));
+        } else {
+            unset($user->password);
         }
     }
 
