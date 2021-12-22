@@ -21,7 +21,7 @@ class UserFactory extends Factory
             'last_name' => $this->faker->lastName,
             'first_name' => $this->faker->firstName,
             'patronymic' => $this->faker->lastName,
-            'username' => $this->faker->unique ()->userName,
+            'username' => $this->faker->unique()->userName,
             'password' => Hash::make('admin'),
             'post' => Role::query()->inRandomOrder()->firstWhere('id','!=', 1)->id,
         ];

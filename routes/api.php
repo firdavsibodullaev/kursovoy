@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\DScDoctorsController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\MainController;
 use App\Http\Controllers\Api\UserController;
@@ -30,6 +31,8 @@ Route::prefix('v1')->group(function () {
         });
     });
     Route::middleware('auth:sanctum')->group(function () {
+
+        // Пользователи
         Route::prefix('user')->name('user.')->group(function () {
             Route::get('', [UserController::class, 'index']);
             Route::get('posts', [UserController::class, 'posts']);
@@ -37,6 +40,16 @@ Route::prefix('v1')->group(function () {
             Route::post('', [UserController::class, 'store']);
             Route::put('{user}', [UserController::class, 'update']);
             Route::delete('{user}', [UserController::class, 'destroy']);
+        });
+
+        // DSc doctor
+
+        Route::prefix('dsc-doctor')->name('dsc_doctor.')->group(function () {
+            Route::get('', [DScDoctorsController::class, 'index']);
+            Route::get('{dScDoctor}', [DScDoctorsController::class, 'show']);
+            Route::post('', [DScDoctorsController::class, 'store']);
+            Route::put('{dScDoctor}', [DScDoctorsController::class, 'update']);
+            Route::delete('{dScDoctor}', [DScDoctorsController::class, 'destroy']);
         });
     });
 
