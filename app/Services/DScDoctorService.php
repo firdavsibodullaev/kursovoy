@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Models\DScDoctor;
+use App\Spatie\Sorts\DScDoctorDefaultSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -20,7 +22,9 @@ class DScDoctorService
      */
     public function fetchWithPagination(): LengthAwarePaginator
     {
-        return QueryBuilder::for(DScDoctor::with('user'))->paginate();
+        return QueryBuilder::for(DScDoctor::with('user'))
+            ->defaultSort(AllowedSort::custom('user_id', new DScDoctorDefaultSorts))
+            ->paginate();
     }
 
     /**
