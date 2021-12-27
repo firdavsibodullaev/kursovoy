@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
@@ -22,7 +21,7 @@ class UserSeeder extends Seeder
             'first_name' => "Admin",
             'patronymic' => "Admin",
             'username' => 'admin',
-            'password' => Hash::make('admin'),
+            'password' => '$2y$10$oLd1E7wid6Nqb/mfujvxVu.SMnri6L9ATR2C3kaXNVKdihEZ77Qxy', // admin
             'post' => Role::query()->first()->id,
         ])->assignRole(Role::query()->first()->id);
 

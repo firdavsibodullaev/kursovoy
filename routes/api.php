@@ -36,6 +36,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('user')->name('user.')->group(function () {
             Route::get('', [UserController::class, 'index']);
             Route::get('posts', [UserController::class, 'posts']);
+            Route::get('list', [UserController::class, 'list']);
             Route::get('{user}', [UserController::class, 'show']);
             Route::post('', [UserController::class, 'store']);
             Route::put('{user}', [UserController::class, 'update']);

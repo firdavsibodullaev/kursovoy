@@ -16,11 +16,11 @@ class CreateDScDoctorsTable extends Migration
     {
         Schema::create('d_sc_doctors', function (Blueprint $table) {
             $table->id();
+            $table->json('user');
             $table->json('diploma')->nullable();
             $table->json('professor_without_science_degree')->nullable();
             $table->string('speciality_name')->nullable();
             $table->json('employment')->nullable();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes(BaseModel::DELETED_AT);
         });

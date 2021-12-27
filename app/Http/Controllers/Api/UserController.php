@@ -89,8 +89,16 @@ class UserController extends Controller
         return response('', 204);
     }
 
+    /**
+     * @return AnonymousResourceCollection
+     */
     public function posts(): AnonymousResourceCollection
     {
         return PostResource::collection($this->userService->getPosts());
+    }
+
+    public function list()
+    {
+        return UserResource::collection($this->userService->list());
     }
 }

@@ -7,6 +7,7 @@ use App\Spatie\Filters\UserFilter;
 use App\Spatie\Sorts\UserSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -33,6 +34,14 @@ class UserService
                 AllowedSort::custom('full_name', new UserSorts(), 'full_name')
             ])
             ->paginate();
+    }
+
+    /**
+     * @return Builder[]|Collection
+     */
+    public function list()
+    {
+        return User::query()->get();
     }
 
     /**

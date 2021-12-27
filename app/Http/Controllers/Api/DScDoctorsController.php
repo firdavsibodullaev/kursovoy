@@ -56,7 +56,7 @@ class DScDoctorsController extends Controller
      */
     public function show(DScDoctor $dScDoctor): DScDoctorResource
     {
-        return new DScDoctorResource($dScDoctor->load('user'));
+        return new DScDoctorResource($dScDoctor);
     }
 
     /**

@@ -24,6 +24,9 @@ class StoreDScDoctorRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'patronymic' => 'required|string|max:255',
             'diploma_series' => [
                 'required_without_all:professor_without_science_degree_series,professor_without_science_degree_number',
                 'nullable',
@@ -55,11 +58,6 @@ class StoreDScDoctorRequest extends FormRequest
             'speciality_name' => 'required|string|max:255',
             'employee_order' => 'string|required|max:255',
             'employee_date' => 'date|required',
-            'user_id' => [
-                'required',
-                'exists:users,id',
-                'unique:d_sc_doctors,user_id,NULL,id,deleted_at,NULL'
-            ],
         ];
     }
 }
