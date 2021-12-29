@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\DScDoctor;
+use App\Models\PhdDoctor;
 use App\Spatie\Sorts\DScDoctorDefaultSorts;
 use App\Traits\PreparingJsonDataForModels;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -12,18 +12,19 @@ use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
- * Class DScDoctorService
+ * Class PhdDoctorService
  * @package App\Services
  */
-class DScDoctorService
+class PhdDoctorService
 {
     use PreparingJsonDataForModels;
+
     /**
      * @return LengthAwarePaginator
      */
-    public function fetchWithPagination(): LengthAwarePaginator
+    public function fetchWithPaginate(): LengthAwarePaginator
     {
-        return QueryBuilder::for(DScDoctor::class)
+        return QueryBuilder::for(PhdDoctor::class)
             ->defaultSort(AllowedSort::custom('user', new DScDoctorDefaultSorts))
             ->allowedSorts([
                 AllowedSort::custom('user', new DScDoctorDefaultSorts)
@@ -38,24 +39,20 @@ class DScDoctorService
     public function create(array $validated)
     {
         $this->prepareData($validated);
-        return DScDoctor::query()->create($validated);
+        return PhdDoctor::query()->create($validated);
     }
 
-    /**
-     * @param DScDoctor $doctor
-     * @param array $validated
-     * @return mixed
-     */
-    public function update(DScDoctor $doctor, array $validated)
+    public function update(PhdDoctor $doctor, array $validated)
     {
         $this->prepareData($validated);
         return tap($doctor)->update($validated);
     }
 
+
     /**
-     * @param DScDoctor $doctor
+     * @param PhdDoctor $doctor
      */
-    public function delete(DScDoctor $doctor)
+    public function delete(PhdDoctor $doctor)
     {
         $doctor->delete();
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\DScDoctorsController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\MainController;
+use App\Http\Controllers\Api\PhdDoctorController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,16 @@ Route::prefix('v1')->group(function () {
             Route::post('', [DScDoctorsController::class, 'store']);
             Route::put('{dScDoctor}', [DScDoctorsController::class, 'update']);
             Route::delete('{dScDoctor}', [DScDoctorsController::class, 'destroy']);
+        });
+
+        // Phd doctor
+
+        Route::prefix('phd-doctor')->name('phd_doctor.')->group(function () {
+            Route::get('', [PhdDoctorController::class, 'index']);
+            Route::get('{phdDoctor}', [PhdDoctorController::class, 'show']);
+            Route::post('', [PhdDoctorController::class, 'store']);
+            Route::put('{phdDoctor}', [PhdDoctorController::class, 'update']);
+            Route::delete('{phdDoctor}', [PhdDoctorController::class, 'destroy']);
         });
     });
 
