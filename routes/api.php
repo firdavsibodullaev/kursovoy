@@ -3,8 +3,8 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\DScDoctorsController;
 use App\Http\Controllers\Api\FacultyController;
-use App\Http\Controllers\Api\MainController;
 use App\Http\Controllers\Api\PhdDoctorController;
+use App\Http\Controllers\Api\ScientificArticleCitationController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +63,18 @@ Route::prefix('v1')->group(function () {
             Route::put('{phdDoctor}', [PhdDoctorController::class, 'update']);
             Route::delete('{phdDoctor}', [PhdDoctorController::class, 'destroy']);
         });
+
+        // Цитаты статьи
+        Route::prefix('scientific-article-citation')->name('scientific_article_citation')->group(function () {
+            Route::get('journals', [ScientificArticleCitationController::class, 'journals']);
+            Route::get('languages', [ScientificArticleCitationController::class, 'languages']);
+            Route::get('', [ScientificArticleCitationController::class, 'index']);
+            Route::get('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'show']);
+            Route::post('', [ScientificArticleCitationController::class, 'store']);
+            Route::put('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'update']);
+            Route::delete('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'destroy']);
+        });
+
     });
 
     Route::prefix('faculty')->group(function () {

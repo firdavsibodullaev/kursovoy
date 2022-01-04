@@ -37,11 +37,15 @@ class UserService
     }
 
     /**
-     * @return Builder[]|Collection
+     * @return Collection
      */
-    public function list()
+    public function list(): Collection
     {
-        return User::query()->get();
+        return QueryBuilder::for(User::with(['faculty', 'department']))
+            ->defaultSort('id')
+            ->allowedFilters([
+                AllowedFilter::custom('full_name', new UserFilter)
+            ])->get();
     }
 
     /**
