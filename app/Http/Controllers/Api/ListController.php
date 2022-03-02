@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants\LanguagesConstant;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CountryResource;
 use App\Http\Resources\MagazineResource;
 use App\Services\ListService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -34,5 +35,13 @@ class ListController extends Controller
     public function languages()
     {
         return LanguagesConstant::translatedList();
+    }
+
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function countries(): AnonymousResourceCollection
+    {
+        return CountryResource::collection($this->listService->getCountries());
     }
 }

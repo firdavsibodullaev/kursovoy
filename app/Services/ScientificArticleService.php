@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\ScientificArticle;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -72,9 +73,14 @@ class ScientificArticleService
         /** @var ScientificArticle $article */
         $article = tap($article)->update($validated);
 
-        $validated['users'] = $validated['users'] ?? [auth()->id()];
+        /** @var User $user */
+        $user = auth()->user();
 
-        $article->users()->sync($validated['users']);
+        if ($user->post == 1) {
+            $validated['users'] = $validated['users'] ?? [$user->id];
+            $article->users()->sync($validated['users']);
+        }
+
 
         return $article->load(['users', 'magazine', 'country']);
     }

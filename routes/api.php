@@ -89,6 +89,7 @@ Route::prefix('v1')->group(function () {
 
         Route::get('magazines', [ListController::class, 'magazines']);
         Route::get('languages', [ListController::class, 'languages']);
+        Route::get('countries', [ListController::class, 'countries']);
 
 
     });

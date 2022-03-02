@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Country;
 use App\Models\Magazine;
-use App\Models\ScientificArticle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +33,14 @@ class ListService
         return Magazine::query()->firstOrCreate([
             'title' => $magazine
         ]);
+    }
+
+    /**
+     * @return Collection|QueryBuilder[]
+     */
+    public function getCountries()
+    {
+        return QueryBuilder::for(Country::class)->get();
     }
 
     /**
