@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class {{ class }} extends Seeder
+class ScientificArticleSeeder extends Seeder
 {
     /**
      * Run the database seeds.

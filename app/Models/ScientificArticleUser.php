@@ -1,10 +1,11 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Models;
+
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class {{ class }} extends Pivot
+class ScientificArticleUser extends Pivot
 {
     //
 }

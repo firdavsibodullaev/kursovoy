@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\BaseModel;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class {{ class }} extends Migration
+class CreateCountriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +14,11 @@ class {{ class }} extends Migration
      */
     public function up()
     {
-        Schema::table('{{ table }}', function (Blueprint $table) {
-            //
+        Schema::create('countries', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+            $table->softDeletes(BaseModel::DELETED_AT);
         });
     }
 
@@ -25,8 +29,6 @@ class {{ class }} extends Migration
      */
     public function down()
     {
-        Schema::table('{{ table }}', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('countries');
     }
 }

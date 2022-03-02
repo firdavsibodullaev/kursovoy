@@ -1,10 +1,10 @@
 <?php
 
-namespace {{ factoryNamespace }};
+namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class {{ factory }}Factory extends Factory
+class ScientificArticleFactory extends Factory
 {
     /**
      * Define the model's default state.
