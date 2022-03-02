@@ -79,7 +79,7 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('scientific-article')->name('scientific_article')->group(function () {
             Route::get('', [ScientificArticleController::class, 'index']);
-            Route::get('confirmation', [ScientificArticleCitationController::class, 'getNotConfirmedArticlesList']);
+            Route::get('confirmation', [ScientificArticleController::class, 'getNotConfirmedArticlesList']);
             Route::get('{scientificArticle}', [ScientificArticleController::class, 'show']);
             Route::post('', [ScientificArticleController::class, 'store']);
             Route::post('confirm/{scientificArticle}', [ScientificArticleController::class, 'confirm']);

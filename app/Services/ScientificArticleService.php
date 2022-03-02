@@ -28,6 +28,7 @@ class ScientificArticleService
      */
     public function getNotConfirmedArticlesList()
     {
+
         return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
             ->where('is_confirmed', '=', false)
             ->get();
