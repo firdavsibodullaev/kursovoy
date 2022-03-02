@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-class Journal extends BaseModel
+class Magazine extends BaseModel
 {
     //
 }

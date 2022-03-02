@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'first_name' => "Admin",
             'patronymic' => "Admin",
             'username' => 'admin',
-            'password' => '$2y$10$oLd1E7wid6Nqb/mfujvxVu.SMnri6L9ATR2C3kaXNVKdihEZ77Qxy', // admin
+            'password' => 'admin', // admin
             'post' => Role::query()->first()->id,
         ])->assignRole(Role::query()->first()->id);
 

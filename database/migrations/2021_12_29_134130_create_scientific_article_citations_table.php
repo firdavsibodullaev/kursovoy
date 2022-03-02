@@ -16,7 +16,7 @@ class CreateScientificArticleCitationsTable extends Migration
     {
         Schema::create('scientific_article_citations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('journal_id')->constrained('journals')->cascadeOnDelete();
+            $table->foreignId('magazine_id')->constrained('magazines')->cascadeOnDelete();
             $table->date('magazine_publish_date');
             $table->text('article_title');
             $table->string('article_language');

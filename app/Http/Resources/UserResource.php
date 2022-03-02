@@ -22,13 +22,14 @@ class UserResource extends JsonResource
                 'last_name' => $this->last_name,
                 'patronymic' => $this->patronymic,
             ],
+            'full_name_string' => "{$this->last_name} {$this->first_name} {$this->patronymic}",
             'username' => $this->username,
             'birthdate' => $this->birthdate,
             'phone' => $this->phone,
-            'post' => $this->post_name,
+            'post' => new PostResource($this->post_name),
             'email' => $this->email,
-            'faculty' => $this->whenLoaded('faculty'),
-            'department' => $this->whenLoaded('department'),
+            'faculty' => new FacultyResource($this->whenLoaded('faculty')),
+            'department' => new DepartmentResource($this->whenLoaded('department')),
         ];
     }
 }

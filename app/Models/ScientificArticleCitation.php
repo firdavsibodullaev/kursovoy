@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ScientificArticleCitation extends BaseModel
 {
+    protected $fillable = [
+        'magazine_id',
+        'magazine_publish_date',
+        'article_title',
+        'article_language',
+        'link',
+        'citations_count',
+        'is_confirmed'
+    ];
     /**
      * @return BelongsToMany
      */
@@ -24,8 +33,8 @@ class ScientificArticleCitation extends BaseModel
     /**
      * @return HasOne
      */
-    public function journal(): HasOne
+    public function magazine(): HasOne
     {
-        return $this->hasOne(Journal::class, 'id', 'journal_id');
+        return $this->hasOne(Magazine::class, 'id', 'magazine_id');
     }
 }

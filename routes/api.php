@@ -66,11 +66,13 @@ Route::prefix('v1')->group(function () {
 
         // Цитаты статьи
         Route::prefix('scientific-article-citation')->name('scientific_article_citation')->group(function () {
-            Route::get('journals', [ScientificArticleCitationController::class, 'journals']);
+            Route::get('magazines', [ScientificArticleCitationController::class, 'magazines']);
             Route::get('languages', [ScientificArticleCitationController::class, 'languages']);
+            Route::get('confirmation', [ScientificArticleCitationController::class, 'getNotConfirmedArticlesList']);
             Route::get('', [ScientificArticleCitationController::class, 'index']);
             Route::get('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'show']);
             Route::post('', [ScientificArticleCitationController::class, 'store']);
+            Route::post('confirm/{scientificArticleCitation}', [ScientificArticleCitationController::class, 'confirm']);
             Route::put('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'update']);
             Route::delete('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'destroy']);
         });

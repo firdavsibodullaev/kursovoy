@@ -14,9 +14,9 @@ class UserFilter implements Filter
     {
         $value = Str::lower($value);
         $query->where(function ($q) use ($value) {
-            $q->where(DB::raw("LOWER(last_name)"), 'like', "%$value%")
-                ->orWhere(DB::raw("LOWER(first_name)"), 'like', "%$value%")
-                ->orWhere(DB::raw("LOWER(patronymic)"), 'like', "%$value%");
+            $q->where(DB::raw("LOWER(last_name)"), 'like', "%{$value}%")
+                ->orWhere(DB::raw("LOWER(first_name)"), 'like', "%{$value}%")
+                ->orWhere(DB::raw("LOWER(patronymic)"), 'like', "%{$value}%");
         });
     }
 }

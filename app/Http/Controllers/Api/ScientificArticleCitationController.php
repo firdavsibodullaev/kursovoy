@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants\LanguagesConstant;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\JournalResource;
+use App\Http\Resources\MagazineResource;
 use App\Http\Resources\ScientificArticleCitationResource;
 use App\Models\ScientificArticleCitation;
 use App\Http\Requests\StoreScientificArticleCitationRequest;
@@ -56,7 +56,7 @@ class ScientificArticleCitationController extends Controller
      */
     public function show(ScientificArticleCitation $scientificArticleCitation): ScientificArticleCitationResource
     {
-        return new ScientificArticleCitationResource($scientificArticleCitation->load('users'));
+        return new ScientificArticleCitationResource($scientificArticleCitation->load(['users', 'magazine']));
     }
 
     /**
@@ -71,6 +71,17 @@ class ScientificArticleCitationController extends Controller
         $scientificArticleCitation = $this->citationService->update($scientificArticleCitation, $request->validated());
         return new ScientificArticleCitationResource($scientificArticleCitation);
 
+    }
+
+    /**
+     * @param ScientificArticleCitation $scientificArticleCitation
+     * @return ScientificArticleCitationResource
+     */
+    public function confirm(ScientificArticleCitation $scientificArticleCitation): ScientificArticleCitationResource
+    {
+        $scientificArticleCitation = $this->citationService->confirm($scientificArticleCitation);
+
+        return new ScientificArticleCitationResource($scientificArticleCitation);
     }
 
     /**
@@ -89,9 +100,9 @@ class ScientificArticleCitationController extends Controller
     /**
      * @return AnonymousResourceCollection
      */
-    public function journals(): AnonymousResourceCollection
+    public function magazines(): AnonymousResourceCollection
     {
-        return JournalResource::collection($this->citationService->getJournalsList());
+        return MagazineResource::collection($this->citationService->getMagazinesList());
     }
 
     /**
@@ -100,5 +111,10 @@ class ScientificArticleCitationController extends Controller
     public function languages()
     {
         return LanguagesConstant::translatedList();
+    }
+
+    public function getNotConfirmedArticlesList(): AnonymousResourceCollection
+    {
+        return ScientificArticleCitationResource::collection($this->citationService->getNotConfirmedArticlesList());
     }
 }
