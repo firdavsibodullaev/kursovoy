@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\DScDoctorsController;
 use App\Http\Controllers\Api\FacultyController;
+use App\Http\Controllers\Api\ListController;
 use App\Http\Controllers\Api\PhdDoctorController;
 use App\Http\Controllers\Api\ScientificArticleCitationController;
 use App\Http\Controllers\Api\UserController;
@@ -66,8 +67,6 @@ Route::prefix('v1')->group(function () {
 
         // Цитаты статьи
         Route::prefix('scientific-article-citation')->name('scientific_article_citation')->group(function () {
-            Route::get('magazines', [ScientificArticleCitationController::class, 'magazines']);
-            Route::get('languages', [ScientificArticleCitationController::class, 'languages']);
             Route::get('confirmation', [ScientificArticleCitationController::class, 'getNotConfirmedArticlesList']);
             Route::get('', [ScientificArticleCitationController::class, 'index']);
             Route::get('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'show']);
@@ -76,6 +75,14 @@ Route::prefix('v1')->group(function () {
             Route::put('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'update']);
             Route::delete('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'destroy']);
         });
+
+        Route::prefix('scientific-article')->name('scientific_article')->group(function () {
+//            Route::get('',);
+        });
+
+        Route::get('magazines', [ListController::class, 'magazines']);
+        Route::get('languages', [ListController::class, 'languages']);
+
 
     });
 

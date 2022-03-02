@@ -128,13 +128,6 @@ class ScientificArticleCitationService
         $articleCitation->delete();
     }
 
-    /**
-     * @return Collection|QueryBuilder[]
-     */
-    public function getMagazinesList()
-    {
-        return QueryBuilder::for(Magazine::class)->get();
-    }
 
     /**
      * @param string $magazine
