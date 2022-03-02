@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\ListController;
 use App\Http\Controllers\Api\PhdDoctorController;
 use App\Http\Controllers\Api\ScientificArticleCitationController;
+use App\Http\Controllers\Api\ScientificArticleController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -77,7 +78,13 @@ Route::prefix('v1')->group(function () {
         });
 
         Route::prefix('scientific-article')->name('scientific_article')->group(function () {
-//            Route::get('',);
+            Route::get('', [ScientificArticleController::class, 'index']);
+            Route::get('confirmation', [ScientificArticleCitationController::class, 'getNotConfirmedArticlesList']);
+            Route::get('{scientificArticle}', [ScientificArticleController::class, 'show']);
+            Route::post('', [ScientificArticleController::class, 'store']);
+            Route::post('confirm/{scientificArticle}', [ScientificArticleController::class, 'confirm']);
+            Route::put('{scientificArticle}', [ScientificArticleController::class, 'update']);
+            Route::delete('{scientificArticle}', [ScientificArticleController::class, 'destroy']);
         });
 
         Route::get('magazines', [ListController::class, 'magazines']);

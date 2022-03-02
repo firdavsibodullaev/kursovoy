@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\Api\ListController;
 use App\Models\Magazine;
 use App\Models\ScientificArticleCitation;
 use App\Models\User;
@@ -65,7 +66,7 @@ class ScientificArticleCitationService
     public function create(array $validated): ScientificArticleCitation
     {
 
-        $magazine = $this->getMagazine($validated['magazine_name']);
+        $magazine = (new ListService())->getMagazineByTitle($validated['magazine_name']);
 
         $validated['magazine_id'] = $magazine->id;
 
@@ -91,7 +92,7 @@ class ScientificArticleCitationService
      */
     public function update(ScientificArticleCitation $articleCitation, array $validated): ScientificArticleCitation
     {
-        $magazine = $this->getMagazine($validated['magazine_name']);
+        $magazine = (new ListService())->getMagazineByTitle($validated['magazine_name']);
         $validated['magazine_id'] = $magazine->id;
 
         /** @var ScientificArticleCitation $articleCitation */
@@ -126,17 +127,5 @@ class ScientificArticleCitationService
     public function delete(ScientificArticleCitation $articleCitation)
     {
         $articleCitation->delete();
-    }
-
-
-    /**
-     * @param string $magazine
-     * @return Builder|Model
-     */
-    protected function getMagazine(string $magazine)
-    {
-        return Magazine::query()->firstOrCreate([
-            'title' => $magazine
-        ]);
     }
 }

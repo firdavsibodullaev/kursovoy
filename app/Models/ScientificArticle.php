@@ -14,7 +14,8 @@ class ScientificArticle extends BaseModel
         'pages',
         'link',
         'magazine_id',
-        'country_id'
+        'country_id',
+        'is_confirmed'
     ];
 
     /**
