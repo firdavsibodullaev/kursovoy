@@ -28,6 +28,7 @@ class ScientificArticleCitationService
     {
         /** @var User $user */
         $user = auth()->user();
+
         return QueryBuilder::for(ScientificArticleCitation::with(['users', 'magazine']))
             ->defaultSort('id')
             ->when($user->post !== 1, function (Builder $query) use ($user) {

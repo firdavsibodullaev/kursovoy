@@ -6,6 +6,7 @@ use App\Models\ScientificArticle;
 use App\Models\User;
 use App\Spatie\Sorts\MagazineSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -21,8 +22,16 @@ class ScientificArticleService
      */
     public function fetchWithPagination(): LengthAwarePaginator
     {
+        /** @var User $user */
+        $user = auth()->user();
+
         return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
             ->where('is_confirmed', '=', true)
+            ->when($user->post !== 1, function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('scientific_article_users.user_id', '=', $user->id);
+                });
+            })
             ->defaultSort('id')
             ->allowedSorts([
                 'title',
