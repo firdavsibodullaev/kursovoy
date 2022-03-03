@@ -27,7 +27,7 @@ class ScientificArticleRequest extends FormRequest
             'title' => 'required|string|max:190',
             'publish_year' => 'required|digits:4|numeric|min:1900|max:' . (date('Y') + 1),
             'pages' => 'string|required|max:20',
-            'link' => 'string|required|max:190',
+            'link' => 'required|url',
             'magazine_name' => 'required|string|max:190',
             'country_name' => 'required|string|max:190',
             'users' => 'nullable|array',
