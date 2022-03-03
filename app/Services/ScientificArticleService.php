@@ -75,9 +75,14 @@ class ScientificArticleService
         /** @var ScientificArticle $article */
         $article = ScientificArticle::query()->create($validated);
 
-        $validated['users'] = $validated['users'] ?? [auth()->id()];
+        if (isset($validated['users'])) {
+            $users = $validated['users'];
+            $users[] = auth()->id();
+        } else {
+            $users = [auth()->id()];
+        }
 
-        $article->users()->sync($validated['users']);
+        $article->users()->sync(array_unique($users));
 
         return $article->load(['users', 'magazine', 'country']);
     }

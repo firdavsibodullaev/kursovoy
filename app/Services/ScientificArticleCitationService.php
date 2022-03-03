@@ -81,7 +81,7 @@ class ScientificArticleCitationService
             $users = [auth()->id()];
         }
 
-        $articleCitation->users()->sync($users);
+        $articleCitation->users()->sync(array_unique($users));
 
         return $articleCitation->load(['users', 'magazine']);
     }
@@ -99,13 +99,13 @@ class ScientificArticleCitationService
         /** @var ScientificArticleCitation $articleCitation */
         $articleCitation = tap($articleCitation)->update($validated);
 
-        if (isset($validated['users'])) {
-            $users = $validated['users'];
-            $users[] = auth()->id();
-        } else {
-            $users = [auth()->id()];
+        /** @var User $user */
+        $user = auth()->user();
+
+        if ($user->post == 1) {
+            $users = $validated['users'] ?? [auth()->id()];
+            $articleCitation->users()->sync($users);
         }
-        $articleCitation->users()->sync($users);
 
         return $articleCitation->load(['users', 'magazine']);
     }
