@@ -18,8 +18,8 @@ class ScientificArticleCitationResource extends JsonResource
         return [
             'id' => $this->id,
             'magazine' => new MagazineResource($this->whenLoaded('magazine')),
-            'magazine_publish_date_formatted' => date('d-m-Y', strtotime($this->magazine_publish_date)),
-            'magazine_publish_date' => $this->magazine_publish_date,
+            'magazine_publish_date' => date('d-m-Y', strtotime($this->magazine_publish_date)),
+            'magazine_publish_date_original' => $this->magazine_publish_date,
             'article_title' => $this->article_title,
             'article_language' => [
                 'key' => $this->article_language,

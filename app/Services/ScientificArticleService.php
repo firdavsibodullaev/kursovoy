@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Models\ScientificArticle;
 use App\Models\User;
+use App\Spatie\Sorts\MagazineSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -21,7 +23,14 @@ class ScientificArticleService
     {
         return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
             ->where('is_confirmed', '=', true)
-            ->paginate();
+            ->defaultSort('id')
+            ->allowedSorts([
+                'title',
+                AllowedSort::custom('magazine', new MagazineSorts, 'scientific_articles'),
+                'magazine_publish_date',
+                'citations_count',
+                'publish_year'
+            ])->paginate();
     }
 
     /**
@@ -31,7 +40,14 @@ class ScientificArticleService
     {
 
         return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
-            ->where('is_confirmed', '=', false)
+            ->defaultSort('id')
+            ->allowedSorts([
+                'title',
+                AllowedSort::custom('magazine', new MagazineSorts, 'scientific_articles'),
+                'magazine_publish_date',
+                'citations_count',
+                'publish_year'
+            ])->where('is_confirmed', '=', false)
             ->get();
     }
 

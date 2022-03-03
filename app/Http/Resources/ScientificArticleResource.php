@@ -18,7 +18,7 @@ class ScientificArticleResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'year' => $this->publish_year,
+            'publish_year' => $this->publish_year,
             'pages' => $this->pages,
             'link' => $this->link,
             'magazine' => new MagazineResource($this->whenLoaded('magazine')),

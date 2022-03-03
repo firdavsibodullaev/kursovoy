@@ -38,7 +38,7 @@ class ScientificArticleCitationService
             ->where('is_confirmed', '=', true)
             ->allowedSorts([
                 'article_title',
-                AllowedSort::custom('magazine', new MagazineSorts),
+                AllowedSort::custom('magazine', new MagazineSorts, 'scientific_article_citations'),
                 'magazine_publish_date',
                 'citations_count'
             ])

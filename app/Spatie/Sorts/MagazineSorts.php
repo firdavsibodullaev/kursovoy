@@ -13,8 +13,8 @@ class MagazineSorts implements Sort
     public function __invoke(Builder $query, bool $descending, string $property)
     {
         $direction = $descending ? 'DESC' : 'ASC';
-        $query->select('scientific_article_citations.*')
-            ->join('journals', 'scientific_article_citations.journal_id', '=', 'journals.id')
+        $query->select("{$property}.*")
+            ->join('magazines', "{$property}.magazine_id", '=', 'magazines.id')
             ->orderBy('title', $direction);
     }
 }
