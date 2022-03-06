@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ScientificArticleAttachFileRequest;
 use App\Http\Requests\ScientificArticleRequest;
 use App\Http\Resources\ScientificArticleResource;
 use App\Models\ScientificArticle;
@@ -12,6 +13,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 
 class ScientificArticleController extends Controller
 {
@@ -54,6 +56,21 @@ class ScientificArticleController extends Controller
         $article = $this->articleService->create($request->validated());
 
         return new ScientificArticleResource($article);
+    }
+
+    /**
+     * @param ScientificArticleAttachFileRequest $request
+     * @param ScientificArticle $scientificArticle
+     * @return ScientificArticleResource
+     */
+    public function attach(ScientificArticleAttachFileRequest $request, ScientificArticle $scientificArticle): ScientificArticleResource
+    {
+        /** @var UploadedFile $file */
+        $file = $request->validated()['file'];
+
+        $scientificArticle = $this->articleService->attachFile($file, $scientificArticle);
+
+        return new ScientificArticleResource($scientificArticle);
     }
 
     /**

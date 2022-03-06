@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,6 +13,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @property-read string $full_name
+ * @property-read string $full_post
+ * @property-read string $phone_formatted
+ */
 class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, InteractsWithMedia, HasRoles;
@@ -67,5 +71,41 @@ class User extends Authenticatable implements HasMedia
     public function post_name(): HasOne
     {
         return $this->hasOne(Role::class, 'id', 'post');
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->last_name} {$this->first_name} {$this->patronymic}";
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullPostAttribute(): string
+    {
+        $faculty = $this->faculty()->first();
+        $department = $this->department()->first();
+        $post = $this->post_name()->first();
+        $return_value = "";
+        if (!is_null($faculty) && !is_null($department)) {
+            $return_value .= "{$faculty->short_name}, {$department->short_name}, ";
+        }
+        $return_value .= "{$post->name}";
+
+        return $return_value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoneFormattedAttribute(): string
+    {
+        if (is_null($this->phone)) {
+            return '';
+        }
+        return vsprintf("+%d%d%d %d%d %d%d%d %d%d %d%d", str_split($this->phone));
     }
 }

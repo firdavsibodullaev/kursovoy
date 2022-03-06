@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use App\Constants\MediaCollectionsConstant;
 use App\Models\ScientificArticle;
 use App\Models\User;
 use App\Spatie\Sorts\MagazineSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -111,8 +113,24 @@ class ScientificArticleService
             $article->users()->sync($validated['users']);
         }
 
-
         return $article->load(['users', 'magazine', 'country']);
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @param ScientificArticle $article
+     * @return ScientificArticle
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
+     */
+    public function attachFile(UploadedFile $file, ScientificArticle $article): ScientificArticle
+    {
+        if ($article->hasMedia(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE)) {
+            $article->getFirstMedia(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE)->delete();
+        }
+        $article->addMedia($file)->toMediaCollection(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE);
+
+        return $article;
     }
 
     /**

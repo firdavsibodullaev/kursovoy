@@ -85,6 +85,7 @@ Route::prefix('v1')->group(function () {
             Route::post('confirm/{scientificArticle}', [ScientificArticleController::class, 'confirm']);
             Route::put('{scientificArticle}', [ScientificArticleController::class, 'update']);
             Route::delete('{scientificArticle}', [ScientificArticleController::class, 'destroy']);
+            Route::post('attach/{scientificArticle}', [ScientificArticleController::class, 'attach']);
         });
 
         Route::get('magazines', [ListController::class, 'magazines']);

@@ -33,9 +33,6 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'confirmed',
-                Password::default()->mixedCase(),
-                Password::default()->numbers(),
             ],
             'birthdate' => 'date|nullable',
             'phone' => [

@@ -15,6 +15,7 @@ class UserObserver
     public function creating(User $user)
     {
         $user->password = Hash::make($user->password);
+        $user->phone = str_replace('+', '', $user->phone);
     }
 
     /**
@@ -24,11 +25,10 @@ class UserObserver
      */
     public function updating(User $user)
     {
-        if (request()->has('password')) {
+        if ($user->isDirty('password')) {
             $user->password = Hash::make(request()->get('password'));
-        } else {
-            unset($user->password);
         }
+        $user->phone = str_replace('+', '', $user->phone);
     }
 
 }

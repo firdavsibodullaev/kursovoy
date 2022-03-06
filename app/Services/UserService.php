@@ -31,9 +31,10 @@ class UserService
                 AllowedFilter::custom('full_name', new UserFilter)
             ])
             ->allowedSorts([
-                AllowedSort::custom('full_name', new UserSorts(), 'full_name')
+                AllowedSort::custom('full_name', new UserSorts(), 'full_name'),
+                'id'
             ])
-            ->paginate();
+            ->paginate()->withQueryString();
     }
 
     /**

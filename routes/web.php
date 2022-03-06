@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Web\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-Route::get('', function () {
-    (new \App\Services\RolesService())->roles();
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('index');
+    })->name('index');
+
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('', [UserController::class, 'index'])->name('index');
+        Route::get('search', [UserController::class, 'search'])->name('search');
+        Route::get('create', [UserController::class, 'create'])->name('create');
+        Route::post('', [UserController::class, 'store'])->name('store');
+        Route::get('edit/{user:username}', [UserController::class, 'edit'])->name('edit');
+        Route::put('{user:username}', [UserController::class, 'update'])->name('update');
+    });
 });
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

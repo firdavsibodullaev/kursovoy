@@ -31,7 +31,7 @@ class ScientificArticleRequest extends FormRequest
             'magazine_name' => 'required|string|max:190',
             'country_name' => 'required|string|max:190',
             'users' => 'nullable|array',
-            'users.*' => 'required|exists:users,id'
+            'users.*' => 'required|exists:users,id',
         ];
     }
 }
