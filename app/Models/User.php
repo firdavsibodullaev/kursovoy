@@ -29,7 +29,6 @@ class User extends Authenticatable implements HasMedia
      */
     protected $guarded = ['id'];
 
-    protected $guard_name = 'api';
     /**
      * The attributes that should be hidden for serialization.
      *

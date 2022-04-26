@@ -29,11 +29,7 @@ class StoreUserRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'patronymic' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,NULL,id,deleted_at,NULL',
-            'password' => [
-                'required',
-                'string',
-                'max:255',
-            ],
+            'password' => 'required|string|max:255',
             'birthdate' => 'date|nullable',
             'phone' => [
                 'nullable',

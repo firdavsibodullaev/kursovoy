@@ -8,12 +8,11 @@ use App\Http\Requests\ScientificArticleRequest;
 use App\Http\Resources\ScientificArticleResource;
 use App\Models\ScientificArticle;
 use App\Services\ScientificArticleService;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class ScientificArticleController extends Controller
 {
@@ -62,6 +61,8 @@ class ScientificArticleController extends Controller
      * @param ScientificArticleAttachFileRequest $request
      * @param ScientificArticle $scientificArticle
      * @return ScientificArticleResource
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
     public function attach(ScientificArticleAttachFileRequest $request, ScientificArticle $scientificArticle): ScientificArticleResource
     {

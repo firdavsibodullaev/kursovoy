@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\Api\ListController;
-use App\Models\Magazine;
 use App\Models\ScientificArticleCitation;
 use App\Models\User;
 use App\Spatie\Sorts\MagazineSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\Concerns\SortsQuery;
 use Spatie\QueryBuilder\QueryBuilder;

@@ -4,63 +4,75 @@
     <meta name="filter" content="{{route('users.index')}}">
 @endsection
 @section('title', 'Пользователи')
-@section('content-header', 'Пользователи')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{route('index')}}">Главная страница</a></li>
+    <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
     <li class="breadcrumb-item active">Пользователи</li>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="search-block w-25 mb-3">
-                <div class="input-group input-group">
+            <div class="row">
+                <div class="col-4">
                     @php($param = request('filter', '')['full_name'] ?? '')
-                    <input class="form-control"
-                           id="search-input"
-                           type="search"
-                           value="{{$param}}"
-                           placeholder="Поиск..."
-                           aria-label="Поиск">
-                    <div class="input-group-append">
-                        <button class="btn btn-info" onclick="filter(this, 'full_name')" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                        <button class="btn btn-default" onclick="filter(this, '')" type="submit">
-                            <i class="fas fa-times"></i>
-                        </button>
+                    <div class="search-block w-100 mb-3">
+                        <div class="input-group input-group">
+                            @php($param = request('filter', '')['full_name'] ?? '')
+                            <input class="form-control"
+                                   id="search-input"
+                                   type="text"
+                                   value="{{$param}}"
+                                   placeholder="Поиск..."
+                                   aria-label="Поиск">
+                            <div class="input-group-append">
+                                <button class="btn btn-info" onclick="filter(this, 'full_name')" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button class="btn btn-default" onclick="filter(this, '')" type="submit">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="sort-block">
+                        <div class="row">
+                            @php($sort = request('sort'))
+                            @php($col = preg_replace('/^-/','', $sort))
+                            @php($direction = $sort && $sort{0} === '-' ? 'desc' : 'asc')
+                            <div class="col-6">
+                                <select onchange="sort()" class="custom-select" id="sort-columns">
+                                    <option disabled {{!$col ? 'selected' : ''}}>Сортировать по...</option>
+                                    <option value="id" {{$col === 'id' ? 'selected' : ''}}>Id</option>
+                                    <option value="full_name" {{$col === 'full_name' ? 'selected' : ''}}>ФИО</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group">
+                                    <select onchange="sort()" class="custom-select" name="" id="sort-directions">
+                                        <option {{$direction === 'asc' ? 'selected' : ''}} value="asc">По возрастанию
+                                        </option>
+                                        <option {{$direction === 'desc' ? 'selected' : ''}} value="desc">По убыванию
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <h3 class="text-center">
+                Фойдаланувчилар
+            </h3>
             @include('partials.messages')
-            @php($sort = request('sort',false))
             <table class="table table-striped text-center" id="users-list">
                 <thead class="thead-dark">
                 <tr>
                     <th style="width: 60px" data-type="number">
                         Id
-                        <i @class([
-                                    'cursor-pointer',
-                                    'fas',
-                                    'text-right',
-                                    'ml-1',
-                                    'fa-sort-down' => $sort === '-id',
-                                    'fa-sort-up' => $sort === 'id',
-                                    'fa-sort' => !in_array($sort,['id','-id']),
-                            ])
-                           onclick="sort(this,'id','users')"></i>
                     </th>
                     <th data-type="string">
                         ФИО
-                        <i @class([
-                                    'cursor-pointer',
-                                    'fas',
-                                    'text-right',
-                                    'ml-1',
-                                    'fa-sort-down' => $sort === '-full_name',
-                                    'fa-sort-up' => $sort === 'full_name',
-                                    'fa-sort' => !in_array($sort,['full_name','-full_name']),
-                            ])
-                           onclick="sort(this,'full_name','users')"></i>
                     </th>
                     <th class="" data-type="string">Должность</th>
                     <th class="" data-type="wfixed">Номер телефона</th>
@@ -77,12 +89,23 @@
                         </td>
                         <td>{{$user->phone_formatted}}</td>
                         <td>
-                            <a href="#" class="btn btn-dark btn-flat btn-sm">
-                                <i class="far fa-eye"></i>
-                            </a>
                             <a href="{{route('users.edit', $user->username)}}" class="btn btn-warning btn-flat btn-sm">
                                 <i class="fas fa-pen"></i>
                             </a>
+                            @if(auth()->id() === $user->id)
+                                <button disabled
+                                        class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            @else
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$user->username}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -91,9 +114,5 @@
             {{$users->links('components.pagination')}}
         </div>
     </div>
-@endsection
-@section('js')
-    <script>
-
-    </script>
+    <x-delete :url="route('users.delete', 'ID')"/>
 @endsection

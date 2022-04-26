@@ -24,4 +24,5 @@ mix.combine([
     'resources/assets/dist/js/requests.js',
     'resources/assets/dist/js/custom.js',
 ], 'public/js/combine.js')
-    .css('resources/css/app.css', 'public/css');
+    .css('resources/css/app.css', 'public/css')
+    .version();
