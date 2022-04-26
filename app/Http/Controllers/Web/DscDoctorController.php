@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateDScDoctorRequest;
 use App\Models\DScDoctor;
 use App\Services\DScDoctorService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class DscDoctorController extends Controller
 {

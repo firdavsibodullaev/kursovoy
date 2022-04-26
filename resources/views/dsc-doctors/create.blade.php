@@ -2,14 +2,14 @@
 @section('title', 'Фан номзодини қўшиш')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('phd_doctors.index')}}">Фан номзодлари</a></li>
+    <li class="breadcrumb-item"><a href="{{route('dsc_doctors.index')}}">Фан номзодлари</a></li>
     <li class="breadcrumb-item active">Фан номзодини қўшиш</li>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('phd_doctors.store')}}" method="post" autocomplete="off"
+            <form action="{{route('dsc_doctors.store')}}" method="post" autocomplete="off"
                   enctype="multipart/form-data">
                 @csrf
                 <div class="row">
