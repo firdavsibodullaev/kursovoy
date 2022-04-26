@@ -3,11 +3,13 @@
 namespace App\Services;
 
 use App\Models\DScDoctor;
+use App\Spatie\Filters\PhdDoctorUserFilter;
 use App\Spatie\Sorts\DScDoctorDefaultSorts;
 use App\Traits\PreparingJsonDataForModels;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -18,6 +20,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 class DScDoctorService
 {
     use PreparingJsonDataForModels;
+
     /**
      * @return LengthAwarePaginator
      */
@@ -25,10 +28,14 @@ class DScDoctorService
     {
         return QueryBuilder::for(DScDoctor::class)
             ->defaultSort(AllowedSort::custom('user', new DScDoctorDefaultSorts))
+            ->allowedFilters([
+                AllowedFilter::custom('user', new PhdDoctorUserFilter)
+            ])
             ->allowedSorts([
+                'id',
                 AllowedSort::custom('user', new DScDoctorDefaultSorts)
             ])
-            ->paginate();
+            ->paginate()->withQueryString();
     }
 
     /**

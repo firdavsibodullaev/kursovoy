@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-
 /**
  * @property-read string $user_full_name
+ * @property-read string $diploma_formatted
+ * @property-read string $diploma_without_science_degree_formatted
+ * @property-read string $employment_formatted
  */
 class PhdDoctor extends BaseModel
 {

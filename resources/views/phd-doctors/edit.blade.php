@@ -57,7 +57,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="diploma_series">Серия</label>
-                            <input type="number"
+                            <input type="text"
                                    class="form-control"
                                    id="diploma_series"
                                    name="diploma_series"
@@ -86,7 +86,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="professor_without_science_degree_series">Серия</label>
-                            <input type="number"
+                            <input type="text"
                                    class="form-control"
                                    id="professor_without_science_degree_series"
                                    name="professor_without_science_degree_series"

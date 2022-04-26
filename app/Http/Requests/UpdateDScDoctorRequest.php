@@ -30,9 +30,8 @@ class UpdateDScDoctorRequest extends FormRequest
             'diploma_series' => [
                 'required_without_all:professor_without_science_degree_series,professor_without_science_degree_number',
                 'nullable',
-                'integer',
-                'min:1',
-                'digits_between:1,4'
+                'string',
+                'max:10'
             ],
             'diploma_number' => [
                 'required_without_all:professor_without_science_degree_series,professor_without_science_degree_number',
@@ -44,9 +43,8 @@ class UpdateDScDoctorRequest extends FormRequest
             'professor_without_science_degree_series' => [
                 'required_without_all:diploma_series,diploma_number',
                 'nullable',
-                'integer',
-                'min:1',
-                'digits_between:1,4'
+                'string',
+                'max:10'
             ],
             'professor_without_science_degree_number' => [
                 'required_without_all:diploma_series,diploma_number',

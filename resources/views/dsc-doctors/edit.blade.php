@@ -1,17 +1,17 @@
 @extends('layout')
-@section('title', 'Фан номзодини қўшиш')
+@section('title', $dsc->user_full_name)
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
     <li class="breadcrumb-item"><a href="{{route('phd_doctors.index')}}">Фан номзодлари</a></li>
-    <li class="breadcrumb-item active">Фан номзодини қўшиш</li>
+    <li class="breadcrumb-item active">{{$dsc->user_full_name}}</li>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('phd_doctors.store')}}" method="post" autocomplete="off"
-                  enctype="multipart/form-data">
+            <form action="{{route('phd_doctors.update', $dsc->id)}}" method="post" autocomplete="off">
                 @csrf
+                @method('put')
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
@@ -21,7 +21,7 @@
                                    class="form-control"
                                    id="last_name"
                                    placeholder="Фамилияни киритинг"
-                                   value="{{old('last_name')}}"
+                                   value="{{$dsc->user->last_name}}"
                                    required>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                                    class="form-control"
                                    id="first_name"
                                    placeholder="Исминини киритинг"
-                                   value="{{old('first_name')}}"
+                                   value="{{$dsc->user->first_name}}"
                                    required>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                                    class="form-control"
                                    id="patronymic"
                                    placeholder="Отасининг исмини киритинг"
-                                   value="{{old('patronymic')}}"
+                                   value="{{$dsc->user->patronymic}}"
                                    required>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                    class="form-control"
                                    id="diploma_series"
                                    name="diploma_series"
-                                   value="{{old('diploma_series')}}"
+                                   value="{{$dsc->diploma['series'] ?? null}}"
                                    placeholder="Фан номзоди дипломи сериясини киритинг">
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                    class="form-control"
                                    id="diploma_number"
                                    name="diploma_number"
-                                   value="{{old('diploma_number')}}"
+                                   value="{{$dsc->diploma['number'] ?? null}}"
                                    placeholder="Фан номзоди дипломи серияси рақамини киритинг">
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                                    class="form-control"
                                    id="professor_without_science_degree_series"
                                    name="professor_without_science_degree_series"
-                                   value="{{old('professor_without_science_degree_series')}}"
+                                   value="{{$dsc->professor_without_science_degree['series'] ?? null}}"
                                    placeholder="Диплом сериясини киритинг">
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                                    class="form-control"
                                    id="professor_without_science_degree_number"
                                    name="professor_without_science_degree_number"
-                                   value="{{old('professor_without_science_degree_number')}}"
+                                   value="{{$dsc->professor_without_science_degree['number'] ?? null}}"
                                    placeholder="Диплом серияси рақамини киритинг">
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                            id="speciality_name"
                            name="speciality_name"
                            placeholder="Мутахассислиги номини киритинг"
-                           value="{{old('speciality_name')}}"
+                           value="{{$dsc->speciality_name}}"
                            required>
                 </div>
                 <div class="row">
@@ -129,7 +129,7 @@
                                        class="form-control"
                                        name="employee_order"
                                        placeholder="Ишга қабул қилинганлиги тўғрисидаги буйруқ рақамини киритинг"
-                                       value="{{old('employee_order')}}"
+                                       value="{{$dsc->employment['order']}}"
                                        required>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                                    class="form-control"
                                    name="employee_date"
                                    placeholder="Ишга қабул қилинганлиги тўғрисидаги буйруқ санасини киритинг"
-                                   value="{{old('employee_date')}}"
+                                   value="{{$dsc->employment['date']}}"
                                    required>
                         </div>
                     </div>

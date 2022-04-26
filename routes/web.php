@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\DscDoctorController;
 use App\Http\Controllers\Web\PhdDoctorController;
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,15 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{phdDoctor}', [PhdDoctorController::class, 'edit'])->whereNumber('phdDoctor')->name('edit');
         Route::put('{phdDoctor}', [PhdDoctorController::class, 'update'])->whereNumber('phdDoctor')->name('update');
         Route::delete('{phdDoctor}', [PhdDoctorController::class, 'destroy'])->whereNumber('phdDoctor')->name('delete');
+    });
+
+    Route::prefix('dsc-doctors')->name('dsc_doctors.')->group(function () {
+        Route::get('', [DscDoctorController::class, 'index'])->name('index');
+        Route::get('create', [DscDoctorController::class, 'create'])->name('create');
+        Route::post('', [DscDoctorController::class, 'store'])->name('store');
+        Route::get('edit/{dScDoctor}', [DscDoctorController::class, 'edit'])->whereNumber('dScDoctor')->name('edit');
+        Route::put('{dScDoctor}', [DscDoctorController::class, 'update'])->whereNumber('dScDoctor')->name('update');
+        Route::delete('{dScDoctor}', [DscDoctorController::class, 'destroy'])->whereNumber('dScDoctor')->name('delete');
     });
 });
 
