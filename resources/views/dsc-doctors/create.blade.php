@@ -9,8 +9,7 @@
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('dsc_doctors.store')}}" method="post" autocomplete="off"
-                  enctype="multipart/form-data">
+            <form action="{{route('dsc_doctors.store')}}" method="post" autocomplete="off">
                 @csrf
                 <div class="row">
                     <div class="col-4">
