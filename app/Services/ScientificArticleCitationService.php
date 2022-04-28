@@ -4,10 +4,12 @@ namespace App\Services;
 
 use App\Models\ScientificArticleCitation;
 use App\Models\User;
+use App\Spatie\Filters\UsersRelationFilter;
 use App\Spatie\Sorts\MagazineSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\Concerns\SortsQuery;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -28,19 +30,24 @@ class ScientificArticleCitationService
 
         return QueryBuilder::for(ScientificArticleCitation::with(['users', 'magazine']))
             ->defaultSort('id')
-            ->when($user->post !== 1, function (Builder $query) use ($user) {
+            ->allowedFilters([
+                AllowedFilter::custom('user', new UsersRelationFilter)
+            ])
+            ->when(!is_super_admin(), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
                     $query->where('user_id', '=', $user->id);
                 });
             })
             ->where('is_confirmed', '=', true)
             ->allowedSorts([
+                'id',
                 'article_title',
                 AllowedSort::custom('magazine', new MagazineSorts, 'scientific_article_citations'),
                 'magazine_publish_date',
                 'citations_count'
             ])
-            ->paginate();
+            ->paginate()
+            ->withQueryString();
     }
 
     /**
@@ -71,12 +78,7 @@ class ScientificArticleCitationService
         /** @var ScientificArticleCitation $articleCitation */
         $articleCitation = ScientificArticleCitation::query()->create($validated);
 
-        if (isset($validated['users'])) {
-            $users = $validated['users'];
-            $users[] = auth()->id();
-        } else {
-            $users = [auth()->id()];
-        }
+        $users = $validated['users'];
 
         $articleCitation->users()->sync(array_unique($users));
 
@@ -96,10 +98,7 @@ class ScientificArticleCitationService
         /** @var ScientificArticleCitation $articleCitation */
         $articleCitation = tap($articleCitation)->update($validated);
 
-        /** @var User $user */
-        $user = auth()->user();
-
-        if ($user->post == 1) {
+        if (is_super_admin()) {
             $users = $validated['users'] ?? [auth()->id()];
             $articleCitation->users()->sync($users);
         }

@@ -23,6 +23,9 @@ class SidebarVariablesComposer
         $dsc = ['dsc_doctors.index', 'dsc_doctors.edit'];
         $dsc_create = ['dsc_doctors.create'];
 
+        $article_citation = ['article_citation.index', 'article_citation.edit', 'article_citation.not_confirmed'];
+        $article_citation_create = ['article_citation.create'];
+
 
         $view->with('pages', [
             'users' => $users,
@@ -34,6 +37,9 @@ class SidebarVariablesComposer
             'dsc' => $dsc,
             'dsc_create' => $dsc_create,
             'dsc_group' => array_merge($dsc, $dsc_create),
+            'article_citation' => $article_citation,
+            'article_citation_create' => $article_citation_create,
+            'article_citation_group' => array_merge($article_citation, $article_citation_create),
         ]);
     }
 }

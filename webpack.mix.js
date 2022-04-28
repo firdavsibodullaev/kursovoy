@@ -19,6 +19,7 @@ mix.combine([
     'resources/assets/dist/js/adminlte.js',
     'resources/assets/plugins/toastr/toastr.min.js',
     'resources/assets/plugins/moment/moment.min.js',
+    'resources/assets/plugins/select2/js/select2.full.js',
     'resources/assets/plugins/inputmask/jquery.inputmask.min.js',
     'resources/assets/dist/js/config.js',
     'resources/assets/dist/js/requests.js',

@@ -37,7 +37,8 @@ class StoreScientificArticleCitationRequest extends FormRequest
             'link' => 'required|url',
             'citations_count' => 'integer|nullable|digits_between:1,7',
             'users' => 'array|nullable',
-            'users.*' => 'exists:users,id'
+            'users.*' => 'exists:users,id',
+            'magazine_checkbox' => ['nullable', 'string', 'regex:/^on$/']
         ];
     }
 }

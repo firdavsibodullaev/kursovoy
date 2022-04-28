@@ -54,9 +54,7 @@ class PhdDoctorController extends Controller
     {
         $this->doctorService->create($request->validated());
 
-        return redirect()->route('phd_doctors.index')->with([
-            'message' => 'Создано'
-        ]);
+        return redirect()->route('phd_doctors.index');
     }
 
     /**
@@ -83,9 +81,7 @@ class PhdDoctorController extends Controller
     {
         $this->doctorService->update($phdDoctor, $request->validated());
 
-        return redirect()->route('phd_doctors.index')->with([
-            'message' => 'Изменено'
-        ]);
+        return redirect()->route('phd_doctors.index');
     }
 
     /**
@@ -98,8 +94,6 @@ class PhdDoctorController extends Controller
     {
         $this->doctorService->delete($phdDoctor);
 
-        return redirect()->route('phd_doctors.index')->with([
-            'message' => 'Удалено'
-        ]);
+        return redirect()->route('phd_doctors.index');
     }
 }

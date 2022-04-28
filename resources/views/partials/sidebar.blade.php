@@ -96,6 +96,31 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{is_route($pages['article_citation_group'], 'group')}}">
+                    <a href="#" class="nav-link  {{is_route($pages['article_citation_group'], 'link')}}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Илмий мақолаларига иқтибослар
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('article_citation.index')}}"
+                               class="nav-link {{is_route($pages['article_citation'], 'link')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Рўйҳат</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('article_citation.create')}}"
+                               class="nav-link {{is_route($pages['article_citation_create'], 'link')}}">
+                                <i class="fas fa-plus-circle nav-icon"></i>
+                                <p>Янги</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {{--                <li class="nav-item">--}}
                 {{--                    <a href="pages/widgets.html" class="nav-link">--}}
                 {{--                        <i class="nav-icon fas fa-th"></i>--}}

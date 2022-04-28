@@ -22,3 +22,13 @@ if (!function_exists('is_route')) {
         return $in ? $types[$type] : '';
     }
 }
+
+if (!function_exists('is_super_admin')) {
+    /**
+     * @return bool
+     */
+    function is_super_admin(): bool
+    {
+        return auth()->user()->post == 1;
+    }
+}
