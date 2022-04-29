@@ -29,6 +29,9 @@ class SidebarVariablesComposer
         $article = ['scientific_article.index', 'scientific_article.edit', 'scientific_article.not_confirmed'];
         $article_create = ['scientific_article.create'];
 
+        $oak_article = ['oak_scientific_article.index', 'oak_scientific_article.edit', 'oak_scientific_article.not_confirmed'];
+        $oak_article_create = ['oak_scientific_article.create'];
+
 
         $view->with('pages', [
             'users' => $users,
@@ -46,6 +49,9 @@ class SidebarVariablesComposer
             'article' => $article,
             'article_create' => $article_create,
             'article_group' => array_merge($article, $article_create),
+            'oak_article' => $oak_article,
+            'oak_article_create' => $oak_article_create,
+            'oak_article_group' => array_merge($oak_article, $oak_article_create),
         ]);
     }
 }

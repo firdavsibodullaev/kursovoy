@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\DscDoctorController;
+use App\Http\Controllers\Web\OakScientificArticleController;
 use App\Http\Controllers\Web\PhdDoctorController;
 use App\Http\Controllers\Web\ScientificArticleCitationController;
 use App\Http\Controllers\Web\ScientificArticleController;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
 
     Route::view('/', 'index')->name('index');
+
     Route::middleware('is_admin')->group(function () {
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('', [UserController::class, 'index'])->name('index');
@@ -53,6 +55,7 @@ Route::middleware('auth')->group(function () {
         });
 
     });
+
     Route::prefix('article-citation')->name('article_citation.')->group(function () {
         Route::get('', [ScientificArticleCitationController::class, 'index'])->name('index');
         Route::get('not-confirmed', [ScientificArticleCitationController::class, 'notConfirmed'])
@@ -78,19 +81,40 @@ Route::middleware('auth')->group(function () {
             ->name('force_delete');
     });
 
-
-
     Route::prefix('scientific-article')->name('scientific_article.')->group(function () {
         Route::get('', [ScientificArticleController::class, 'index'])->name('index');
-        Route::get('not-confirmed', [ScientificArticleController::class, 'getNotConfirmedArticlesList'])->name('not_confirmed');
+        Route::get('not-confirmed', [ScientificArticleController::class, 'getNotConfirmedArticlesList'])
+            ->middleware('is_admin')
+            ->name('not_confirmed');
         Route::get('create', [ScientificArticleController::class, 'create'])->name('create');
         Route::get('{scientificArticle}', [ScientificArticleController::class, 'edit'])->whereNumber('scientificArticle')->name('edit');
         Route::post('', [ScientificArticleController::class, 'store'])->name('store');
-        Route::post('confirm/{scientificArticle}', [ScientificArticleController::class, 'confirm'])->whereNumber('scientificArticle')->name('confirm');
+        Route::post('confirm/{scientificArticle}', [ScientificArticleController::class, 'confirm'])
+            ->middleware('is_admin')
+            ->whereNumber('scientificArticle')
+            ->name('confirm');
         Route::put('{scientificArticle}', [ScientificArticleController::class, 'update'])->whereNumber('scientificArticle')->name('update');
         Route::delete('{scientificArticle}', [ScientificArticleController::class, 'destroy'])->whereNumber('scientificArticle')->name('delete');
         Route::delete('destroy/{scientificArticle}', [ScientificArticleController::class, 'forceDestroy'])->whereNumber('scientificArticle')->name('force_delete');
         Route::post('attach/{scientificArticle}', [ScientificArticleController::class, 'attach'])->whereNumber('scientificArticle')->name('attach');
+    });
+
+    Route::prefix('oak-scientific-article')->name('oak_scientific_article.')->group(function () {
+        Route::get('', [OakScientificArticleController::class, 'index'])->name('index');
+        Route::get('not-confirmed', [OakScientificArticleController::class, 'getNotConfirmedArticlesList'])
+            ->middleware('is_admin')
+            ->name('not_confirmed');
+        Route::get('create', [OakScientificArticleController::class, 'create'])->name('create');
+        Route::get('{oakScientificArticle}', [OakScientificArticleController::class, 'edit'])->whereNumber('oakScientificArticle')->name('edit');
+        Route::post('', [OakScientificArticleController::class, 'store'])->name('store');
+        Route::post('confirm/{oakScientificArticle}', [OakScientificArticleController::class, 'confirm'])
+            ->middleware('is_admin')
+            ->whereNumber('oakScientificArticle')
+            ->name('confirm');
+        Route::put('{oakScientificArticle}', [OakScientificArticleController::class, 'update'])->whereNumber('oakScientificArticle')->name('update');
+        Route::delete('{oakScientificArticle}', [OakScientificArticleController::class, 'destroy'])->whereNumber('oakScientificArticle')->name('delete');
+        Route::delete('destroy/{oakScientificArticle}', [OakScientificArticleController::class, 'forceDestroy'])->whereNumber('oakScientificArticle')->name('force_delete');
+        Route::post('attach/{oakScientificArticle}', [OakScientificArticleController::class, 'attach'])->whereNumber('oakScientificArticle')->name('attach');
     });
 });
 

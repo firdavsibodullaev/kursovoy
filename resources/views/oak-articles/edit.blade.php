@@ -2,14 +2,14 @@
 @section('title', 'Илмий мақолани таҳрирлаш')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('scientific_article.index')}}">Илмий мақолалар</a></li>
+    <li class="breadcrumb-item"><a href="{{route('oak_scientific_article.index')}}">Илмий мақолалар (ОАК&nbsp;рўйхатидаги)</a></li>
     <li class="breadcrumb-item active">Илмий мақолани таҳрирлаш</li>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('scientific_article.update', [$article->id, 'status' => request('status')])}}"
+            <form action="{{route('oak_scientific_article.update', [$article->id, 'status' => request('status')])}}"
                   method="post"
                   enctype="multipart/form-data"
                   autocomplete="off">
@@ -103,38 +103,6 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="form-group">
-                            <label for="country_name">Давлат номи</label>
-                            <select class="mb-2 custom-select"
-                                    id="country_name"
-                                    name="country_name"
-                                    required>
-                                <option
-                                    {{$article->country->name ? '' : 'selected'}}
-                                    disabled>
-                                    Давлатни танланг
-                                </option>
-                                @foreach($countries as $country)
-                                    <option
-                                        {{$article->country->name == $country->name ? 'selected' : ''}}
-                                        value="{{$country->name}}">{{$country->name}}</option>
-                                @endforeach
-                            </select>
-                            <input type="text"
-                                   class="form-control mb-2"
-                                   value="{{$article->country->name}}"
-                                   hidden
-                                   placeholder="Давлат номини киритинг">
-                            <div class="icheck-primary d-inline">
-                                <input type="checkbox"
-                                       id="country_checkbox"
-                                       name="country_checkbox"
-                                       onchange="toggleInput(this)">
-                                <label for="country_checkbox">
-                                    Давлат номини рўйҳатдан топмадингизми?
-                                </label>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="form-group">

@@ -6,4 +6,6 @@ class MediaCollectionsConstant
 {
 
     const SCIENTIFIC_ARTICLE_FILE = 'scientific-article-file';
+
+    const OAK_SCIENTIFIC_ARTICLE_FILE = 'oak-scientific-article-file';
 }

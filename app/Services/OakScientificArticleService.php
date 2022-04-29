@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Constants\MediaCollectionsConstant;
-use App\Models\ScientificArticle;
+use App\Models\OakScientificArticle;
 use App\Models\User;
 use App\Spatie\Filters\UsersRelationFilter;
 use App\Spatie\Sorts\MagazineSorts;
@@ -18,10 +18,10 @@ use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
- * Class ScientificArticleService
+ * Class OakOakScientificArticleService
  * @package App\Services
  */
-class ScientificArticleService
+class OakScientificArticleService
 {
     /**
      * @return LengthAwarePaginator
@@ -31,11 +31,11 @@ class ScientificArticleService
         /** @var User $user */
         $user = auth()->user();
 
-        return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
+        return QueryBuilder::for(OakScientificArticle::with(['users', 'magazine']))
             ->where('is_confirmed', '=', true)
             ->when(!is_super_admin(), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
-                    $query->where('scientific_article_users.user_id', '=', $user->id);
+                    $query->where('oak_scientific_article_users.user_id', '=', $user->id);
                 });
             })
             ->allowedFilters([
@@ -44,7 +44,7 @@ class ScientificArticleService
             ->defaultSort('id')
             ->allowedSorts([
                 'title',
-                AllowedSort::custom('magazine', new MagazineSorts, 'scientific_articles'),
+                AllowedSort::custom('magazine', new MagazineSorts, 'oak_scientific_articles'),
                 'publish_year'
             ])->paginate();
     }
@@ -54,8 +54,7 @@ class ScientificArticleService
      */
     public function getNotConfirmedArticlesList()
     {
-
-        return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
+        return QueryBuilder::for(OakScientificArticle::with(['users', 'magazine']))
             ->defaultSort('id')
             ->where('is_confirmed', '=', false)
             ->get();
@@ -63,44 +62,38 @@ class ScientificArticleService
 
     /**
      * @param array $validated
-     * @return ScientificArticle
+     * @return OakScientificArticle
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function create(array $validated): ScientificArticle
+    public function create(array $validated): OakScientificArticle
     {
         $magazine = (new ListService())->getMagazineByTitle($validated['magazine_name']);
         $validated['magazine_id'] = $magazine->id;
 
-        $country = (new ListService())->getCountryByName($validated['country_name']);
-        $validated['country_id'] = $country->id;
-
-        /** @var ScientificArticle $article */
-        $article = ScientificArticle::query()->create($validated);
+        /** @var OakScientificArticle $article */
+        $article = OakScientificArticle::query()->create($validated);
 
         $article->users()->sync(array_unique($validated['users']));
 
         $this->attachFile($validated['file'], $article);
 
-        return $article->load(['users', 'magazine', 'country']);
+        return $article->load(['users', 'magazine']);
     }
 
     /**
-     * @param ScientificArticle $article
+     * @param OakScientificArticle $article
      * @param array $validated
-     * @return ScientificArticle
+     * @return OakScientificArticle
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function update(ScientificArticle $article, array $validated): ScientificArticle
+    public function update(OakScientificArticle $article, array $validated): OakScientificArticle
     {
         $magazine = (new ListService())->getMagazineByTitle($validated['magazine_name']);
         $validated['magazine_id'] = $magazine->id;
 
-        $country = (new ListService())->getCountryByName($validated['country_name']);
-        $validated['country_id'] = $country->id;
-
-        /** @var ScientificArticle $article */
+        /** @var OakScientificArticle $article */
         $article = tap($article)->update($validated);
 
         if (is_super_admin()) {
@@ -111,32 +104,32 @@ class ScientificArticleService
             $this->attachFile($validated['file'], $article);
         }
 
-        return $article->load(['users', 'magazine', 'country']);
+        return $article->load(['users', 'magazine']);
     }
 
     /**
      * @param UploadedFile $file
-     * @param ScientificArticle $article
-     * @return ScientificArticle
+     * @param OakScientificArticle $article
+     * @return OakScientificArticle
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function attachFile(UploadedFile $file, ScientificArticle $article): ScientificArticle
+    public function attachFile(UploadedFile $file, OakScientificArticle $article): OakScientificArticle
     {
-        if ($f = $article->getFirstMedia(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE)) {
+        if ($f = $article->getFirstMedia(MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE)) {
             $f->delete();
         }
 
-        $article->addMedia($file)->toMediaCollection(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE);
+        $article->addMedia($file)->toMediaCollection(MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE);
 
         return $article;
     }
 
     /**
-     * @param ScientificArticle $article
+     * @param OakScientificArticle $article
      * @return bool
      */
-    public function confirm(ScientificArticle $article): bool
+    public function confirm(OakScientificArticle $article): bool
     {
         return $article->update([
             'is_confirmed' => true
@@ -144,19 +137,19 @@ class ScientificArticleService
     }
 
     /**
-     * @param ScientificArticle $article
+     * @param OakScientificArticle $article
      * @return bool|null
      */
-    public function delete(ScientificArticle $article): ?bool
+    public function delete(OakScientificArticle $article): ?bool
     {
         return $article->delete();
     }
 
     /**
-     * @param ScientificArticle $article
+     * @param OakScientificArticle $article
      * @return bool|null
      */
-    public function forceDelete(ScientificArticle $article): ?bool
+    public function forceDelete(OakScientificArticle $article): ?bool
     {
         return $article->forceDelete();
     }
