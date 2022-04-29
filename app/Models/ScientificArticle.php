@@ -3,11 +3,14 @@
 namespace App\Models;
 
 
+use App\Traits\Users;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ScientificArticle extends BaseModel
 {
+    use Users;
+
     protected $fillable = [
         'title',
         'publish_year',

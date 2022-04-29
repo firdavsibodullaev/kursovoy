@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\DscDoctorController;
 use App\Http\Controllers\Web\PhdDoctorController;
 use App\Http\Controllers\Web\ScientificArticleCitationController;
+use App\Http\Controllers\Web\ScientificArticleController;
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -52,7 +53,6 @@ Route::middleware('auth')->group(function () {
         });
 
     });
-
     Route::prefix('article-citation')->name('article_citation.')->group(function () {
         Route::get('', [ScientificArticleCitationController::class, 'index'])->name('index');
         Route::get('not-confirmed', [ScientificArticleCitationController::class, 'notConfirmed'])
@@ -73,6 +73,24 @@ Route::middleware('auth')->group(function () {
         Route::delete('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'destroy'])
             ->whereNumber('scientificArticleCitation')
             ->name('delete');
+        Route::delete('delete/{scientificArticleCitation}', [ScientificArticleCitationController::class, 'forceDestroy'])
+            ->whereNumber('scientificArticleCitation')
+            ->name('force_delete');
+    });
+
+
+
+    Route::prefix('scientific-article')->name('scientific_article.')->group(function () {
+        Route::get('', [ScientificArticleController::class, 'index'])->name('index');
+        Route::get('not-confirmed', [ScientificArticleController::class, 'getNotConfirmedArticlesList'])->name('not_confirmed');
+        Route::get('create', [ScientificArticleController::class, 'create'])->name('create');
+        Route::get('{scientificArticle}', [ScientificArticleController::class, 'edit'])->whereNumber('scientificArticle')->name('edit');
+        Route::post('', [ScientificArticleController::class, 'store'])->name('store');
+        Route::post('confirm/{scientificArticle}', [ScientificArticleController::class, 'confirm'])->whereNumber('scientificArticle')->name('confirm');
+        Route::put('{scientificArticle}', [ScientificArticleController::class, 'update'])->whereNumber('scientificArticle')->name('update');
+        Route::delete('{scientificArticle}', [ScientificArticleController::class, 'destroy'])->whereNumber('scientificArticle')->name('delete');
+        Route::delete('destroy/{scientificArticle}', [ScientificArticleController::class, 'forceDestroy'])->whereNumber('scientificArticle')->name('force_delete');
+        Route::post('attach/{scientificArticle}', [ScientificArticleController::class, 'attach'])->whereNumber('scientificArticle')->name('attach');
     });
 });
 

@@ -26,6 +26,9 @@ class SidebarVariablesComposer
         $article_citation = ['article_citation.index', 'article_citation.edit', 'article_citation.not_confirmed'];
         $article_citation_create = ['article_citation.create'];
 
+        $article = ['scientific_article.index', 'scientific_article.edit', 'scientific_article.not_confirmed'];
+        $article_create = ['scientific_article.create'];
+
 
         $view->with('pages', [
             'users' => $users,
@@ -40,6 +43,9 @@ class SidebarVariablesComposer
             'article_citation' => $article_citation,
             'article_citation_create' => $article_citation_create,
             'article_citation_group' => array_merge($article_citation, $article_citation_create),
+            'article' => $article,
+            'article_create' => $article_create,
+            'article_group' => array_merge($article, $article_create),
         ]);
     }
 }

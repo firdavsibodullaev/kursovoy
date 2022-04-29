@@ -128,9 +128,19 @@ class ScientificArticleCitationController extends Controller
     {
         $this->articleCitationService->delete($scientificArticleCitation);
 
-        $status = request('status');
-        $status = $status === 'not-confirmed' ? 'not_confirmed' : 'index';
+        return redirect()->route("article_citation.index");
+    }
 
-        return redirect()->route("article_citation.{$status}");
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param ScientificArticleCitation $scientificArticleCitation
+     * @return RedirectResponse
+     */
+    public function forceDestroy(ScientificArticleCitation $scientificArticleCitation): RedirectResponse
+    {
+        $this->articleCitationService->forceDelete($scientificArticleCitation);
+
+        return redirect()->route("article_citation.not_confirmed");
     }
 }

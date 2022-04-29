@@ -30,8 +30,13 @@ class ScientificArticleRequest extends FormRequest
             'link' => 'required|url',
             'magazine_name' => 'required|string|max:190',
             'country_name' => 'required|string|max:190',
-            'users' => 'nullable|array',
+            'users' => 'required|array',
             'users.*' => 'required|exists:users,id',
+            'file' => $this->isMethod('post')
+                ? 'required|file|mimes:pdf|max:' . (1024 * 10)
+                : 'nullable|file|mimes:pdf|max:' . (1024 * 10),
+            'magazine_checkbox' => ['nullable', 'string', 'regex:/^on$/'],
+            'country_checkbox' => ['nullable', 'string', 'regex:/^on$/']
         ];
     }
 }

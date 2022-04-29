@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Constants\MediaCollectionsConstant;
 use App\Models\ScientificArticle;
 use App\Models\User;
+use App\Spatie\Filters\UsersRelationFilter;
 use App\Spatie\Sorts\MagazineSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -31,17 +33,18 @@ class ScientificArticleService
 
         return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
             ->where('is_confirmed', '=', true)
-            ->when($user->post !== 1, function (Builder $query) use ($user) {
+            ->when(!is_super_admin(), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
                     $query->where('scientific_article_users.user_id', '=', $user->id);
                 });
             })
+            ->allowedFilters([
+                AllowedFilter::custom('user', new UsersRelationFilter)
+            ])
             ->defaultSort('id')
             ->allowedSorts([
                 'title',
                 AllowedSort::custom('magazine', new MagazineSorts, 'scientific_articles'),
-                'magazine_publish_date',
-                'citations_count',
                 'publish_year'
             ])->paginate();
     }
@@ -67,6 +70,8 @@ class ScientificArticleService
     /**
      * @param array $validated
      * @return ScientificArticle
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
     public function create(array $validated): ScientificArticle
     {
@@ -79,14 +84,9 @@ class ScientificArticleService
         /** @var ScientificArticle $article */
         $article = ScientificArticle::query()->create($validated);
 
-        if (isset($validated['users'])) {
-            $users = $validated['users'];
-            $users[] = auth()->id();
-        } else {
-            $users = [auth()->id()];
-        }
+        $article->users()->sync(array_unique($validated['users']));
 
-        $article->users()->sync(array_unique($users));
+        $this->attachFile($validated['file'], $article);
 
         return $article->load(['users', 'magazine', 'country']);
     }
@@ -95,6 +95,8 @@ class ScientificArticleService
      * @param ScientificArticle $article
      * @param array $validated
      * @return ScientificArticle
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
     public function update(ScientificArticle $article, array $validated): ScientificArticle
     {
@@ -107,12 +109,12 @@ class ScientificArticleService
         /** @var ScientificArticle $article */
         $article = tap($article)->update($validated);
 
-        /** @var User $user */
-        $user = auth()->user();
-
-        if ($user->post == 1) {
-            $validated['users'] = $validated['users'] ?? [$user->id];
+        if (is_super_admin()) {
             $article->users()->sync($validated['users']);
+        }
+
+        if (isset($validated['file'])) {
+            $this->attachFile($validated['file'], $article);
         }
 
         return $article->load(['users', 'magazine', 'country']);
@@ -127,9 +129,10 @@ class ScientificArticleService
      */
     public function attachFile(UploadedFile $file, ScientificArticle $article): ScientificArticle
     {
-        if ($article->hasMedia(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE)) {
-            $article->getFirstMedia(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE)->delete();
+        if ($f = $article->getFirstMedia(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE)) {
+            $f->delete();
         }
+
         $article->addMedia($file)->toMediaCollection(MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE);
 
         return $article;
@@ -146,8 +149,21 @@ class ScientificArticleService
         ]);
     }
 
-    public function delete(ScientificArticle $article)
+    /**
+     * @param ScientificArticle $article
+     * @return bool|null
+     */
+    public function delete(ScientificArticle $article): ?bool
     {
-        $article->delete();
+        return $article->delete();
+    }
+
+    /**
+     * @param ScientificArticle $article
+     * @return bool|null
+     */
+    public function forceDelete(ScientificArticle $article): ?bool
+    {
+        return $article->forceDelete();
     }
 }

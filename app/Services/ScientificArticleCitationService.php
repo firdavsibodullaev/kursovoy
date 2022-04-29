@@ -119,10 +119,19 @@ class ScientificArticleCitationService
 
     /**
      * @param ScientificArticleCitation $articleCitation
-     * @return void
+     * @return bool|null
      */
-    public function delete(ScientificArticleCitation $articleCitation)
+    public function delete(ScientificArticleCitation $articleCitation): ?bool
     {
-        $articleCitation->delete();
+        return $articleCitation->delete();
+    }
+
+    /**
+     * @param ScientificArticleCitation $articleCitation
+     * @return bool|null
+     */
+    public function forceDelete(ScientificArticleCitation $articleCitation): ?bool
+    {
+        return $articleCitation->forceDelete();
     }
 }

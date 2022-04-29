@@ -121,6 +121,31 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{is_route($pages['article_group'], 'group')}}">
+                    <a href="#" class="nav-link {{is_route($pages['article_group'], 'link')}}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Илмий мақолалар
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('scientific_article.index')}}"
+                               class="nav-link {{is_route($pages['article'], 'link')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Рўйҳат</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('scientific_article.create')}}"
+                               class="nav-link {{is_route($pages['article_create'], 'link')}}">
+                                <i class="fas fa-plus-circle nav-icon"></i>
+                                <p>Янги</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {{--                <li class="nav-item">--}}
                 {{--                    <a href="pages/widgets.html" class="nav-link">--}}
                 {{--                        <i class="nav-icon fas fa-th"></i>--}}

@@ -1,4 +1,3 @@
-@php($is_checked = old('magazine_checkbox') === 'on')
 @extends('layout')
 @section('title', 'Илмий мақолаларига иқтибослар')
 @section('breadcrumb')
@@ -31,14 +30,9 @@
                         <div class="form-group">
                             <label for="magazine_name">Журналнинг номи</label>
                             <select class="mb-2 custom-select"
-                                    @if(!$is_checked)
                                     id="magazine_name"
                                     name="magazine_name"
-                                    required
-                                    @else
-                                    hidden
-                                @endif
-                            >
+                                    required>
                                 <option disabled>
                                     Журнални танланг
                                 </option>
@@ -50,19 +44,12 @@
                             </select>
                             <input type="text"
                                    class="form-control mb-2"
-                                   @if($is_checked)
-                                   id="magazine_name"
-                                   name="magazine_name"
-                                   required
-                                   @else
                                    hidden
-                                   @endif
                                    placeholder="Журнал номини киритинг">
                             <div class="icheck-primary d-inline">
                                 <input type="checkbox"
                                        id="magazine_checkbox"
                                        name="magazine_checkbox"
-                                       {{$is_checked ? 'checked' : ''}}
                                        onchange="toggleInput(this)">
                                 <label for="magazine_checkbox">
                                     Журнал номини рўйҳатдан топмадингизми?
@@ -129,6 +116,7 @@
                     <label for="users">Муаллифлар</label>
                     <select name="users[]"
                             multiple="multiple"
+                            data-placeholder="Муаллифларни танланг"
                             {{auth()->user()->post != 1 ? 'disabled' : ''}}
                             id="users"
                             class="select2 w-100">
@@ -145,12 +133,4 @@
             </form>
         </div>
     </div>
-@endsection
-@section('js')
-    <script>
-        $('.select2').select2({
-            theme: 'bootstrap4',
-            placeholder: 'Муаллифларни танланг'
-        });
-    </script>
 @endsection
