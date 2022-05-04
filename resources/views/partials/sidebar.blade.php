@@ -22,105 +22,108 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item {{is_route($pages['users_group'], 'group')}}">
-                    <a href="#" class="nav-link  {{is_route($pages['users_group'], 'link')}}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Фойдаланувчилар
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('users.index')}}" class="nav-link {{is_route($pages['users'], 'link')}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Рўйҳат</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('users.create')}}"
-                               class="nav-link {{is_route($pages['users_create'], 'link')}}">
-                                <i class="fas fa-plus-circle nav-icon"></i>
-                                <p>Янги</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item {{is_route($pages['phd_group'], 'group')}}">
-                    <a href="#" class="nav-link  {{is_route($pages['phd_group'], 'link')}}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Фан номзоди (PhD)
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('phd_doctors.index')}}"
-                               class="nav-link {{is_route($pages['phd'], 'link')}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Рўйҳат</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('phd_doctors.create')}}"
-                               class="nav-link {{is_route($pages['phd_create'], 'link')}}">
-                                <i class="fas fa-plus-circle nav-icon"></i>
-                                <p>Янги</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item {{is_route($pages['dsc_group'], 'group')}}">
-                    <a href="#" class="nav-link  {{is_route($pages['dsc_group'], 'link')}}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Фан номзоди (DSc)
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('dsc_doctors.index')}}"
-                               class="nav-link {{is_route($pages['dsc'], 'link')}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Рўйҳат</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('dsc_doctors.create')}}"
-                               class="nav-link {{is_route($pages['dsc_create'], 'link')}}">
-                                <i class="fas fa-plus-circle nav-icon"></i>
-                                <p>Янги</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item {{is_route($pages['article_citation_group'], 'group')}}">
-                    <a href="#" class="nav-link  {{is_route($pages['article_citation_group'], 'link')}}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Илмий мақолаларига иқтибослар
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('article_citation.index')}}"
-                               class="nav-link {{is_route($pages['article_citation'], 'link')}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Рўйҳат</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('article_citation.create')}}"
-                               class="nav-link {{is_route($pages['article_citation_create'], 'link')}}">
-                                <i class="fas fa-plus-circle nav-icon"></i>
-                                <p>Янги</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if(is_super_admin())
+                    <li class="nav-item {{is_route($pages['users_group'], 'group')}}">
+                        <a href="#" class="nav-link  {{is_route($pages['users_group'], 'link')}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Фойдаланувчилар
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('users.index')}}"
+                                   class="nav-link {{is_route($pages['users'], 'link')}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Рўйҳат</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('users.create')}}"
+                                   class="nav-link {{is_route($pages['users_create'], 'link')}}">
+                                    <i class="fas fa-plus-circle nav-icon"></i>
+                                    <p>Янги</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item {{is_route($pages['phd_group'], 'group')}}">
+                        <a href="#" class="nav-link  {{is_route($pages['phd_group'], 'link')}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Фан номзоди (PhD)
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('phd_doctors.index')}}"
+                                   class="nav-link {{is_route($pages['phd'], 'link')}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Рўйҳат</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('phd_doctors.create')}}"
+                                   class="nav-link {{is_route($pages['phd_create'], 'link')}}">
+                                    <i class="fas fa-plus-circle nav-icon"></i>
+                                    <p>Янги</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item {{is_route($pages['dsc_group'], 'group')}}">
+                        <a href="#" class="nav-link  {{is_route($pages['dsc_group'], 'link')}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Фан номзоди (DSc)
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('dsc_doctors.index')}}"
+                                   class="nav-link {{is_route($pages['dsc'], 'link')}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Рўйҳат</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('dsc_doctors.create')}}"
+                                   class="nav-link {{is_route($pages['dsc_create'], 'link')}}">
+                                    <i class="fas fa-plus-circle nav-icon"></i>
+                                    <p>Янги</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item {{is_route($pages['article_citation_group'], 'group')}}">
+                        <a href="#" class="nav-link  {{is_route($pages['article_citation_group'], 'link')}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Илмий мақолаларига иқтибослар
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('article_citation.index')}}"
+                                   class="nav-link {{is_route($pages['article_citation'], 'link')}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Рўйҳат</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('article_citation.create')}}"
+                                   class="nav-link {{is_route($pages['article_citation_create'], 'link')}}">
+                                    <i class="fas fa-plus-circle nav-icon"></i>
+                                    <p>Янги</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
                 <li class="nav-item {{is_route($pages['article_group'], 'group')}}">
                     <a href="#" class="nav-link {{is_route($pages['article_group'], 'link')}}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -171,6 +174,33 @@
                         </li>
                     </ul>
                 </li>
+                @if(is_super_admin())
+                    <li class="nav-item {{is_route($pages['grant_fund_order_group'], 'group')}}">
+                        <a href="#" class="nav-link {{is_route($pages['grant_fund_order_group'], 'link')}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Грантлар ва илмий фондлар маблағлари
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('grant_fund_order.index')}}"
+                                   class="nav-link {{is_route($pages['grant_fund_order'], 'link')}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Рўйҳат</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('grant_fund_order.create')}}"
+                                   class="nav-link {{is_route($pages['grant_fund_order_create'], 'link')}}">
+                                    <i class="fas fa-plus-circle nav-icon"></i>
+                                    <p>Янги</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
                 {{--                <li class="nav-item">--}}
                 {{--                    <a href="pages/widgets.html" class="nav-link">--}}
                 {{--                        <i class="nav-icon fas fa-th"></i>--}}

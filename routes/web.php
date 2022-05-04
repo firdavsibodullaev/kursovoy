@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\DscDoctorController;
+use App\Http\Controllers\Web\GrantFundOrderController;
 use App\Http\Controllers\Web\OakScientificArticleController;
 use App\Http\Controllers\Web\PhdDoctorController;
 use App\Http\Controllers\Web\ScientificArticleCitationController;
@@ -54,6 +55,14 @@ Route::middleware('auth')->group(function () {
             Route::delete('{dScDoctor}', [DscDoctorController::class, 'destroy'])->whereNumber('dScDoctor')->name('delete');
         });
 
+        Route::prefix('grant-fund-order')->name('grant_fund_order.')->group(function () {
+            Route::get('', [GrantFundOrderController::class, 'index'])->name('index');
+            Route::get('create', [GrantFundOrderController::class, 'create'])->name('create');
+            Route::get('{grantFundOrder}', [GrantFundOrderController::class, 'edit'])->whereNumber('grantFundOrder')->name('edit');
+            Route::post('', [GrantFundOrderController::class, 'store'])->name('store');
+            Route::put('{grantFundOrder}', [GrantFundOrderController::class, 'update'])->whereNumber('grantFundOrder')->name('update');
+            Route::delete('{grantFundOrder}', [GrantFundOrderController::class, 'destroy'])->whereNumber('grantFundOrder')->name('delete');
+        });
     });
 
     Route::prefix('article-citation')->name('article_citation.')->group(function () {
@@ -116,6 +125,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('destroy/{oakScientificArticle}', [OakScientificArticleController::class, 'forceDestroy'])->whereNumber('oakScientificArticle')->name('force_delete');
         Route::post('attach/{oakScientificArticle}', [OakScientificArticleController::class, 'attach'])->whereNumber('oakScientificArticle')->name('attach');
     });
+
+
 });
 
 

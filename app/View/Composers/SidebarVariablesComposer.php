@@ -32,6 +32,8 @@ class SidebarVariablesComposer
         $oak_article = ['oak_scientific_article.index', 'oak_scientific_article.edit', 'oak_scientific_article.not_confirmed'];
         $oak_article_create = ['oak_scientific_article.create'];
 
+        $grant_fund_order = ['grant_fund_order.index', 'grant_fund_order.edit'];
+        $grant_fund_order_create = ['grant_fund_order.create'];
 
         $view->with('pages', [
             'users' => $users,
@@ -52,6 +54,9 @@ class SidebarVariablesComposer
             'oak_article' => $oak_article,
             'oak_article_create' => $oak_article_create,
             'oak_article_group' => array_merge($oak_article, $oak_article_create),
+            'grant_fund_order' => $grant_fund_order,
+            'grant_fund_order_create' => $grant_fund_order_create,
+            'grant_fund_order_group' => array_merge($grant_fund_order, $grant_fund_order_create)
         ]);
     }
 }
