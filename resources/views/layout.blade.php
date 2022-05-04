@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     @yield('meta')
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{config('app.name')}} | @yield('title', 'Главная страница')</title>
+    <title>{{config('app.name')}} | @yield('title', 'Бош саҳифа')</title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <style>
         .cursor-pointer {
