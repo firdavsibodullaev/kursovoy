@@ -29,7 +29,9 @@ class OakScientificArticleRequest extends FormRequest
             'pages' => 'string|required|max:20',
             'link' => 'required|url',
             'magazine_name' => 'required|string|max:190',
-            'users' => 'required|array',
+            'users' => $this->isMethod('post')
+                ? 'required|array'
+                : 'nullable|array',
             'users.*' => 'required|exists:users,id',
             'file' => $this->isMethod('post')
                 ? 'required|file|mimes:pdf|max:' . (1024 * 10)
