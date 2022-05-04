@@ -81,7 +81,7 @@
                             <label for="publish_year">Нашр йили</label>
                             <input type="text"
                                    name="publish_year"
-                                   class="form-control"
+                                   class="form-control year"
                                    id="publish_year"
                                    placeholder="Нашр йилини киритинг"
                                    value="{{$article->publish_year}}"
@@ -139,7 +139,11 @@
                 </div>
                 <div class="form-group">
                     <label for="users">Муаллифлар</label>
-                    <select name="users[]" multiple="multiple" data-placeholder="Муаллифларни танланг" id="users"
+                    <select name="users[]"
+                            multiple="multiple"
+                            data-placeholder="Муаллифларни танланг"
+                            {{auth()->user()->post != 1 ? 'disabled' : ''}}
+                            id="users"
                             class="select2 w-100">
                         @foreach($users as $user)
                             <option

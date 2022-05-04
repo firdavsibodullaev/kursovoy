@@ -91,7 +91,7 @@
                             <label for="publish_year">Нашр йили</label>
                             <input type="text"
                                    name="publish_year"
-                                   class="form-control"
+                                   class="form-control year"
                                    id="publish_year"
                                    placeholder="Нашр йилини киритинг"
                                    value="{{old('publish_year')}}"
