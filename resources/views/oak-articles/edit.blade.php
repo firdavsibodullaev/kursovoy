@@ -2,7 +2,8 @@
 @section('title', 'Илмий мақолани таҳрирлаш')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('oak_scientific_article.index')}}">Илмий мақолалар (ОАК&nbsp;рўйхатидаги)</a></li>
+    <li class="breadcrumb-item"><a href="{{route('oak_scientific_article.index')}}">Илмий мақолалар (ОАК&nbsp;рўйхатидаги)</a>
+    </li>
     <li class="breadcrumb-item active">Илмий мақолани таҳрирлаш</li>
 @endsection
 @section('content')
@@ -81,7 +82,7 @@
                             <label for="publish_year">Нашр йили</label>
                             <input type="text"
                                    name="publish_year"
-                                   class="form-control"
+                                   class="form-control year"
                                    id="publish_year"
                                    placeholder="Нашр йилини киритинг"
                                    value="{{$article->publish_year}}"
@@ -107,7 +108,11 @@
                 </div>
                 <div class="form-group">
                     <label for="users">Муаллифлар</label>
-                    <select name="users[]" multiple="multiple" data-placeholder="Муаллифларни танланг" id="users"
+                    <select name="users[]"
+                            multiple="multiple"
+                            data-placeholder="Муаллифларни танланг"
+                            id="users"
+                            {{auth()->user()->post != 1 ? 'disabled' : ''}}
                             class="select2 w-100">
                         @foreach($users as $user)
                             <option
@@ -131,9 +136,9 @@
                            id="file">
                 </div>
                 @if($file)
-                <div class="form-group">
-                    <div class="d-flex justify-content-between">
-                        <a href="{{$file->getFullUrl()}}" target="_blank">
+                    <div class="form-group">
+                        <div class="d-flex justify-content-between">
+                            <a href="{{$file->getFullUrl()}}" target="_blank">
                         <span class="d-flex">
                             <img src="{{asset('img/pdf.svg')}}" width="50" alt="{{$file->file_name}}">
                             <span class="ml-2">
@@ -142,14 +147,14 @@
                             </span>
                         </span>
 
-                        </a>
-                        <div>
-                            <button type="button" onclick="removeFile(this)" class="btn btn-sm btn-flat btn-danger">
-                                Ўчириш
-                            </button>
+                            </a>
+                            <div>
+                                <button type="button" onclick="removeFile(this)" class="btn btn-sm btn-flat btn-danger">
+                                    Ўчириш
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endif
                 <div class="form-group">
                     <input type="submit" value="Сақлаш" class="btn btn-primary btn-flat">
