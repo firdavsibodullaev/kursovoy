@@ -21,7 +21,8 @@ class ScientificResearchConductService
         return QueryBuilder::for(ScientificResearchConduct::class)
             ->allowedSorts('year', 'name', 'id')
             ->defaultSort('-year')
-            ->paginate();
+            ->paginate()
+            ->withQueryString();
     }
 
     /**

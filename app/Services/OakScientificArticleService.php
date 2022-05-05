@@ -46,7 +46,9 @@ class OakScientificArticleService
                 'title',
                 AllowedSort::custom('magazine', new MagazineSorts, 'oak_scientific_articles'),
                 'publish_year'
-            ])->paginate();
+            ])
+            ->paginate()
+            ->withQueryString();
     }
 
     /**

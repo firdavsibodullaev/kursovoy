@@ -35,7 +35,8 @@ class PhdDoctorService
                 'id',
                 AllowedSort::custom('user', new DScDoctorDefaultSorts)
             ])
-            ->paginate()->withQueryString();
+            ->paginate()
+            ->withQueryString();
     }
 
     /**

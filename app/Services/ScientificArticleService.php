@@ -46,7 +46,9 @@ class ScientificArticleService
                 'title',
                 AllowedSort::custom('magazine', new MagazineSorts, 'scientific_articles'),
                 'publish_year'
-            ])->paginate();
+            ])
+            ->paginate()
+            ->withQueryString();
     }
 
     /**

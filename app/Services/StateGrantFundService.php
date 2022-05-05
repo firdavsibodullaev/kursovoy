@@ -21,7 +21,8 @@ class StateGrantFundService
         return QueryBuilder::for(StateGrantFund::class)
             ->allowedSorts('year', 'name', 'id')
             ->defaultSort('-year')
-            ->paginate();
+            ->paginate()
+            ->withQueryString();
     }
 
     /**

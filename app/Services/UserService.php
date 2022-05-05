@@ -34,7 +34,8 @@ class UserService
                 AllowedSort::custom('full_name', new UserSorts(), 'full_name'),
                 'id'
             ])
-            ->paginate()->withQueryString();
+            ->paginate()
+            ->withQueryString();
     }
 
     /**
