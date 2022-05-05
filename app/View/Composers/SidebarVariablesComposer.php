@@ -37,6 +37,8 @@ class SidebarVariablesComposer
 
         $scientific_research_conduct = ['scientific_research_conduct.index', 'scientific_research_conduct.edit'];
         $scientific_research_conduct_create = ['scientific_research_conduct.create'];
+        $state_grant_fund = ['state_grant_fund.index', 'state_grant_fund.edit'];
+        $state_grant_fund_create = ['state_grant_fund.create'];
 
         $view->with('pages', [
             'users' => $users,
@@ -62,7 +64,10 @@ class SidebarVariablesComposer
             'grant_fund_order_group' => array_merge($grant_fund_order, $grant_fund_order_create),
             'scientific_research_conduct' => $scientific_research_conduct,
             'scientific_research_conduct_create' => $scientific_research_conduct_create,
-            'scientific_research_conduct_group' => array_merge($scientific_research_conduct, $scientific_research_conduct_create)
+            'scientific_research_conduct_group' => array_merge($scientific_research_conduct, $scientific_research_conduct_create),
+            'state_grant_fund' => $state_grant_fund,
+            'state_grant_fund_create' => $state_grant_fund_create,
+            'state_grant_fund_group' => array_merge($state_grant_fund, $state_grant_fund_create)
         ]);
     }
 }

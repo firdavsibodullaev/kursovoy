@@ -14,9 +14,9 @@
                 @csrf
                 @method('put')
                 <div class="form-group">
-                    <label for="year">Грант ёки буюртма йили</label>
+                    <label for="year">Буюртма йили</label>
                     <select class="custom-select" name="year" id="year">
-                        <option disabled>Грант ёки буюртма йилини танланг
+                        <option disabled>Буюртма йилини танланг
                         </option>
                         @for($i = 2000; $i<=date('Y');$i++)
                             <option {{$order->year == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
@@ -24,13 +24,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="name">Грант ёки буюртма номи</label>
+                    <label for="name">Буюртма номи</label>
                     <textarea name="name"
                               id="name"
                               cols="30"
                               rows="5"
                               class="form-control"
-                              placeholder="Грант ёки буюртма номини киритинг"
+                              placeholder="Буюртма номини киритинг"
                               required>{{$order->name}}</textarea>
                 </div>
                 <div class="row">

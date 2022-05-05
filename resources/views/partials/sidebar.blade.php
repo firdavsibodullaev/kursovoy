@@ -225,6 +225,31 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item {{is_route($pages['state_grant_fund_group'], 'group')}}">
+                        <a href="#" class="nav-link {{is_route($pages['state_grant_fund_group'], 'link')}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                 Давлат грантлари асосида ўтказилган тадқиқотлар маблағлар
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('state_grant_fund.index')}}"
+                                   class="nav-link {{is_route($pages['state_grant_fund'], 'link')}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Рўйҳат</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('state_grant_fund.create')}}"
+                                   class="nav-link {{is_route($pages['state_grant_fund_create'], 'link')}}">
+                                    <i class="fas fa-plus-circle nav-icon"></i>
+                                    <p>Янги</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 {{--                <li class="nav-item">--}}
                 {{--                    <a href="pages/widgets.html" class="nav-link">--}}

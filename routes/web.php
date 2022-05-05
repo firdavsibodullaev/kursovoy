@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\PhdDoctorController;
 use App\Http\Controllers\Web\ScientificArticleCitationController;
 use App\Http\Controllers\Web\ScientificArticleController;
 use App\Http\Controllers\Web\ScientificResearchConductController;
+use App\Http\Controllers\Web\StateGrantFundController;
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,15 @@ Route::middleware('auth')->group(function () {
             Route::post('', [ScientificResearchConductController::class, 'store'])->name('store');
             Route::put('{scientificResearchConduct}', [ScientificResearchConductController::class, 'update'])->whereNumber('scientificResearchConduct')->name('update');
             Route::delete('{scientificResearchConduct}', [ScientificResearchConductController::class, 'destroy'])->whereNumber('scientificResearchConduct')->name('delete');
+        });
+
+        Route::prefix('state-grant-fund')->name('state_grant_fund.')->group(function () {
+            Route::get('', [StateGrantFundController::class, 'index'])->name('index');
+            Route::get('create', [StateGrantFundController::class, 'create'])->name('create');
+            Route::get('{stateGrantFund}', [StateGrantFundController::class, 'edit'])->whereNumber('stateGrantFund')->name('edit');
+            Route::post('', [StateGrantFundController::class, 'store'])->name('store');
+            Route::put('{stateGrantFund}', [StateGrantFundController::class, 'update'])->whereNumber('stateGrantFund')->name('update');
+            Route::delete('{stateGrantFund}', [StateGrantFundController::class, 'destroy'])->whereNumber('stateGrantFund')->name('delete');
         });
     });
 

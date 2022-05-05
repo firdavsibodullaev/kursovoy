@@ -1,38 +1,37 @@
 @extends('layout')
-@section('title', 'Илмий тадқиқотлар маблағлари')
+@section('title', 'Давлат грантлари асосида ўтказилган тадқиқотлар маблағлар')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('scientific_research_conduct.index')}}">Илмий тадқиқотлар маблағлари</a>
+    <li class="breadcrumb-item"><a href="{{route('state_grant_fund.index')}}">Давлат грантлари асосида ўтказилган тадқиқотлар маблағлар</a>
     </li>
-    <li class="breadcrumb-item active">Маблағ қўшиш</li>
+    <li class="breadcrumb-item active">Маблағни таҳрирлаш</li>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('scientific_research_conduct.store')}}" method="post" autocomplete="off">
+            <form action="{{route('state_grant_fund.update', $order->id)}}" method="post" autocomplete="off">
                 @csrf
+                @method('put')
                 <div class="form-group">
-                    <label for="year">Буюртма йили</label>
+                    <label for="year">Грант ёки буюртма йили</label>
                     <select class="custom-select" name="year" id="year">
-                        <option
-                            {{old('year') ? '' : 'selected'}}
-                            disabled>Буюртма йилини танланг
+                        <option disabled>Грант ёки буюртма йилини танланг
                         </option>
                         @for($i = 2000; $i<=date('Y');$i++)
-                            <option {{old('year') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                            <option {{$order->year == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                         @endfor
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="name">Буюртма номи</label>
+                    <label for="name">Давлат гранти мавзуси номи</label>
                     <textarea name="name"
                               id="name"
                               cols="30"
                               rows="5"
                               class="form-control"
-                              placeholder="Буюртма номини киритинг"
-                              required>{{old('name')}}</textarea>
+                              placeholder="Давлат гранти мавзуси номини киритинг"
+                              required>{{$order->name}}</textarea>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6">
@@ -42,7 +41,7 @@
                                    class="form-control"
                                    id="price"
                                    name="price"
-                                   value="{{old('price')}}"
+                                   value="{{$order->price}}"
                                    placeholder="Суммасини киритинг">
                         </div>
                     </div>
@@ -53,7 +52,7 @@
                                    class="form-control"
                                    id="full_price"
                                    name="full_price"
-                                   value="{{old('full_price')}}"
+                                   value="{{$order->full_price}}"
                                    placeholder="Жами суммасини киритинг">
                         </div>
                     </div>

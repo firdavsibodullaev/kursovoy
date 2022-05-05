@@ -1,8 +1,8 @@
 @extends('layout')
-@section('title', 'Илмий тадқиқотлар маблағлари')
+@section('title', 'Давлат грантлари асосида ўтказилган тадқиқотлар маблағлар')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('scientific_research_conduct.index')}}">Илмий тадқиқотлар маблағлари</a>
+    <li class="breadcrumb-item"><a href="{{route('state_grant_fund.index')}}">Давлат грантлари асосида ўтказилган тадқиқотлар маблағлар</a>
     </li>
     <li class="breadcrumb-item active">Маблағ қўшиш</li>
 @endsection
@@ -10,14 +10,14 @@
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('scientific_research_conduct.store')}}" method="post" autocomplete="off">
+            <form action="{{route('state_grant_fund.store')}}" method="post" autocomplete="off">
                 @csrf
                 <div class="form-group">
-                    <label for="year">Буюртма йили</label>
+                    <label for="year">Грант ёки буюртма йили</label>
                     <select class="custom-select" name="year" id="year">
                         <option
                             {{old('year') ? '' : 'selected'}}
-                            disabled>Буюртма йилини танланг
+                            disabled>Грант ёки буюртма йилини танланг
                         </option>
                         @for($i = 2000; $i<=date('Y');$i++)
                             <option {{old('year') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
@@ -25,13 +25,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="name">Буюртма номи</label>
+                    <label for="name">Давлат гранти мавзуси номи</label>
                     <textarea name="name"
                               id="name"
                               cols="30"
                               rows="5"
                               class="form-control"
-                              placeholder="Буюртма номини киритинг"
+                              placeholder="Давлат гранти мавзуси номини киритинг"
                               required>{{old('name')}}</textarea>
                 </div>
                 <div class="row">
