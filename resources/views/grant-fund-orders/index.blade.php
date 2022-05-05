@@ -22,16 +22,21 @@
                                 <select onchange="sort()" class="custom-select" id="sort-columns">
                                     <option disabled {{!$col ? 'selected' : ''}}>Сортировать по...</option>
                                     <option value="id" {{$col === 'id' ? 'selected' : ''}}>Id</option>
-                                    <option value="name" {{$col === 'name' ? 'selected' : ''}}>Грант ёки буюртма номи</option>
-                                    <option value="year" {{$col === 'year' ? 'selected' : ''}}>Грант ёки буюртма йил</option>
+                                    <option value="name" {{$col === 'name' ? 'selected' : ''}}>Грант ёки буюртма номи
+                                    </option>
+                                    <option value="year" {{$col === 'year' || !$sort ? 'selected' : ''}}>Грант ёки
+                                        буюртма йил
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-6">
                                 <div class="input-group input-group">
                                     <select onchange="sort()" class="custom-select" name="" id="sort-directions">
-                                        <option {{$direction === 'asc' ? 'selected' : ''}} value="asc">По возрастанию
+                                        <option {{$direction === 'asc'  || $sort ? 'selected' : ''}} value="asc">По возрастанию
                                         </option>
-                                        <option {{$direction === 'desc' ? 'selected' : ''}} value="desc">По убыванию
+                                        <option
+                                            {{$direction === 'desc' || !$sort ? 'selected' : ''}} value="desc">По
+                                            убыванию
                                         </option>
                                     </select>
                                 </div>

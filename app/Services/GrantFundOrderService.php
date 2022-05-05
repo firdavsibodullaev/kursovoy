@@ -20,6 +20,7 @@ class GrantFundOrderService
     {
         return QueryBuilder::for(GrantFundOrder::class)
             ->allowedSorts('year', 'name', 'id')
+            ->defaultSort('-year')
             ->paginate();
     }
 
