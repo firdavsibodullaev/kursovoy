@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\PhdDoctorController;
 use App\Http\Controllers\Web\ScientificArticleCitationController;
 use App\Http\Controllers\Web\ScientificArticleController;
 use App\Http\Controllers\Web\ScientificResearchConductController;
+use App\Http\Controllers\Web\ScientificResearchEffectivenessController;
 use App\Http\Controllers\Web\StateGrantFundController;
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -82,6 +83,15 @@ Route::middleware('auth')->group(function () {
             Route::post('', [StateGrantFundController::class, 'store'])->name('store');
             Route::put('{stateGrantFund}', [StateGrantFundController::class, 'update'])->whereNumber('stateGrantFund')->name('update');
             Route::delete('{stateGrantFund}', [StateGrantFundController::class, 'destroy'])->whereNumber('stateGrantFund')->name('delete');
+        });
+
+        Route::prefix('scientific-research-effectiveness')->name('scientific_research_effectiveness.')->group(function () {
+            Route::get('', [ScientificResearchEffectivenessController::class, 'index'])->name('index');
+            Route::get('create', [ScientificResearchEffectivenessController::class, 'create'])->name('create');
+            Route::get('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'edit'])->whereNumber('scientificResearchEffectiveness')->name('edit');
+            Route::post('', [ScientificResearchEffectivenessController::class, 'store'])->name('store');
+            Route::put('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'update'])->whereNumber('scientificResearchEffectiveness')->name('update');
+            Route::delete('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'destroy'])->whereNumber('scientificResearchEffectiveness')->name('delete');
         });
     });
 

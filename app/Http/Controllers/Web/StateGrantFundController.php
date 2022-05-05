@@ -46,12 +46,12 @@ class StateGrantFundController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StateGrantFundRequest $StateGrantFundRequest
+     * @param StateGrantFundRequest $request
      * @return RedirectResponse
      */
-    public function store(StateGrantFundRequest $StateGrantFundRequest): RedirectResponse
+    public function store(StateGrantFundRequest $request): RedirectResponse
     {
-        $this->fundService->create($StateGrantFundRequest->validated());
+        $this->fundService->create($request->validated());
 
         return redirect()->route('state_grant_fund.index');
     }
@@ -72,13 +72,13 @@ class StateGrantFundController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StateGrantFundRequest $StateGrantFundRequest
+     * @param StateGrantFundRequest $request
      * @param StateGrantFund $stateGrantFund
      * @return RedirectResponse
      */
-    public function update(StateGrantFundRequest $StateGrantFundRequest, StateGrantFund $stateGrantFund): RedirectResponse
+    public function update(StateGrantFundRequest $request, StateGrantFund $stateGrantFund): RedirectResponse
     {
-        $this->fundService->update($stateGrantFund, $StateGrantFundRequest->validated());
+        $this->fundService->update($stateGrantFund, $request->validated());
 
         return redirect()->route('state_grant_fund.index');
     }

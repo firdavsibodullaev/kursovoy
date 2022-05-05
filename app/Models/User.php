@@ -22,13 +22,18 @@ class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, InteractsWithMedia, HasRoles;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = ['id'];
-
+    protected $fillable = ['first_name',
+        'last_name',
+        'patronymic',
+        'username',
+        'password',
+        'birthdate',
+        'phone',
+        'faculty_id',
+        'department_id',
+        'post',
+        'email'
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *
