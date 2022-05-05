@@ -1,25 +1,26 @@
 @extends('layout')
-@section('title', 'Грантлар ва илмий фондлар маблағлари')
+@section('title', 'Илмий тадқиқотлар маблағлари')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('grant_fund_order.index')}}">Грантлар ва илмий фондлар маблағлари</a>
+    <li class="breadcrumb-item"><a href="{{route('scientific_research_conduct.index')}}">Илмий тадқиқотлар маблағлари</a>
     </li>
-    <li class="breadcrumb-item active">Маблағни таҳрирлаш</li>
+    <li class="breadcrumb-item active">Маблағ қўшиш</li>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('grant_fund_order.update', $order->id)}}" method="post" autocomplete="off">
+            <form action="{{route('scientific_research_conduct.store')}}" method="post" autocomplete="off">
                 @csrf
-                @method('put')
                 <div class="form-group">
                     <label for="year">Грант ёки буюртма йили</label>
                     <select class="custom-select" name="year" id="year">
-                        <option disabled>Грант ёки буюртма йилини танланг
+                        <option
+                            {{old('year') ? '' : 'selected'}}
+                            disabled>Грант ёки буюртма йилини танланг
                         </option>
                         @for($i = 2000; $i<=date('Y');$i++)
-                            <option {{$order->year == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                            <option {{old('year') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                         @endfor
                     </select>
                 </div>
@@ -31,7 +32,7 @@
                               rows="5"
                               class="form-control"
                               placeholder="Грант ёки буюртма номини киритинг"
-                              required>{{$order->name}}</textarea>
+                              required>{{old('name')}}</textarea>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6">
@@ -41,7 +42,7 @@
                                    class="form-control"
                                    id="price"
                                    name="price"
-                                   value="{{$order->price}}"
+                                   value="{{old('price')}}"
                                    placeholder="Суммасини киритинг">
                         </div>
                     </div>
@@ -52,7 +53,7 @@
                                    class="form-control"
                                    id="full_price"
                                    name="full_price"
-                                   value="{{$order->full_price}}"
+                                   value="{{old('full_price')}}"
                                    placeholder="Жами суммасини киритинг">
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\OakScientificArticleController;
 use App\Http\Controllers\Web\PhdDoctorController;
 use App\Http\Controllers\Web\ScientificArticleCitationController;
 use App\Http\Controllers\Web\ScientificArticleController;
+use App\Http\Controllers\Web\ScientificResearchConductController;
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +63,15 @@ Route::middleware('auth')->group(function () {
             Route::post('', [GrantFundOrderController::class, 'store'])->name('store');
             Route::put('{grantFundOrder}', [GrantFundOrderController::class, 'update'])->whereNumber('grantFundOrder')->name('update');
             Route::delete('{grantFundOrder}', [GrantFundOrderController::class, 'destroy'])->whereNumber('grantFundOrder')->name('delete');
+        });
+
+        Route::prefix('scientific-research-conduct')->name('scientific_research_conduct.')->group(function () {
+            Route::get('', [ScientificResearchConductController::class, 'index'])->name('index');
+            Route::get('create', [ScientificResearchConductController::class, 'create'])->name('create');
+            Route::get('{scientificResearchConduct}', [ScientificResearchConductController::class, 'edit'])->whereNumber('scientificResearchConduct')->name('edit');
+            Route::post('', [ScientificResearchConductController::class, 'store'])->name('store');
+            Route::put('{scientificResearchConduct}', [ScientificResearchConductController::class, 'update'])->whereNumber('scientificResearchConduct')->name('update');
+            Route::delete('{scientificResearchConduct}', [ScientificResearchConductController::class, 'destroy'])->whereNumber('scientificResearchConduct')->name('delete');
         });
     });
 

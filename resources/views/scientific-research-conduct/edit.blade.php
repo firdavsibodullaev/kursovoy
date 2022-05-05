@@ -1,8 +1,8 @@
 @extends('layout')
-@section('title', 'Грантлар ва илмий фондлар маблағлари')
+@section('title', 'Илмий тадқиқотлар маблағлари')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('grant_fund_order.index')}}">Грантлар ва илмий фондлар маблағлари</a>
+    <li class="breadcrumb-item"><a href="{{route('scientific_research_conduct.index')}}">Илмий тадқиқотлар маблағлари</a>
     </li>
     <li class="breadcrumb-item active">Маблағни таҳрирлаш</li>
 @endsection
@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('grant_fund_order.update', $order->id)}}" method="post" autocomplete="off">
+            <form action="{{route('scientific_research_conduct.update', $order->id)}}" method="post" autocomplete="off">
                 @csrf
                 @method('put')
                 <div class="form-group">

@@ -35,6 +35,9 @@ class SidebarVariablesComposer
         $grant_fund_order = ['grant_fund_order.index', 'grant_fund_order.edit'];
         $grant_fund_order_create = ['grant_fund_order.create'];
 
+        $scientific_research_conduct = ['scientific_research_conduct.index', 'scientific_research_conduct.edit'];
+        $scientific_research_conduct_create = ['scientific_research_conduct.create'];
+
         $view->with('pages', [
             'users' => $users,
             'users_create' => $users_create,
@@ -56,7 +59,10 @@ class SidebarVariablesComposer
             'oak_article_group' => array_merge($oak_article, $oak_article_create),
             'grant_fund_order' => $grant_fund_order,
             'grant_fund_order_create' => $grant_fund_order_create,
-            'grant_fund_order_group' => array_merge($grant_fund_order, $grant_fund_order_create)
+            'grant_fund_order_group' => array_merge($grant_fund_order, $grant_fund_order_create),
+            'scientific_research_conduct' => $scientific_research_conduct,
+            'scientific_research_conduct_create' => $scientific_research_conduct_create,
+            'scientific_research_conduct_group' => array_merge($scientific_research_conduct, $scientific_research_conduct_create)
         ]);
     }
 }
