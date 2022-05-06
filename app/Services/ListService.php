@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Country;
 use App\Models\Magazine;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Publication;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -16,9 +16,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 class ListService
 {
     /**
-     * @return Collection|QueryBuilder[]
+     * @return Collection
      */
-    public function getMagazinesList()
+    public function getMagazinesList(): Collection
     {
         return QueryBuilder::for(Magazine::class)->get();
     }
@@ -26,9 +26,9 @@ class ListService
 
     /**
      * @param string $magazine
-     * @return Builder|Model
+     * @return Model
      */
-    public function getMagazineByTitle(string $magazine)
+    public function getMagazineByTitle(string $magazine): Model
     {
         return Magazine::query()->firstOrCreate([
             'title' => $magazine
@@ -36,21 +36,40 @@ class ListService
     }
 
     /**
-     * @return Collection|QueryBuilder[]
+     * @return Collection
      */
-    public function getCountries()
+    public function getCountries(): Collection
     {
         return QueryBuilder::for(Country::class)->get();
     }
 
     /**
      * @param string $country
-     * @return Builder|Model
+     * @return Model
      */
-    public function getCountryByName(string $country)
+    public function getCountryByName(string $country): Model
     {
         return Country::query()->firstOrCreate([
             'name' => $country
+        ]);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPublicationsList(): Collection
+    {
+        return QueryBuilder::for(Publication::class)->get();
+    }
+
+    /**
+     * @param string $publication
+     * @return Model
+     */
+    public function getPublicationByName(string $publication): Model
+    {
+        return Publication::query()->firstOrCreate([
+            'title' => $publication
         ]);
     }
 }

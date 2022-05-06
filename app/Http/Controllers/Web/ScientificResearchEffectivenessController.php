@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScientificResearchEffectivenessRequest;
 use App\Models\ScientificResearchEffectiveness;
+use App\Services\ListService;
 use App\Services\ScientificResearchEffectivenessService;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 
 class ScientificResearchEffectivenessController extends Controller
@@ -28,7 +30,7 @@ class ScientificResearchEffectivenessController extends Controller
     public function index(): string
     {
         return view('scientific-research-effectiveness.index', [
-            'orders' => $this->effectivenessService->fetchWithPagination()
+            'researches' => $this->effectivenessService->fetchWithPagination()
         ])->render();
     }
 
@@ -39,7 +41,10 @@ class ScientificResearchEffectivenessController extends Controller
      */
     public function create(): string
     {
-        return view('scientific-research-effectiveness.create')->render();
+        return view('scientific-research-effectiveness.create', [
+            'publications' => (new ListService())->getPublicationsList(),
+            'users' => (new UserService())->list(),
+        ])->render();
     }
 
     /**
@@ -64,7 +69,9 @@ class ScientificResearchEffectivenessController extends Controller
     public function edit(ScientificResearchEffectiveness $scientificResearchEffectiveness): string
     {
         return view('scientific-research-effectiveness.edit', [
-            'order' => $scientificResearchEffectiveness
+            'research' => $scientificResearchEffectiveness,
+            'publications' => (new ListService())->getPublicationsList(),
+            'users' => (new UserService())->list(),
         ])->render();
     }
 

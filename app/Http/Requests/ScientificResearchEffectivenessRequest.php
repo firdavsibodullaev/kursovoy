@@ -31,7 +31,8 @@ class ScientificResearchEffectivenessRequest extends FormRequest
             'accepted_date' => 'required|date',
             'publication_name' => 'required|string|max:190',
             'users' => 'required|array',
-            'users.*' => 'required|exists:users,id'
+            'users.*' => 'required|exists:users,id',
+            'publication_checkbox' => ['nullable', 'string', 'regex:/^on$/']
         ];
     }
 }

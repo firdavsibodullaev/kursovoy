@@ -19,7 +19,7 @@ class ScientificResearchEffectivenessService
      */
     public function fetchWithPagination(): LengthAwarePaginator
     {
-        return QueryBuilder::for(ScientificResearchEffectiveness::with('users'))
+        return QueryBuilder::for(ScientificResearchEffectiveness::with(['users', 'publication']))
             ->defaultSort('id')
             ->allowedFilters([
                 AllowedFilter::custom('user', new UsersRelationFilter)
@@ -34,6 +34,8 @@ class ScientificResearchEffectivenessService
      */
     public function create(array $validated): ScientificResearchEffectiveness
     {
+        $validated['publication_id'] = (new ListService())->getPublicationByName($validated['publication_name'])->id;
+
         /** @var ScientificResearchEffectiveness $effectiveness */
         $effectiveness = ScientificResearchEffectiveness::query()->create($validated);
 
@@ -49,6 +51,8 @@ class ScientificResearchEffectivenessService
      */
     public function update(ScientificResearchEffectiveness $effectiveness, array $validated): ScientificResearchEffectiveness
     {
+        $validated['publication_id'] = (new ListService())->getPublicationByName($validated['publication_name'])->id;
+
         /** @var ScientificResearchEffectiveness $effectiveness */
         $effectiveness = tap($effectiveness)->update($validated);
 
