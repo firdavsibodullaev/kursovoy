@@ -93,6 +93,9 @@ Route::middleware('auth')->group(function () {
             Route::put('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'update'])->whereNumber('scientificResearchEffectiveness')->name('update');
             Route::delete('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'destroy'])->whereNumber('scientificResearchEffectiveness')->name('delete');
         });
+
+        Route::prefix('a')->name('.')->group(function() {
+        });
     });
 
     Route::prefix('article-citation')->name('article_citation.')->group(function () {
