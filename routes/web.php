@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\DscDoctorController;
 use App\Http\Controllers\Web\GrantFundOrderController;
 use App\Http\Controllers\Web\OakScientificArticleController;
+use App\Http\Controllers\Web\ObtainedIndustrialSamplePatentController;
 use App\Http\Controllers\Web\PhdDoctorController;
 use App\Http\Controllers\Web\ScientificArticleCitationController;
 use App\Http\Controllers\Web\ScientificArticleController;
@@ -94,7 +95,13 @@ Route::middleware('auth')->group(function () {
             Route::delete('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'destroy'])->whereNumber('scientificResearchEffectiveness')->name('delete');
         });
 
-        Route::prefix('a')->name('.')->group(function() {
+        Route::prefix('obtained-industrial-sample-patent')->name('obtained_industrial_sample_patent.')->group(function () {
+            Route::get('', [ObtainedIndustrialSamplePatentController::class, 'index'])->name('index');
+            Route::get('create', [ObtainedIndustrialSamplePatentController::class, 'create'])->name('create');
+            Route::post('', [ObtainedIndustrialSamplePatentController::class, 'store'])->name('store');
+            Route::get('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'edit'])->whereNumber('obtainedIndustrialSamplePatent')->name('edit');
+            Route::put('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'update'])->whereNumber('obtainedIndustrialSamplePatent')->name('update');
+            Route::delete('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'destroy'])->whereNumber('obtainedIndustrialSamplePatent')->name('delete');
         });
     });
 

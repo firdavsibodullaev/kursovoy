@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Country;
+use App\Models\Institute;
 use App\Models\Magazine;
 use App\Models\Publication;
 use Illuminate\Database\Eloquent\Collection;
@@ -70,6 +71,25 @@ class ListService
     {
         return Publication::query()->firstOrCreate([
             'title' => $publication
+        ]);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getInstitutesList(): Collection
+    {
+        return Institute::query()->get();
+    }
+
+    /**
+     * @param string $name
+     * @return Model
+     */
+    public function getInstituteByName(string $name): Model
+    {
+        return Institute::query()->firstOrCreate([
+            'name' => $name
         ]);
     }
 }
