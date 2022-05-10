@@ -11,9 +11,9 @@ class ObtainedIndustrialSamplePatentRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,15 @@ class ObtainedIndustrialSamplePatentRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'institute_name' => 'required|string|max:190',
+            'name' => 'string|required|max:255',
+            'date' => 'date|required',
+            'number' => 'required|string|max:15',
+            'users' => 'array|required',
+            'users.*' => 'required|exists:users,id'
         ];
     }
 }
