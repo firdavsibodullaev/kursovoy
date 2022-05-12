@@ -44,6 +44,9 @@ class SidebarVariablesComposer
         $scientific_research_effectiveness = ['scientific_research_effectiveness.index', 'scientific_research_effectiveness.edit'];
         $scientific_research_effectiveness_create = ['scientific_research_effectiveness.create'];
 
+        $obtained_industrial_sample_patent = ['obtained_industrial_sample_patent.index', 'obtained_industrial_sample_patent.edit'];
+        $obtained_industrial_sample_patent_create = ['obtained_industrial_sample_patent.create'];
+
         $view->with('pages', [
             'users' => $users,
             'users_create' => $users_create,
@@ -74,7 +77,10 @@ class SidebarVariablesComposer
             'state_grant_fund_group' => array_merge($state_grant_fund, $state_grant_fund_create),
             'scientific_research_effectiveness' => $scientific_research_effectiveness,
             'scientific_research_effectiveness_create' => $scientific_research_effectiveness_create,
-            'scientific_research_effectiveness_group' => array_merge($scientific_research_effectiveness, $scientific_research_effectiveness_create)
+            'scientific_research_effectiveness_group' => array_merge($scientific_research_effectiveness, $scientific_research_effectiveness_create),
+            'obtained_industrial_sample_patent' => $obtained_industrial_sample_patent,
+            'obtained_industrial_sample_patent_create' => $obtained_industrial_sample_patent_create,
+            'obtained_industrial_sample_patent_group' => array_merge($obtained_industrial_sample_patent, $obtained_industrial_sample_patent_create)
         ]);
     }
 }

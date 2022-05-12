@@ -29,7 +29,8 @@ class ObtainedIndustrialSamplePatentRequest extends FormRequest
             'date' => 'date|required',
             'number' => 'required|string|max:15',
             'users' => 'array|required',
-            'users.*' => 'required|exists:users,id'
+            'users.*' => 'required|exists:users,id',
+            'institute_checkbox' => ['nullable', 'string', 'regex:/^on$/']
         ];
     }
 }
