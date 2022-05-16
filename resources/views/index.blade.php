@@ -3,4 +3,5 @@
     <li class="breadcrumb-item active">Бош саҳифа</li>
 @endsection
 @section('content')
+    @include('report.index')
 @endsection
