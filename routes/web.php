@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\CopyrightProtectedVariousMaterialInformationController;
 use App\Http\Controllers\Web\DscDoctorController;
 use App\Http\Controllers\Web\GrantFundOrderController;
 use App\Http\Controllers\Web\OakScientificArticleController;
@@ -102,6 +103,15 @@ Route::middleware('auth')->group(function () {
             Route::get('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'edit'])->whereNumber('obtainedIndustrialSamplePatent')->name('edit');
             Route::put('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'update'])->whereNumber('obtainedIndustrialSamplePatent')->name('update');
             Route::delete('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'destroy'])->whereNumber('obtainedIndustrialSamplePatent')->name('delete');
+        });
+
+        Route::prefix('copyright-protected-various-material-information')->name('copyright_protected_various_material_information.')->group(function () {
+            Route::get('', [CopyrightProtectedVariousMaterialInformationController::class, 'index'])->name('index');
+            Route::get('create', [CopyrightProtectedVariousMaterialInformationController::class, 'create'])->name('create');
+            Route::get('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'edit'])->whereNumber('information')->name('edit');
+            Route::post('', [CopyrightProtectedVariousMaterialInformationController::class, 'store'])->name('store');
+            Route::put('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'update'])->whereNumber('information')->name('update');
+            Route::delete('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'destroy'])->whereNumber('information')->name('delete');
         });
     });
 

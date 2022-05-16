@@ -300,6 +300,31 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item {{is_route($pages['copyright_protected_various_material_information_group'], 'group')}}">
+                        <a href="#" class="nav-link {{is_route($pages['copyright_protected_various_material_information_group'], 'link')}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Гувоҳномалар, муаллифлик ҳуқуқи билан ҳимоя қилинадиган турли материаллар
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('copyright_protected_various_material_information.index')}}"
+                                   class="nav-link {{is_route($pages['copyright_protected_various_material_information'], 'link')}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Рўйҳат</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('copyright_protected_various_material_information.create')}}"
+                                   class="nav-link {{is_route($pages['copyright_protected_various_material_information_create'], 'link')}}">
+                                    <i class="fas fa-plus-circle nav-icon"></i>
+                                    <p>Янги</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 {{--                <li class="nav-item">--}}
                 {{--                    <a href="pages/widgets.html" class="nav-link">--}}
