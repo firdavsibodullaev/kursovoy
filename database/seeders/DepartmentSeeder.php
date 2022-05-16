@@ -15,7 +15,6 @@ class DepartmentSeeder extends Seeder
      */
     public function run()
     {
-        $faculty = Faculty::query()->firstWhere('id', 1);
         Department::query()->insert([
             [
                 'short_name' => json_encode([
@@ -30,7 +29,7 @@ class DepartmentSeeder extends Seeder
                     'ru' => 'Технология машиностроения',
                     'en' => 'Mechanical engineering technology',
                 ]),
-                'faculty_id' => $faculty->id,
+                'faculty_id' => 1,
             ],
             [
                 'short_name' => json_encode([
@@ -45,7 +44,67 @@ class DepartmentSeeder extends Seeder
                     'ru' => 'Автоматизация и управление',
                     'en' => 'Automatizing and Control',
                 ]),
-                'faculty_id' => $faculty->id,
+                'faculty_id' => 1,
+            ],
+            [
+                'short_name' => json_encode([
+                    'uz' => 'KI',
+                    'oz' => 'КИ',
+                    'ru' => 'ГД',
+                    'en' => 'MW',
+                ]),
+                'full_name' => json_encode([
+                    'uz' => 'Konchilik ishi',
+                    'oz' => 'Кончилик иши',
+                    'ru' => 'Горное дело',
+                    'en' => 'Mining works',
+                ]),
+                'faculty_id' => 2,
+            ],
+            [
+                'short_name' => json_encode([
+                    'uz' => 'TMJ',
+                    'oz' => 'ТМЖ',
+                    'ru' => 'ТМО',
+                    'en' => 'TME',
+                ]),
+                'full_name' => json_encode([
+                    'uz' => 'Texnologik mashina va jixozlar',
+                    'oz' => 'Технологик машина ва жихозлар',
+                    'ru' => 'Технологические машины и оборудования',
+                    'en' => 'Technological machines and equipments',
+                ]),
+                'faculty_id' => 2,
+            ],
+            [
+                'short_name' => json_encode([
+                    'uz' => 'MET',
+                    'oz' => 'МЕТ',
+                    'ru' => 'МЕТ',
+                    'en' => 'MET',
+                ]),
+                'full_name' => json_encode([
+                    'uz' => 'Metallurgiya',
+                    'oz' => 'Металлургия',
+                    'ru' => 'Металлургия',
+                    'en' => 'Metallurgy',
+                ]),
+                'faculty_id' => 3,
+            ],
+            [
+                'short_name' => json_encode([
+                    'uz' => 'IQ',
+                    'oz' => 'ИҚ',
+                    'ru' => 'ЭК',
+                    'en' => 'EC',
+                ]),
+                'full_name' => json_encode([
+                    'uz' => 'Iqtisod',
+                    'oz' => 'Иқтисод',
+                    'ru' => 'Экономика',
+                    'en' => 'Economy',
+                ]),
+                'faculty_id' => 3,
             ],
         ]);
     }

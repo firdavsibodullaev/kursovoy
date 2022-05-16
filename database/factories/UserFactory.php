@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
+use App\Models\Faculty;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
 class UserFactory extends Factory
@@ -16,13 +16,17 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $faculty = Faculty::query()->inRandomOrder()->first();
+        $department = Department::query()->where('faculty_id', '=', $faculty->id)->inRandomOrder()->first();
         return [
             'last_name' => $this->faker->lastName,
             'first_name' => $this->faker->firstName,
             'patronymic' => $this->faker->lastName,
             'username' => $this->faker->unique()->userName,
+            'faculty_id' => $faculty->id,
+            'department_id' => $department->id,
             'password' => 'admin', // admin
-            'post' => Role::query()->inRandomOrder()->firstWhere('id','!=', 1)->id,
+            'post' => Role::query()->inRandomOrder()->firstWhere('id', '!=', 1)->id,
         ];
     }
 

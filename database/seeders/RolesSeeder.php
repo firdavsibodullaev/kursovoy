@@ -16,18 +16,18 @@ class RolesSeeder extends Seeder
     public function run()
     {
         Role::query()->insert([
-            ['name' => 'Админ', 'guard_name' => 'api'],
-            ['name' => 'Ректор', 'guard_name' => 'api'],
-            ['name' => 'Проректор', 'guard_name' => 'api'],
-            ['name' => 'Декан', 'guard_name' => 'api'],
-            ['name' => 'Зав. кафедра', 'guard_name' => 'api'],
-            ['name' => 'Учитель', 'guard_name' => 'api'],
+            ['name' => 'Админ', 'guard_name' => 'web'],
+            ['name' => 'Ректор', 'guard_name' => 'web'],
+            ['name' => 'Проректор', 'guard_name' => 'web'],
+            ['name' => 'Декан', 'guard_name' => 'web'],
+            ['name' => 'Зав. кафедра', 'guard_name' => 'web'],
+            ['name' => 'Учитель', 'guard_name' => 'web'],
         ]);
 
         /** @var Role $role */
         $role = Role::query()->first();
 
-        $permission = Permission::query()->create(['name' => 'Создать данные', 'guard_name' => 'api']);
+        $permission = Permission::query()->create(['name' => 'Создать данные', 'guard_name' => 'web']);
 
         $role->givePermissionTo($permission);
     }
