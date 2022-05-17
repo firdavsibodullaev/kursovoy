@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -17,7 +20,8 @@
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^5.4",
         "spatie/laravel-query-builder": "^4.0",
-        "spatie/laravel-translatable": "^4.6"
+        "spatie/laravel-translatable": "^4.6",
+        "ext-openssl": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

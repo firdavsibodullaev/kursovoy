@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -75,6 +76,18 @@ class User extends Authenticatable implements HasMedia
     public function post_name(): HasOne
     {
         return $this->hasOne(Role::class, 'id', 'post');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function scientificArticles(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            ScientificArticle::class,
+            'scientific_article_users',
+            'user_id',
+            'scientific_article_id');
     }
 
     /**

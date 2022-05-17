@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\Web\CopyrightProtectedVariousMaterialInformationController;
 use App\Http\Controllers\Web\DscDoctorController;
 use App\Http\Controllers\Web\GrantFundOrderController;
@@ -176,7 +177,10 @@ Route::middleware('auth')->group(function () {
         Route::post('attach/{oakScientificArticle}', [OakScientificArticleController::class, 'attach'])->whereNumber('oakScientificArticle')->name('attach');
     });
 
-
+    Route::prefix('report')->name('report.')->group(function () {
+        Route::get('get-articles-report', [ReportsController::class, 'scientificArticles'])->name('scientificArticles');
+        Route::get('get-articles-report-by-faculty', [ReportsController::class, 'scientificArticlesByFaculty'])->name('scientificArticlesByFaculty');
+    });
 });
 
 

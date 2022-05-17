@@ -32,3 +32,21 @@ if (!function_exists('is_super_admin')) {
         return auth()->user()->post == 1;
     }
 }
+
+if (!function_exists('random_color')) {
+
+    /**
+     * @param array $except_colors
+     * @return string
+     */
+    function random_color(array $except_colors = []): string
+    {
+        $hex_string = bin2hex(openssl_random_pseudo_bytes(3));
+
+        if (in_array($hex_string, $except_colors)) {
+            return random_color($except_colors);
+        }
+
+        return "#{$hex_string}";
+    }
+}

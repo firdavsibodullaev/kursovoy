@@ -21,9 +21,11 @@ mix.combine([
     'resources/assets/plugins/moment/moment.min.js',
     'resources/assets/plugins/select2/js/select2.full.js',
     'resources/assets/plugins/inputmask/jquery.inputmask.min.js',
+    'resources/assets/plugins/chart.js/Chart.min.js',
     'resources/assets/dist/js/config.js',
     'resources/assets/dist/js/requests.js',
     'resources/assets/dist/js/custom.js',
+    'resources/assets/dist/js/chart.js',
 ], 'public/js/combine.js')
     .css('resources/css/app.css', 'public/css')
     .version();

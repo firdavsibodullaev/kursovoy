@@ -25,7 +25,7 @@ class OakScientificArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:190',
-            'publish_year' => 'required|digits:4|numeric|min:1900|max:' . (date('Y') + 1),
+            'publish_year' => 'required|digits:4|numeric|min:2015|max:' . (date('Y') + 1),
             'pages' => 'string|required|max:20',
             'link' => 'required|url',
             'magazine_name' => 'required|string|max:190',
