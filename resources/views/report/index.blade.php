@@ -43,10 +43,10 @@
                 <div class="col-6">
                     <div class="card">
                         <div class="card-header bg-gradient-primary text-center">
+                            <div class="card-title">
+                                Кафедралар миқёсида
+                            </div>
                             <div class="card-tools">
-                                <div class="card-title">
-                                    Кафедралар миқёсида
-                                </div>
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
