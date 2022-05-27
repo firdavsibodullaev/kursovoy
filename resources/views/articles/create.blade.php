@@ -11,7 +11,8 @@
     <div class="card">
         <div class="card-body">
             @include('partials.messages')
-            <form action="{{route('scientific_article.store')}}" method="post" autocomplete="off" enctype="multipart/form-data">
+            <form action="{{route('scientific_article.store')}}" method="post" autocomplete="off"
+                  enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-6">
@@ -89,13 +90,17 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="publish_year">Нашр йили</label>
-                            <input type="text"
-                                   name="publish_year"
-                                   class="form-control year"
-                                   id="publish_year"
-                                   placeholder="Нашр йилини киритинг"
-                                   value="{{old('publish_year')}}"
-                                   required>
+                            @php($year = get_year_select_options(old('publish_year')))
+                            <select name="publish_year"
+                                    data-placeholder="Нашр йилини танланг"
+                                    class="select2 w-100"
+                                    required
+                                    id="publish_year">
+                                <option></option>
+                                @foreach($year as $option)
+                                {!! $option !!}
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -161,7 +166,11 @@
                 </div>
                 <div class="form-group">
                     <label for="users">Муаллифлар</label>
-                    <select name="users[]" multiple="multiple" data-placeholder="Муаллифларни танланг" id="users" class="select2 w-100">
+                    <select name="users[]"
+                            multiple="multiple"
+                            data-placeholder="Муаллифларни танланг"
+                            id="users"
+                            class="select2 w-100">
                         @foreach($users as $user)
                             <option
                                 {{$user->id === auth()->id() || (old('users') && in_array($user->id, old('users'))) ? 'selected' : ''}}

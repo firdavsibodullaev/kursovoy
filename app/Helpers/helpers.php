@@ -50,3 +50,17 @@ if (!function_exists('random_color')) {
         return "#{$hex_string}";
     }
 }
+
+if (!function_exists('get_year_select_options')) {
+    /**
+     * @param string|null $val
+     * @return Generator
+     */
+    function get_year_select_options(?string $val = null): Generator
+    {
+        $year = date('Y');
+        for ($i = 2022; $i <= $year; $i++) {
+            yield "<option " . ($val == $i ? 'selected' : '') . " value='{$i}'>{$i}</option>";
+        }
+    }
+}

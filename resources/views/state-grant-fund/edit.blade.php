@@ -15,12 +15,16 @@
                 @method('put')
                 <div class="form-group">
                     <label for="year">Грант ёки буюртма йили</label>
-                    <select class="custom-select" name="year" id="year">
-                        <option disabled>Грант ёки буюртма йилини танланг
-                        </option>
-                        @for($i = 2000; $i<=date('Y');$i++)
-                            <option {{$order->year == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                        @endfor
+                    @php($year = get_year_select_options($order->year))
+                    <select name="year"
+                            data-placeholder="Грант ёки буюртма йилини танланг"
+                            class="select2 w-100"
+                            required
+                            id="year">
+                        <option></option>
+                        @foreach($year as $option)
+                            {!! $option !!}
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">

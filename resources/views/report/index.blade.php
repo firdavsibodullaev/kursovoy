@@ -17,13 +17,14 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
+                                @php($year = get_year_select_options())
                                 <select id="scientificArticlesPieChart_year"
                                         onchange="getScientificArticlePieChart(true)"
                                         class="custom-select">
                                     <option value="">Барчаси</option>
-                                    @for($i = 2015; $i <= date('Y'); $i++)
-                                        <option value="{{$i}}">{{$i}} йил</option>
-                                    @endfor
+                                    @foreach($year as $option)
+                                        {!! $option !!}
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="small-box">
@@ -69,13 +70,14 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
+                                        @php($year = get_year_select_options())
                                         <select id="scientificArticlesByFacultyPieChart_year"
                                                 onchange="getScientificArticleByFacultyPieChart(true)"
                                                 class="custom-select">
                                             <option value="">Барчаси</option>
-                                            @for($i = 2015; $i <= date('Y'); $i++)
-                                                <option value="{{$i}}">{{$i}} йил</option>
-                                            @endfor
+                                            @foreach($year as $option)
+                                                {!! $option !!}
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

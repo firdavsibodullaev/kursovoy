@@ -89,13 +89,17 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="publish_year">Нашр йили</label>
-                            <input type="text"
-                                   name="publish_year"
-                                   class="form-control year"
-                                   id="publish_year"
-                                   placeholder="Нашр йилини киритинг"
-                                   value="{{old('publish_year')}}"
-                                   required>
+                            @php($year = get_year_select_options(old('publish_year')))
+                            <select name="publish_year"
+                                    data-placeholder="Нашр йилини танланг"
+                                    class="select2 w-100"
+                                    required
+                                    id="publish_year">
+                                <option></option>
+                                @foreach($year as $option)
+                                    {!! $option !!}
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>

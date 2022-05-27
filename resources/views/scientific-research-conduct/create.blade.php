@@ -14,14 +14,16 @@
                 @csrf
                 <div class="form-group">
                     <label for="year">Буюртма йили</label>
-                    <select class="custom-select" name="year" id="year">
-                        <option
-                            {{old('year') ? '' : 'selected'}}
-                            disabled>Буюртма йилини танланг
-                        </option>
-                        @for($i = 2000; $i<=date('Y');$i++)
-                            <option {{old('year') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                        @endfor
+                    @php($year = get_year_select_options(old('year')))
+                    <select name="year"
+                            data-placeholder="Буюртма йилини танланг"
+                            class="select2 w-100"
+                            required
+                            id="year">
+                        <option></option>
+                        @foreach($year as $option)
+                            {!! $option !!}
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">

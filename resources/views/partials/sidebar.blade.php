@@ -98,6 +98,7 @@
                             </li>
                         </ul>
                     </li>
+                @endif
                     <li class="nav-item {{is_route($pages['article_citation_group'], 'group')}}">
                         <a href="#" class="nav-link  {{is_route($pages['article_citation_group'], 'link')}}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -123,7 +124,6 @@
                             </li>
                         </ul>
                     </li>
-                @endif
                 <li class="nav-item {{is_route($pages['article_group'], 'group')}}">
                     <a href="#" class="nav-link {{is_route($pages['article_group'], 'link')}}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
