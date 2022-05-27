@@ -24,10 +24,6 @@ const filter = (e, column) => {
     }
     const text = $('#search-input').val();
 
-    if (text.length < 3 && text.length !== 0) {
-        return;
-    }
-
     location.href = `${url}?filter[${column}]=${text}`;
 
 }
