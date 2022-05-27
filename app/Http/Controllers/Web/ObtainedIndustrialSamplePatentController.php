@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\MediaCollectionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ObtainedIndustrialSamplePatentRequest;
 use App\Models\ObtainedIndustrialSamplePatent;
@@ -9,7 +10,7 @@ use App\Services\ListService;
 use App\Services\ObtainedIndustrialSamplePatentService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ObtainedIndustrialSamplePatentController extends Controller
 {
@@ -35,6 +36,13 @@ class ObtainedIndustrialSamplePatentController extends Controller
         ])->render();
     }
 
+    public function getNotConfirmedArticlesList()
+    {
+        return view('obtained-industrial-sample-patent.not-confirmed', [
+            'patents' => $this->patentService->getNotConfirmedArticlesList()
+        ])->render();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +51,7 @@ class ObtainedIndustrialSamplePatentController extends Controller
     public function create(): string
     {
         return view('obtained-industrial-sample-patent.create', [
-            'institutes' => (new ListService())->getInstitutesList(),
+//            'institutes' => (new ListService())->getInstitutesList(),
             'users' => (new UserService())->list()
         ])->render();
     }
@@ -56,7 +64,9 @@ class ObtainedIndustrialSamplePatentController extends Controller
      */
     public function store(ObtainedIndustrialSamplePatentRequest $request): RedirectResponse
     {
-        $this->patentService->create($request->validated());
+        DB::transaction(function () use ($request) {
+            $this->patentService->create($request->validated());
+        });
 
         return redirect()->route('obtained_industrial_sample_patent.index');
     }
@@ -70,9 +80,9 @@ class ObtainedIndustrialSamplePatentController extends Controller
     public function edit(ObtainedIndustrialSamplePatent $obtainedIndustrialSamplePatent): string
     {
         return view('obtained-industrial-sample-patent.edit', [
-            'patent' => $obtainedIndustrialSamplePatent->load(['users', 'institute']),
-            'institutes' => (new ListService())->getInstitutesList(),
-            'users' => (new UserService())->list()
+            'patent' => $obtainedIndustrialSamplePatent->load(['users', 'institute', 'file']),
+//            'institutes' => (new ListService())->getInstitutesList(),
+            'users' => (new UserService())->list(),
         ])->render();
     }
 
@@ -85,7 +95,16 @@ class ObtainedIndustrialSamplePatentController extends Controller
      */
     public function update(ObtainedIndustrialSamplePatentRequest $request, ObtainedIndustrialSamplePatent $obtainedIndustrialSamplePatent): RedirectResponse
     {
-        $this->patentService->update($obtainedIndustrialSamplePatent, $request->validated());
+        DB::transaction(function () use ($request, $obtainedIndustrialSamplePatent) {
+            $this->patentService->update($obtainedIndustrialSamplePatent, $request->validated());
+        });
+
+        return redirect()->route('obtained_industrial_sample_patent.index');
+    }
+
+    public function confirm(ObtainedIndustrialSamplePatent $obtainedIndustrialSamplePatent)
+    {
+        $this->patentService->confirm($obtainedIndustrialSamplePatent);
 
         return redirect()->route('obtained_industrial_sample_patent.index');
     }
@@ -96,7 +115,7 @@ class ObtainedIndustrialSamplePatentController extends Controller
      * @param ObtainedIndustrialSamplePatent $obtainedIndustrialSamplePatent
      * @return RedirectResponse
      */
-    public function destroy(ObtainedIndustrialSamplePatent $obtainedIndustrialSamplePatent)
+    public function destroy(ObtainedIndustrialSamplePatent $obtainedIndustrialSamplePatent): RedirectResponse
     {
         $this->patentService->destroy($obtainedIndustrialSamplePatent);
 

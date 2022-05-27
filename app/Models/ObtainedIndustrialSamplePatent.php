@@ -3,19 +3,24 @@
 namespace App\Models;
 
 
+use App\Constants\MediaCollectionsConstant;
 use App\Traits\Users;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ObtainedIndustrialSamplePatent extends BaseModel
 {
     use Users;
 
     protected $fillable = [
-        'institute_id',
+//        'institute_id',
         'name',
         'date',
-        'number'
+        'number',
+        'confirmed_at',
+        'is_confirmed'
     ];
 
     /**
@@ -37,5 +42,17 @@ class ObtainedIndustrialSamplePatent extends BaseModel
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class, 'institute_id', 'id');
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function file(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'model')
+            ->where(
+                'collection_name',
+                '='
+                , MediaCollectionsConstant::PATENT);
     }
 }

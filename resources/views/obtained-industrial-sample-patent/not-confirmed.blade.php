@@ -1,39 +1,17 @@
 @extends('layout')
-@section('meta')
-    <meta name="filter" content="{{route('obtained_industrial_sample_patent.index')}}">
-@endsection
-@section('title', 'Профессор-ўқитувчилар томонидан ихтиролари учун олинган патентлар')
+@section('title', 'Профессор-ўқитувчилар томонидан ихтиролари учун олинган патентлар (Таскдиқланмаганлар)')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош саҳифа</a></li>
-    <li class="breadcrumb-item active">Профессор-ўқитувчилар томонидан ихтиролари учун олинган патентлар</li>
+    <li class="breadcrumb-item">
+        <a href="{{route('obtained_industrial_sample_patent.index')}}">
+            Профессор-ўқитувчилар томонидан ихтиролари учун олинган патентлар
+        </a>
+    </li>
+    <li class="breadcrumb-item active">Таскдиқланмаганлар</li>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="row">
-                <div class="col-4">
-                    @php($param = request('filter', '')['user'] ?? '')
-                    <div class="search-block w-100 mb-3">
-                        <div class="input-group input-group">
-                            @php($param = request('filter', '')['user'] ?? '')
-                            <input class="form-control"
-                                   id="search-input"
-                                   type="text"
-                                   value="{{$param}}"
-                                   placeholder="Поиск..."
-                                   aria-label="Поиск">
-                            <div class="input-group-append">
-                                <button class="btn btn-info" onclick="filter(this, 'user')" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <button class="btn btn-default" onclick="filter(this, '')" type="submit">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <h3 class="text-center">
                 Рейтинги аниқланаётган йилда профессор-ўқитувчилари томонидан ихтиро,
                 фойдали модел, саноат намуналари ва селекция ютуқлари учун олинган патентлар
@@ -84,6 +62,14 @@
                             @endif
                         </td>
                         <td>
+                            <a href="javascript:void(0)"
+                               onclick="document.querySelector('#confirm-form-{{$patent->id}}').submit()"
+                               class="btn btn-success btn-flat btn-sm">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <form action="{{route('obtained_industrial_sample_patent.confirm', $patent->id)}}"
+                                  id="confirm-form-{{$patent->id}}"
+                                  method="post">@csrf</form>
                             <a href="{{route('obtained_industrial_sample_patent.edit', $patent->id)}}"
                                class="btn btn-warning btn-flat btn-sm">
                                 <i class="fas fa-pen"></i>
@@ -100,7 +86,6 @@
                 @endforeach
                 </tbody>
             </table>
-            {{$patents->links('components.pagination')}}
         </div>
     </div>
     <x-delete :url="route('obtained_industrial_sample_patent.delete', 'ID')"/>

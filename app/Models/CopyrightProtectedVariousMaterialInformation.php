@@ -3,17 +3,22 @@
 namespace App\Models;
 
 
+use App\Constants\MediaCollectionsConstant;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class CopyrightProtectedVariousMaterialInformation extends BaseModel
 {
 
     protected $fillable = [
-        'institute_id',
+//        'institute_id',
         'user_id',
         'name',
         'date',
-        'serial'
+        'serial',
+        'confirmed_at',
+        'is_confirmed'
     ];
 
     /**
@@ -30,5 +35,14 @@ class CopyrightProtectedVariousMaterialInformation extends BaseModel
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function file(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'model')
+            ->where('collection_name', '=', MediaCollectionsConstant::COPYRIGHT);
     }
 }

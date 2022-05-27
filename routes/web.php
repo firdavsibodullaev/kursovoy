@@ -96,24 +96,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'update'])->whereNumber('scientificResearchEffectiveness')->name('update');
             Route::delete('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'destroy'])->whereNumber('scientificResearchEffectiveness')->name('delete');
         });
-
-        Route::prefix('obtained-industrial-sample-patent')->name('obtained_industrial_sample_patent.')->group(function () {
-            Route::get('', [ObtainedIndustrialSamplePatentController::class, 'index'])->name('index');
-            Route::get('create', [ObtainedIndustrialSamplePatentController::class, 'create'])->name('create');
-            Route::post('', [ObtainedIndustrialSamplePatentController::class, 'store'])->name('store');
-            Route::get('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'edit'])->whereNumber('obtainedIndustrialSamplePatent')->name('edit');
-            Route::put('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'update'])->whereNumber('obtainedIndustrialSamplePatent')->name('update');
-            Route::delete('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'destroy'])->whereNumber('obtainedIndustrialSamplePatent')->name('delete');
-        });
-
-        Route::prefix('copyright-protected-various-material-information')->name('copyright_protected_various_material_information.')->group(function () {
-            Route::get('', [CopyrightProtectedVariousMaterialInformationController::class, 'index'])->name('index');
-            Route::get('create', [CopyrightProtectedVariousMaterialInformationController::class, 'create'])->name('create');
-            Route::get('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'edit'])->whereNumber('information')->name('edit');
-            Route::post('', [CopyrightProtectedVariousMaterialInformationController::class, 'store'])->name('store');
-            Route::put('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'update'])->whereNumber('information')->name('update');
-            Route::delete('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'destroy'])->whereNumber('information')->name('delete');
-        });
     });
 
     Route::prefix('article-citation')->name('article_citation.')->group(function () {
@@ -175,6 +157,38 @@ Route::middleware('auth')->group(function () {
         Route::delete('{oakScientificArticle}', [OakScientificArticleController::class, 'destroy'])->whereNumber('oakScientificArticle')->name('delete');
         Route::delete('destroy/{oakScientificArticle}', [OakScientificArticleController::class, 'forceDestroy'])->whereNumber('oakScientificArticle')->name('force_delete');
         Route::post('attach/{oakScientificArticle}', [OakScientificArticleController::class, 'attach'])->whereNumber('oakScientificArticle')->name('attach');
+    });
+
+    Route::prefix('obtained-industrial-sample-patent')->name('obtained_industrial_sample_patent.')->group(function () {
+        Route::get('', [ObtainedIndustrialSamplePatentController::class, 'index'])->name('index');
+        Route::get('not-confirmed', [ObtainedIndustrialSamplePatentController::class, 'getNotConfirmedArticlesList'])
+            ->middleware('is_admin')
+            ->name('not_confirmed');
+        Route::get('create', [ObtainedIndustrialSamplePatentController::class, 'create'])->name('create');
+        Route::post('', [ObtainedIndustrialSamplePatentController::class, 'store'])->name('store');
+        Route::post('confirm/{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'confirm'])
+            ->middleware('is_admin')
+            ->whereNumber('obtainedIndustrialSamplePatent')
+            ->name('confirm');
+        Route::get('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'edit'])->whereNumber('obtainedIndustrialSamplePatent')->name('edit');
+        Route::put('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'update'])->whereNumber('obtainedIndustrialSamplePatent')->name('update');
+        Route::delete('{obtainedIndustrialSamplePatent}', [ObtainedIndustrialSamplePatentController::class, 'destroy'])->whereNumber('obtainedIndustrialSamplePatent')->name('delete');
+    });
+
+    Route::prefix('copyright-protected-various-material-information')->name('copyright_protected_various_material_information.')->group(function () {
+        Route::get('', [CopyrightProtectedVariousMaterialInformationController::class, 'index'])->name('index');
+        Route::get('not-confirmed', [CopyrightProtectedVariousMaterialInformationController::class, 'getNotConfirmedArticlesList'])
+            ->middleware('is_admin')
+            ->name('not_confirmed');
+        Route::get('create', [CopyrightProtectedVariousMaterialInformationController::class, 'create'])->name('create');
+        Route::get('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'edit'])->whereNumber('information')->name('edit');
+        Route::post('', [CopyrightProtectedVariousMaterialInformationController::class, 'store'])->name('store');
+        Route::post('confirm/{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'confirm'])
+            ->middleware('is_admin')
+            ->whereNumber('information')
+            ->name('confirm');
+        Route::put('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'update'])->whereNumber('information')->name('update');
+        Route::delete('{information}', [CopyrightProtectedVariousMaterialInformationController::class, 'destroy'])->whereNumber('information')->name('delete');
     });
 
     Route::prefix('report')->name('report.')->group(function () {

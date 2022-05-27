@@ -17,7 +17,6 @@ class CreateCopyrightProtectedVariousMaterialInformationTable extends Migration
         Schema::create('copyright_protected_various_material_information', function (Blueprint $table) {
             $table->id();
             $table->foreignId('institute_id')->constrained('institutes');
-            $table->foreignId('user_id')->constrained('users');
             $table->tinyText('name');
             $table->date('date');
             $table->string('serial');

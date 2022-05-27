@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Constants\MediaCollectionsConstant;
 use App\Models\CopyrightProtectedVariousMaterialInformation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -15,33 +18,69 @@ class CopyrightProtectedVariousMaterialInformationService
 {
     public function fetchWithPagination(): LengthAwarePaginator
     {
-        return QueryBuilder::for(CopyrightProtectedVariousMaterialInformation::with(['institute', 'user']))
+        return QueryBuilder::for(CopyrightProtectedVariousMaterialInformation::with(['institute', 'user', 'file']))
+            ->where('is_confirmed', '=', true)
             ->paginate();
     }
 
     /**
-     * @param array $validated
-     * @return Model
+     * @return Collection
      */
-    public function create(array $validated): Model
+    public function getNotConfirmedArticlesList(): Collection
     {
-        $institute = (new ListService())->getInstituteByName($validated['institute_name']);
-        $validated['institute_id'] = $institute->id;
+        return CopyrightProtectedVariousMaterialInformation::query()->with(['institute', 'user', 'file'])
+            ->where('is_confirmed', '=', false)
+            ->get();
+    }
 
-        return CopyrightProtectedVariousMaterialInformation::query()->create($validated)->load(['user', 'institute']);
+    /**
+     * @param array $validated
+     * @return CopyrightProtectedVariousMaterialInformation
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     */
+    public function create(array $validated): CopyrightProtectedVariousMaterialInformation
+    {
+//        $institute = (new ListService())->getInstituteByName($validated['institute_name']);
+//        $validated['institute_id'] = $institute->id;
+
+        /** @var CopyrightProtectedVariousMaterialInformation $copyright */
+        $copyright = CopyrightProtectedVariousMaterialInformation::query()->create($validated)->load(['user', 'institute']);
+        $copyright->addMedia($validated['file'])->toMediaCollection(MediaCollectionsConstant::COPYRIGHT);
+        return $copyright;
     }
 
     /**
      * @param CopyrightProtectedVariousMaterialInformation $information
      * @param array $validated
      * @return CopyrightProtectedVariousMaterialInformation
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
     public function update(CopyrightProtectedVariousMaterialInformation $information, array $validated): CopyrightProtectedVariousMaterialInformation
     {
-        $institute = (new ListService())->getInstituteByName($validated['institute_name']);
-        $validated['institute_id'] = $institute->id;
+//        $institute = (new ListService())->getInstituteByName($validated['institute_name']);
+//        $validated['institute_id'] = $institute->id;
+        /** @var CopyrightProtectedVariousMaterialInformation $copyright */
+        $copyright = tap($information)->update($validated)->load(['institute', 'user']);
 
-        return tap($information)->update($validated)->load(['institute', 'user']);
+        if (isset($validated['file'])) {
+            $copyright->getFirstMedia(MediaCollectionsConstant::COPYRIGHT)->delete();
+            $copyright->addMedia($validated['file'])->toMediaCollection(MediaCollectionsConstant::COPYRIGHT);
+        }
+        return $copyright;
+    }
+
+    /**
+     * @param CopyrightProtectedVariousMaterialInformation $information
+     * @return bool
+     */
+    public function confirm(CopyrightProtectedVariousMaterialInformation $information): bool
+    {
+        return $information->update([
+            'is_confirmed' => true,
+            'confirmed_at' => now()
+        ]);
     }
 
     /**

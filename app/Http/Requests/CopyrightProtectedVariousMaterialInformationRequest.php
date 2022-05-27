@@ -24,11 +24,14 @@ class CopyrightProtectedVariousMaterialInformationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'institute_name' => 'required|string|max:100',
+//            'institute_name' => 'required|string|max:100',
             'name' => 'required|string|max:255',
             'date' => 'required|date',
             'serial' => 'required|string|max:15',
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'required|exists:users,id',
+            'file' => $this->isMethod('post')
+                ? 'required|file|mimes:pdf|max:' . (1024 * 10)
+                : 'nullable|file|mimes:pdf|max:' . (1024 * 10)
         ];
     }
 }

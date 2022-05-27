@@ -10,6 +10,7 @@ use App\Services\ListService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CopyrightProtectedVariousMaterialInformationController extends Controller
 {
@@ -36,6 +37,16 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
     }
 
     /**
+     * @return string
+     */
+    public function getNotConfirmedArticlesList(): string
+    {
+        return view('copyright-protected-various-material-information.not-confirmed', [
+            'information' => $this->informationService->getNotConfirmedArticlesList()
+        ])->render();
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return string
@@ -56,7 +67,9 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
      */
     public function store(CopyrightProtectedVariousMaterialInformationRequest $request): RedirectResponse
     {
-        $this->informationService->create($request->validated());
+        DB::transaction(function () use ($request) {
+            $this->informationService->create($request->validated());
+        });
 
         return redirect()->route('copyright_protected_various_material_information.index');
     }
@@ -70,7 +83,7 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
     public function edit(CopyrightProtectedVariousMaterialInformation $information): string
     {
         return view('copyright-protected-various-material-information.edit', [
-            'information' => $information->load(['user', 'institute']),
+            'information' => $information->load(['user', 'institute', 'file']),
             'institutes' => (new ListService())->getInstitutesList(),
             'users' => (new UserService())->list(),
         ])->render();
@@ -85,7 +98,20 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
      */
     public function update(CopyrightProtectedVariousMaterialInformationRequest $request, CopyrightProtectedVariousMaterialInformation $information): RedirectResponse
     {
-        $this->informationService->update($information, $request->validated());
+        DB::transaction(function () use ($request, $information) {
+            $this->informationService->update($information, $request->validated());
+        });
+
+        return redirect()->route('copyright_protected_various_material_information.index');
+    }
+
+    /**
+     * @param CopyrightProtectedVariousMaterialInformation $information
+     * @return RedirectResponse
+     */
+    public function confirm(CopyrightProtectedVariousMaterialInformation $information): RedirectResponse
+    {
+        $this->informationService->confirm($information);
 
         return redirect()->route('copyright_protected_various_material_information.index');
     }
