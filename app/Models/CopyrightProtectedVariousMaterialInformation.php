@@ -4,16 +4,18 @@ namespace App\Models;
 
 
 use App\Constants\MediaCollectionsConstant;
+use App\Traits\Users;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class CopyrightProtectedVariousMaterialInformation extends BaseModel
 {
+    use Users;
 
     protected $fillable = [
 //        'institute_id',
-        'user_id',
         'name',
         'date',
         'serial',
@@ -30,11 +32,16 @@ class CopyrightProtectedVariousMaterialInformation extends BaseModel
     }
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function user(): BelongsTo
+    public function users(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(
+            User::class,
+            'copyright_protected_various_material_information_users',
+            'copyright_protected_various_material_information_id',
+            'user_id'
+        );
     }
 
     /**

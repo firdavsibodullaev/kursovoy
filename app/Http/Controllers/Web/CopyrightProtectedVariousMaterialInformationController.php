@@ -83,7 +83,7 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
     public function edit(CopyrightProtectedVariousMaterialInformation $information): string
     {
         return view('copyright-protected-various-material-information.edit', [
-            'information' => $information->load(['user', 'institute', 'file']),
+            'information' => $information->load(['users', 'institute', 'file']),
             'institutes' => (new ListService())->getInstitutesList(),
             'users' => (new UserService())->list(),
         ])->render();

@@ -54,7 +54,7 @@
                     <tr>
                         <td>{{$item->id}}</td>
                         {{--                        <td>{{$item->institute->name}}</td>--}}
-                        <td>{!! $item->user->full_name !!}</td>
+                        <td>{!! $item->users_formatted !!}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->date}}</td>
                         <td>{{$item->serial}}</td>

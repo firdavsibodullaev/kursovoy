@@ -36,7 +36,10 @@ class ObtainedIndustrialSamplePatentController extends Controller
         ])->render();
     }
 
-    public function getNotConfirmedArticlesList()
+    /**
+     * @return string
+     */
+    public function getNotConfirmedArticlesList(): string
     {
         return view('obtained-industrial-sample-patent.not-confirmed', [
             'patents' => $this->patentService->getNotConfirmedArticlesList()

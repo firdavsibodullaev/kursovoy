@@ -116,13 +116,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="user_id">Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш</label>
-                    <select name="user_id" data-placeholder="Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш танланг"
-                            id="user_id" class="select2 w-100">
+                    <label for="users">Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш</label>
+                    <select name="users[]"
+                            multiple
+                            data-placeholder="Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш танланг"
+                            id="users"
+                            class="select2 w-100">
                         <option value=""></option>
                         @foreach($users as $user)
                             <option
-                                {{($user->id == old('user_id') || $user->id == auth()->id()) ? 'selected' : ''}}
+                                {{(old('users') && in_array($user->id, old('users')) || $user->id == auth()->id()) ? 'selected' : ''}}
                                 value="{{$user->id}}"
                             >{{$user->full_name}}</option>
                         @endforeach

@@ -28,7 +28,10 @@ class CopyrightProtectedVariousMaterialInformationRequest extends FormRequest
             'name' => 'required|string|max:255',
             'date' => 'required|date',
             'serial' => 'required|string|max:15',
-            'user_id' => 'required|exists:users,id',
+            'users' => $this->isMethod('post')
+                ? 'required|array'
+                : 'nullable|array',
+            'users.*' => 'required|exists:users,id',
             'file' => $this->isMethod('post')
                 ? 'required|file|mimes:pdf|max:' . (1024 * 10)
                 : 'nullable|file|mimes:pdf|max:' . (1024 * 10)

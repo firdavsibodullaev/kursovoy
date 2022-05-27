@@ -28,7 +28,9 @@ class ObtainedIndustrialSamplePatentRequest extends FormRequest
             'name' => 'string|required|max:255',
             'date' => 'date|required',
             'number' => 'required|string|max:15',
-            'users' => 'array|required',
+            'users' => $this->isMethod('post')
+                ? 'required|array'
+                : 'nullable|array',
             'users.*' => 'required|exists:users,id',
 //            'institute_checkbox' => ['nullable', 'string', 'regex:/^on$/'],
             'file' => $this->isMethod('post')

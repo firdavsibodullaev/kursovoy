@@ -69,7 +69,6 @@
                                    name="file"
                                    id="file"
                                    class="form-control-file"
-                                   required
                                    accept="application/pdf"/>
                         </div>
                         @if($file)
@@ -86,51 +85,58 @@
 
                                     </a>
                                     <div>
-                                        <button type="button" onclick="removeFile(this)" class="btn btn-sm btn-flat btn-danger">
+                                        <button type="button" onclick="removeFile(this)"
+                                                class="btn btn-sm btn-flat btn-danger">
                                             Ўчириш
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         @endif
-{{--                        <div class="form-group">--}}
-{{--                            <label for="institute_name">Институтнинг номи</label>--}}
-{{--                            <select class="mb-2 custom-select"--}}
-{{--                                    id="institute_name"--}}
-{{--                                    name="institute_name"--}}
-{{--                                    required>--}}
-{{--                                <option--}}
-{{--                                    disabled>--}}
-{{--                                    Институтни танланг--}}
-{{--                                </option>--}}
-{{--                                @foreach($institutes as $institute)--}}
-{{--                                    <option--}}
-{{--                                        {{$information->institute->name == $institute->name ? 'selected' : ''}}--}}
-{{--                                        value="{{$institute->name}}">{{$institute->name}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                            <input type="text"--}}
-{{--                                   class="form-control mb-2"--}}
-{{--                                   hidden--}}
-{{--                                   placeholder="Институт номини киритинг">--}}
-{{--                            <div class="icheck-primary d-inline">--}}
-{{--                                <input type="checkbox"--}}
-{{--                                       id="institute_checkbox"--}}
-{{--                                       name="institute_checkbox"--}}
-{{--                                       onchange="toggleInput(this)">--}}
-{{--                                <label for="institute_checkbox">--}}
-{{--                                    Институт номини рўйҳатдан топмадингизми?--}}
-{{--                                </label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="form-group">--}}
+                        {{--                            <label for="institute_name">Институтнинг номи</label>--}}
+                        {{--                            <select class="mb-2 custom-select"--}}
+                        {{--                                    id="institute_name"--}}
+                        {{--                                    name="institute_name"--}}
+                        {{--                                    required>--}}
+                        {{--                                <option--}}
+                        {{--                                    disabled>--}}
+                        {{--                                    Институтни танланг--}}
+                        {{--                                </option>--}}
+                        {{--                                @foreach($institutes as $institute)--}}
+                        {{--                                    <option--}}
+                        {{--                                        {{$information->institute->name == $institute->name ? 'selected' : ''}}--}}
+                        {{--                                        value="{{$institute->name}}">{{$institute->name}}</option>--}}
+                        {{--                                @endforeach--}}
+                        {{--                            </select>--}}
+                        {{--                            <input type="text"--}}
+                        {{--                                   class="form-control mb-2"--}}
+                        {{--                                   hidden--}}
+                        {{--                                   placeholder="Институт номини киритинг">--}}
+                        {{--                            <div class="icheck-primary d-inline">--}}
+                        {{--                                <input type="checkbox"--}}
+                        {{--                                       id="institute_checkbox"--}}
+                        {{--                                       name="institute_checkbox"--}}
+                        {{--                                       onchange="toggleInput(this)">--}}
+                        {{--                                <label for="institute_checkbox">--}}
+                        {{--                                    Институт номини рўйҳатдан топмадингизми?--}}
+                        {{--                                </label>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="user_id">Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш</label>
-                    <select name="user_id" data-placeholder="Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш танланг" id="user_id" class="select2 w-100">
+                    <label for="users">Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш</label>
+                    <select name="users[]"
+                            multiple
+                            {{is_super_admin() ? '' : 'disabled'}}
+                            data-placeholder="Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш танланг"
+                            id="users"
+                            class="select2 w-100">
+                        @php($f_users = $information->users->pluck('id')->toArray())
                         @foreach($users as $user)
                             <option
-                                {{$user->id == $information->user->id ? 'selected' : ''}}
+                                {{in_array($user->id, $f_users) ? 'selected' : ''}}
                                 value="{{$user->id}}"
                             >{{$user->full_name}}</option>
                         @endforeach

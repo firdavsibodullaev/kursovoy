@@ -18,7 +18,7 @@ class CopyrightProtectedVariousMaterialInformationService
 {
     public function fetchWithPagination(): LengthAwarePaginator
     {
-        return QueryBuilder::for(CopyrightProtectedVariousMaterialInformation::with(['institute', 'user', 'file']))
+        return QueryBuilder::for(CopyrightProtectedVariousMaterialInformation::with(['institute', 'users', 'file']))
             ->where('is_confirmed', '=', true)
             ->paginate();
     }
@@ -28,7 +28,7 @@ class CopyrightProtectedVariousMaterialInformationService
      */
     public function getNotConfirmedArticlesList(): Collection
     {
-        return CopyrightProtectedVariousMaterialInformation::query()->with(['institute', 'user', 'file'])
+        return CopyrightProtectedVariousMaterialInformation::query()->with(['institute', 'users', 'file'])
             ->where('is_confirmed', '=', false)
             ->get();
     }
@@ -45,9 +45,13 @@ class CopyrightProtectedVariousMaterialInformationService
 //        $validated['institute_id'] = $institute->id;
 
         /** @var CopyrightProtectedVariousMaterialInformation $copyright */
-        $copyright = CopyrightProtectedVariousMaterialInformation::query()->create($validated)->load(['user', 'institute']);
+        $copyright = CopyrightProtectedVariousMaterialInformation::query()->create($validated);
+
+        $copyright->users()->sync($validated['users']);
+
         $copyright->addMedia($validated['file'])->toMediaCollection(MediaCollectionsConstant::COPYRIGHT);
-        return $copyright;
+
+        return $copyright->load(['users', 'institute', 'file']);
     }
 
     /**
@@ -62,13 +66,17 @@ class CopyrightProtectedVariousMaterialInformationService
 //        $institute = (new ListService())->getInstituteByName($validated['institute_name']);
 //        $validated['institute_id'] = $institute->id;
         /** @var CopyrightProtectedVariousMaterialInformation $copyright */
-        $copyright = tap($information)->update($validated)->load(['institute', 'user']);
+        $copyright = tap($information)->update($validated);
+
+        if (is_super_admin()) {
+            $copyright->users()->sync($validated['users']);
+        }
 
         if (isset($validated['file'])) {
             $copyright->getFirstMedia(MediaCollectionsConstant::COPYRIGHT)->delete();
             $copyright->addMedia($validated['file'])->toMediaCollection(MediaCollectionsConstant::COPYRIGHT);
         }
-        return $copyright;
+        return $copyright->load(['institute', 'users', 'file']);
     }
 
     /**

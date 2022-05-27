@@ -69,7 +69,6 @@
                                    name="file"
                                    id="file"
                                    class="form-control-file"
-                                   required
                                    accept="application/pdf"/>
                         </div>
                         @if($file)
@@ -127,10 +126,16 @@
                 </div>
                 <div class="form-group">
                     <label for="users">Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш</label>
-                    <select name="users[]" multiple="multiple" data-placeholder="Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш танланг" id="users" class="select2 w-100">
+                    <select name="users[]"
+                            multiple="multiple"
+                            data-placeholder="Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш танланг"
+                            id="users"
+                            {{is_super_admin() ? '' : 'disabled'}}
+                            class="select2 w-100">
+                        @php($f_users = $patent->users->pluck('id')->toArray())
                         @foreach($users as $user)
                             <option
-                                {{in_array($user->id, $patent->users->pluck('id')->toArray()) ? 'selected' : ''}}
+                                {{in_array($user->id, $f_users) ? 'selected' : ''}}
                                 value="{{$user->id}}"
                             >{{$user->full_name}}</option>
                         @endforeach

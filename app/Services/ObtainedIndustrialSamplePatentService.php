@@ -76,7 +76,9 @@ class ObtainedIndustrialSamplePatentService
         /** @var ObtainedIndustrialSamplePatent $patent */
         $patent = tap($patent)->update($validated);
 
-        $patent->users()->sync($validated['users']);
+        if (is_super_admin()) {
+            $patent->users()->sync($validated['users']);
+        }
 
         if (isset($validated['file'])) {
             $patent->getFirstMedia(MediaCollectionsConstant::PATENT)->delete();
