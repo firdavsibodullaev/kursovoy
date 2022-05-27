@@ -12,6 +12,28 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
+                <div class="col-4">
+                    @php($param = request('filter', '')['name'] ?? '')
+                    <div class="search-block w-100 mb-3">
+                        <div class="input-group input-group">
+                            @php($param = request('filter', '')['name'] ?? '')
+                            <input class="form-control"
+                                   id="search-input"
+                                   type="text"
+                                   value="{{$param}}"
+                                   placeholder="Поиск..."
+                                   aria-label="Поиск">
+                            <div class="input-group-append">
+                                <button class="btn btn-info" onclick="filter(this, 'name')" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button class="btn btn-default" onclick="filter(this, '')" type="submit">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-8">
                     <div class="sort-block">
                         <div class="row">

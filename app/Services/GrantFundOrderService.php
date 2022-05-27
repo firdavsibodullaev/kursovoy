@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use App\Models\GrantFundOrder;
+use App\Spatie\Filters\GrantFundOrderFilter;
+use App\Spatie\Filters\UsersRelationFilter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -19,6 +22,9 @@ class GrantFundOrderService
     public function fetchWithPagination(): LengthAwarePaginator
     {
         return QueryBuilder::for(GrantFundOrder::class)
+            ->allowedFilters([
+                AllowedFilter::custom('name', new GrantFundOrderFilter)
+            ])
             ->allowedSorts('year', 'name', 'id')
             ->defaultSort('-year')
             ->paginate()

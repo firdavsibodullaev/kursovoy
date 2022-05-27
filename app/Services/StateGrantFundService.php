@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Models\StateGrantFund;
+use App\Spatie\Filters\StateGrantFundFilter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -21,6 +23,9 @@ class StateGrantFundService
         return QueryBuilder::for(StateGrantFund::class)
             ->allowedSorts('year', 'name', 'id')
             ->defaultSort('-year')
+            ->allowedFilters([
+                AllowedFilter::custom('name', new StateGrantFundFilter)
+            ])
             ->paginate()
             ->withQueryString();
     }

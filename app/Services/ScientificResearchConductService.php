@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Models\ScientificResearchConduct;
+use App\Spatie\Filters\ScientificResearchConductFilter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 /**
@@ -21,6 +23,9 @@ class ScientificResearchConductService
         return QueryBuilder::for(ScientificResearchConduct::class)
             ->allowedSorts('year', 'name', 'id')
             ->defaultSort('-year')
+            ->allowedFilters([
+                AllowedFilter::custom('name', new ScientificResearchConductFilter)
+                ])
             ->paginate()
             ->withQueryString();
     }
