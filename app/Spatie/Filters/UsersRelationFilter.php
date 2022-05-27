@@ -14,6 +14,10 @@ class UsersRelationFilter implements Filter
     {
         $value = Str::lower($value);
 
+        if (is_numeric($value)) {
+            return $query->where('id', '=', $value);
+        }
+        
         $query->whereHas('users', function (Builder $q) use ($value) {
             $q->where(DB::raw("LOWER(last_name)"), 'like', "%{$value}%")
                 ->orWhere(DB::raw("LOWER(first_name)"), 'like', "%{$value}%")

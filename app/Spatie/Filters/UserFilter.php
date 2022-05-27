@@ -13,6 +13,11 @@ class UserFilter implements Filter
     public function __invoke(Builder $query, $value, string $property)
     {
         $value = Str::lower($value);
+
+        if (is_numeric($value)) {
+            return $query->where('id', '=', $value);
+        }
+
         $query->where(function ($q) use ($value) {
             $q->where(DB::raw("LOWER(last_name)"), 'like', "%{$value}%")
                 ->orWhere(DB::raw("LOWER(first_name)"), 'like', "%{$value}%")
