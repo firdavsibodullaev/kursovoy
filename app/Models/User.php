@@ -103,10 +103,11 @@ class User extends Authenticatable implements HasMedia
      */
     public function getFullPostAttribute(): string
     {
-        $faculty = $this->faculty()->first();
-        $department = $this->department()->first();
-        $post = $this->post_name()->first();
+        $faculty = $this->faculty;
+        $department = $this->department;
+        $post = $this->post_name;
         $return_value = "";
+
         if (!is_null($faculty) && !is_null($department)) {
             $return_value .= "{$faculty->short_name}, {$department->short_name}, ";
         }
@@ -120,9 +121,10 @@ class User extends Authenticatable implements HasMedia
      */
     public function getPhoneFormattedAttribute(): string
     {
-        if (is_null($this->phone)) {
-            return '';
+        try {
+            return vsprintf("+%d%d%d %d%d %d%d%d %d%d %d%d", str_split($this->phone));
+        } catch (\Exception $exception) {
+            return $this->phone;
         }
-        return vsprintf("+%d%d%d %d%d %d%d%d %d%d %d%d", str_split($this->phone));
     }
 }
