@@ -61,6 +61,5 @@ const createScientificArticlesPieChart = function (scientificArticlesPieChart, d
 const updateScientificArticlesPieChart = function (scientificArticlesPieChart, data) {
     scientificArticlesPieChart.data.labels = data.donutData.labels;
     scientificArticlesPieChart.data.datasets[0].data = data.donutData.datasets[0].data;
-    scientificArticlesPieChart.data.datasets[0].backgroundColor = data.donutData.datasets[0].backgroundColor;
     scientificArticlesPieChart.update();
 }
