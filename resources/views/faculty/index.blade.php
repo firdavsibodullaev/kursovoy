@@ -23,10 +23,17 @@
                         <a href="{{route('faculty.edit', $faculty->id)}}" class="btn btn-flat btn-sm btn-warning">
                             <i class="fas fa-pen"></i>
                         </a>
+                        <a href="javascript:void(0)"
+                           data-toggle="modal"
+                           data-target="#modal-delete"
+                           onclick="setFormAction('{{$faculty->id}}')"
+                           class="btn btn-danger btn-flat btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
-    {{--    <x-delete :url="route('users.delete', 'ID')"/>--}}
+        <x-delete :url="route('faculty.delete', 'ID')"/>
 @endsection

@@ -83,4 +83,15 @@ class FacultyController extends Controller
         return redirect()->route('faculty.index');
     }
 
+    /**
+     * @param Faculty $faculty
+     * @return RedirectResponse
+     */
+    public function destroy(Faculty $faculty): RedirectResponse
+    {
+        $this->facultyService->delete($faculty);
+
+        return redirect()->route('faculty.index');
+    }
+
 }

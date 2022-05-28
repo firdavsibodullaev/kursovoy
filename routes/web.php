@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\Web\CopyrightProtectedVariousMaterialInformationController;
+use App\Http\Controllers\Web\DepartmentController;
 use App\Http\Controllers\Web\DscDoctorController;
+use App\Http\Controllers\Web\FacultyController;
 use App\Http\Controllers\Web\GrantFundOrderController;
 use App\Http\Controllers\Web\OakScientificArticleController;
 use App\Http\Controllers\Web\ObtainedIndustrialSamplePatentController;
@@ -42,7 +44,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{user:username}', [UserController::class, 'update'])->whereAlphaNumeric('user')->name('update');
             Route::delete('{user:username}', [UserController::class, 'destroy'])->where('user', '[a-zA-Z0-9\.]+')->name('delete');
         });
-
         Route::prefix('phd-doctors')->name('phd_doctors.')->group(function () {
             Route::get('', [PhdDoctorController::class, 'index'])->name('index');
             Route::get('create', [PhdDoctorController::class, 'create'])->name('create');
@@ -51,7 +52,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{phdDoctor}', [PhdDoctorController::class, 'update'])->whereNumber('phdDoctor')->name('update');
             Route::delete('{phdDoctor}', [PhdDoctorController::class, 'destroy'])->whereNumber('phdDoctor')->name('delete');
         });
-
         Route::prefix('dsc-doctors')->name('dsc_doctors.')->group(function () {
             Route::get('', [DscDoctorController::class, 'index'])->name('index');
             Route::get('create', [DscDoctorController::class, 'create'])->name('create');
@@ -60,7 +60,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{dScDoctor}', [DscDoctorController::class, 'update'])->whereNumber('dScDoctor')->name('update');
             Route::delete('{dScDoctor}', [DscDoctorController::class, 'destroy'])->whereNumber('dScDoctor')->name('delete');
         });
-
         Route::prefix('grant-fund-order')->name('grant_fund_order.')->group(function () {
             Route::get('', [GrantFundOrderController::class, 'index'])->name('index');
             Route::get('create', [GrantFundOrderController::class, 'create'])->name('create');
@@ -69,7 +68,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{grantFundOrder}', [GrantFundOrderController::class, 'update'])->whereNumber('grantFundOrder')->name('update');
             Route::delete('{grantFundOrder}', [GrantFundOrderController::class, 'destroy'])->whereNumber('grantFundOrder')->name('delete');
         });
-
         Route::prefix('scientific-research-conduct')->name('scientific_research_conduct.')->group(function () {
             Route::get('', [ScientificResearchConductController::class, 'index'])->name('index');
             Route::get('create', [ScientificResearchConductController::class, 'create'])->name('create');
@@ -78,7 +76,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{scientificResearchConduct}', [ScientificResearchConductController::class, 'update'])->whereNumber('scientificResearchConduct')->name('update');
             Route::delete('{scientificResearchConduct}', [ScientificResearchConductController::class, 'destroy'])->whereNumber('scientificResearchConduct')->name('delete');
         });
-
         Route::prefix('state-grant-fund')->name('state_grant_fund.')->group(function () {
             Route::get('', [StateGrantFundController::class, 'index'])->name('index');
             Route::get('create', [StateGrantFundController::class, 'create'])->name('create');
@@ -87,7 +84,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{stateGrantFund}', [StateGrantFundController::class, 'update'])->whereNumber('stateGrantFund')->name('update');
             Route::delete('{stateGrantFund}', [StateGrantFundController::class, 'destroy'])->whereNumber('stateGrantFund')->name('delete');
         });
-
         Route::prefix('scientific-research-effectiveness')->name('scientific_research_effectiveness.')->group(function () {
             Route::get('', [ScientificResearchEffectivenessController::class, 'index'])->name('index');
             Route::get('create', [ScientificResearchEffectivenessController::class, 'create'])->name('create');
@@ -95,6 +91,23 @@ Route::middleware('auth')->group(function () {
             Route::post('', [ScientificResearchEffectivenessController::class, 'store'])->name('store');
             Route::put('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'update'])->whereNumber('scientificResearchEffectiveness')->name('update');
             Route::delete('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'destroy'])->whereNumber('scientificResearchEffectiveness')->name('delete');
+        });
+
+        Route::prefix('faculty')->name('faculty.')->group(function () {
+            Route::get('', [FacultyController::class, 'index'])->name('index');
+            Route::get('create', [FacultyController::class, 'create'])->name('create');
+            Route::get('{faculty}', [FacultyController::class, 'edit'])->whereNumber('faculty')->name('edit');
+            Route::post('', [FacultyController::class, 'store'])->name('store');
+            Route::put('{faculty}', [FacultyController::class, 'update'])->whereNumber('faculty')->name('update');
+            Route::delete('{faculty}', [FacultyController::class, 'destroy'])->whereNumber('faculty')->name('delete');
+        });
+        Route::prefix('department')->name('department.')->group(function () {
+            Route::get('', [DepartmentController::class, 'index'])->name('index');
+            Route::get('create', [DepartmentController::class, 'create'])->name('create');
+            Route::post('', [DepartmentController::class, 'store'])->name('store');
+            Route::get('{department}', [DepartmentController::class, 'edit'])->whereNumber('department')->name('edit');
+            Route::put('{department}', [DepartmentController::class, 'update'])->whereNumber('department')->name('update');
+            Route::delete('{department}', [DepartmentController::class, 'destroy'])->whereNumber('department')->name('delete');
         });
     });
 

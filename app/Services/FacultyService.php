@@ -45,7 +45,21 @@ class FacultyService
         return $faculty;
     }
 
-    public function addTranslation(Faculty &$faculty, array $validated)
+    /**
+     * @param Faculty $faculty
+     * @return bool|null
+     */
+    public function delete(Faculty $faculty): ?bool
+    {
+        return $faculty->delete();
+    }
+
+    /**
+     * @param Faculty $faculty
+     * @param array $validated
+     * @return void
+     */
+    protected function addTranslation(Faculty &$faculty, array $validated)
     {
         $faculty->setTranslations('full_name', [
             'uz' => $validated['full_name_uz'],

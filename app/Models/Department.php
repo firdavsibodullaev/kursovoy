@@ -10,6 +10,8 @@ class Department extends BaseModel
 {
     use HasTranslations;
 
+    protected $fillable = ['short_name', 'full_name', 'faculty_id'];
+
     public $translatable = ['short_name', 'full_name'];
 
     /**
