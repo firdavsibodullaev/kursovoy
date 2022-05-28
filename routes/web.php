@@ -92,7 +92,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'update'])->whereNumber('scientificResearchEffectiveness')->name('update');
             Route::delete('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'destroy'])->whereNumber('scientificResearchEffectiveness')->name('delete');
         });
-
         Route::prefix('faculty')->name('faculty.')->group(function () {
             Route::get('', [FacultyController::class, 'index'])->name('index');
             Route::get('create', [FacultyController::class, 'create'])->name('create');
