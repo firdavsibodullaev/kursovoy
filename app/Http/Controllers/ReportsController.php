@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Report\ArticlesResource;
+use App\Services\OakScientificArticleService;
 use App\Services\ReportService;
 use App\Services\ScientificArticleCitationService;
 use App\Services\ScientificArticleService;
@@ -46,8 +47,21 @@ class ReportsController extends Controller
         return new ArticlesResource($articles);
     }
 
-    public function getDegreeReport()
+    /**
+     * @return ArticlesResource
+     */
+    public function oakScientificArticleCitations(): ArticlesResource
     {
-        $report = app(ReportService::class)->getDegreeReport();
+        $articles = app(OakScientificArticleService::class)->getReport();
+        return new ArticlesResource($articles);
+    }
+
+    /**
+     * @return ArticlesResource
+     */
+    public function oakScientificArticleCitationsByFaculty(): ArticlesResource
+    {
+        $articles = app(OakScientificArticleService::class)->getReportByFaculty();
+        return new ArticlesResource($articles);
     }
 }

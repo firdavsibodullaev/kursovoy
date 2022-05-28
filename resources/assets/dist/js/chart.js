@@ -1,7 +1,9 @@
 var createScientificArticlesPieChart__var = null,
     getScientificArticleByFacultyPieChart__var = null,
     scientificArticleCitationsByFacultyPieChart__var = null,
-    createScientificArticleCitationsPieChart__var = null;
+    createScientificArticleCitationsPieChart__var = null,
+    oakScientificArticleCitationsByFacultyPieChart__var = null,
+    createOakScientificArticleCitationsPieChart__var = null;
 
 const getScientificArticlePieChart = function (is_update = false) {
 
@@ -80,6 +82,46 @@ const getScientificArticleCitationByFacultyPieChart = function (is_update = fals
                 return;
             }
             updateScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart__var, data);
+        }
+    });
+}
+
+const getOakScientificArticlePieChart = function (is_update = false) {
+    let scientificArticlesPieChart = $('#oakScientificArticlePieChart');
+    let year = $('#oakScientificArticlePieChart_year').val();
+    scientificArticlesPieChart.parent().prev().removeClass('d-none');
+    $.ajax({
+        url: `${location.origin}/report/get-oak-article-report?year=${year ? year : ''}`,
+        type: 'get',
+        success({data}) {
+            scientificArticlesPieChart.parent().prev().addClass('d-none');
+            scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
+            if (!is_update) {
+                createOakScientificArticleCitationsPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                return;
+            }
+
+            updateScientificArticlesPieChart(createOakScientificArticleCitationsPieChart__var, data);
+        }
+    });
+}
+
+const getOakScientificArticleByFacultyPieChart = function (is_update = false) {
+    let scientificArticleCitationsByFacultyPieChart = $('#oakScientificArticleByFacultyPieChart');
+    let year = $('#oakScientificArticleByFacultyPieChart_year').val();
+    let faculty = $('#oakScientificArticleByFacultyPieChart_faculty').val();
+    scientificArticleCitationsByFacultyPieChart.parent().prev().removeClass('d-none');
+    $.ajax({
+        url: `${location.origin}/report/get-oak-article-report-by-faculty?yaer=${year ? year : ''}&faculty=${faculty ? faculty : ''}`,
+        type: 'get',
+        success({data}) {
+            scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
+            scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
+            if (!is_update) {
+                oakScientificArticleCitationsByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                return;
+            }
+            updateScientificArticlesPieChart(oakScientificArticleCitationsByFacultyPieChart__var, data);
         }
     });
 }

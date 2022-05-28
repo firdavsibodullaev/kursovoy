@@ -138,7 +138,6 @@ class ScientificArticleCitationService
         return $articleCitation->forceDelete();
     }
 
-
     /**
      * @return CollectionAlias
      */
