@@ -26,8 +26,8 @@ class CustomPathGenerator implements PathGenerator
     public function getPathForConversions(Media $media): string
     {
         return $this->getBasePath($media)
-            . 'conversations'
-            . DIRECTORY_SEPARATOR;
+            . 'conversions'
+            . '/';
     }
 
     /**
@@ -38,7 +38,7 @@ class CustomPathGenerator implements PathGenerator
     {
         return $this->getBasePath($media)
             . 'responsive-images'
-            . DIRECTORY_SEPARATOR;
+            . '/';
     }
 
 
@@ -49,20 +49,17 @@ class CustomPathGenerator implements PathGenerator
      */
     protected function getBasePath(Media $media): string
     {
-        /** @var BaseModel $class */
-        $class = $media->model;
-
-        $base_name = class_basename($class);
+        $base_name = class_basename($media->model_type);
         $path = Str::kebab(Str::pluralStudly($base_name));
 
         $base_path = Str::plural($path)
-            . DIRECTORY_SEPARATOR . str_replace('_', '-', $media->collection_name)
-            . DIRECTORY_SEPARATOR . $media->getKey();
+            . '/' . str_replace('_', '-', $media->collection_name)
+            . '/' . $media->getKey();
 
         if ($prefix = config('media-library.prefix')) {
-            return $prefix . DIRECTORY_SEPARATOR . $base_path . DIRECTORY_SEPARATOR;
+            return $prefix . '/' . $base_path . '/';
         }
 
-        return $base_path . DIRECTORY_SEPARATOR;
+        return $base_path . '/';
     }
 }
