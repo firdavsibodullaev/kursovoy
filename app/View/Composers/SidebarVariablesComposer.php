@@ -50,6 +50,12 @@ class SidebarVariablesComposer
         $copyright_protected_various_material_information = ['copyright_protected_various_material_information.index', 'copyright_protected_various_material_information.edit'];
         $copyright_protected_various_material_information_create = ['copyright_protected_various_material_information.create'];
 
+        $department = ['department.index', 'department.edit'];
+        $department_create = ['department.create', ];
+
+        $faculty = ['faculty.index', 'faculty.edit'];
+        $faculty_create = ['faculty.create', ];
+
         $view->with('pages', [
             'users' => $users,
             'users_create' => $users_create,
@@ -86,7 +92,13 @@ class SidebarVariablesComposer
             'obtained_industrial_sample_patent_group' => array_merge($obtained_industrial_sample_patent, $obtained_industrial_sample_patent_create),
             'copyright_protected_various_material_information' => $copyright_protected_various_material_information,
             'copyright_protected_various_material_information_create' => $copyright_protected_various_material_information_create,
-            'copyright_protected_various_material_information_group' => array_merge($copyright_protected_various_material_information, $copyright_protected_various_material_information_create)
+            'copyright_protected_various_material_information_group' => array_merge($copyright_protected_various_material_information, $copyright_protected_various_material_information_create),
+            'faculty' => $faculty,
+            'faculty_create' => $faculty_create,
+            'faculty_group' => array_merge($faculty, $faculty_create),
+            'department' => $department,
+            'department_create' => $department_create,
+            'department_group' => array_merge($department, $department_create)
         ]);
     }
 }
