@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Факультетлар')
+@section('title', 'Кафедралар')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
     <li class="breadcrumb-item active">Кафедралар</li>
