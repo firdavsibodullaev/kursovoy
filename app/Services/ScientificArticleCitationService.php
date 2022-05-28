@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Department;
+use App\Models\Faculty;
 use App\Models\ScientificArticleCitation;
 use App\Models\User;
 use App\Spatie\Filters\UsersRelationFilter;
@@ -9,6 +11,7 @@ use App\Spatie\Sorts\MagazineSorts;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as CollectionAlias;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\Concerns\SortsQuery;
@@ -133,5 +136,97 @@ class ScientificArticleCitationService
     public function forceDelete(ScientificArticleCitation $articleCitation): ?bool
     {
         return $articleCitation->forceDelete();
+    }
+
+
+    /**
+     * @return CollectionAlias
+     */
+    public function getReport(): CollectionAlias
+    {
+        $year = request('year');
+        $articles_count = ScientificArticleCitation::query()
+            ->where('is_confirmed', '=', true)
+            ->when($year, function (Builder $query) use ($year) {
+                $query->whereYear('magazine_publish_date', '=', $year);
+            })
+            ->count();
+        $faculties = Faculty::query()->with('users.scientificArticleCitations')->get();
+        $collection = [];
+        $collection['labels'] = $faculties->pluck('short_name');
+        $collection['datasets'][] = [
+            'data' => [],
+            'backgroundColor' => []
+        ];
+        $faculties->each(function (Faculty $faculty) use (&$collection, $year) {
+            $temp_number = 0;
+            $faculty->users->each(function (User $user) use (&$temp_number, $year) {
+                $temp_number += $user
+                    ->scientificArticleCitations()
+                    ->where('scientific_article_citations.is_confirmed', '=', true)
+                    ->when($year, function (Builder $query) use ($year) {
+                        $query->whereYear('magazine_publish_date', '=', $year);
+                    })
+                    ->count();
+            });
+            $collection['datasets'][0]['data'][] = $temp_number;
+            $collection['datasets'][0]['backgroundColor'][] = random_color($collection['datasets'][0]['backgroundColor']);
+        });
+
+        return collect([
+            'all' => $articles_count,
+            'data' => $collection
+        ]);
+    }
+
+    /**
+     * @return CollectionAlias
+     */
+    public function getReportByFaculty(): CollectionAlias
+    {
+        $year = request('year');
+        $faculty = request('faculty', 1);
+        $articles_count = ScientificArticleCitation::query()
+            ->join('scientific_article_citation_user', 'scientific_article_citations.id', '=', 'scientific_article_citation_user.scientific_article_citation_id')
+            ->join('users', 'scientific_article_citation_user.user_id', '=', 'users.id')
+            ->where('users.faculty_id', '=', $faculty)
+            ->where('is_confirmed', '=', true)
+            ->when($year, function (Builder $query) use ($year) {
+                $query->whereYear('scientific_article_citations.magazine_publish_date', '=', $year);
+            })
+            ->count('scientific_article_citations.*');
+
+        $departments = Department::query()
+            ->with('users.scientificArticleCitations')
+            ->where('faculty_id', '=', $faculty)
+            ->get();
+
+        $collection = [];
+        $collection['labels'] = $departments->pluck('short_name');
+
+        $collection['datasets'][] = [
+            'data' => [],
+            'backgroundColor' => []
+        ];
+        $departments->each(function (Department $department) use (&$collection, $year) {
+            $temp_number = 0;
+            $department->users->each(function (User $user) use (&$temp_number, $year) {
+                $temp_number += $user
+                    ->scientificArticles()
+                    ->where('is_confirmed', '=', true)
+                    ->when($year, function (Builder $query) use ($year) {
+                        $query->whereYear('magazine_publish_date', '=', $year);
+                    })
+                    ->count();
+            });
+            $collection['datasets'][0]['data'][] = $temp_number;
+            $collection['datasets'][0]['backgroundColor'][] = random_color($collection['datasets'][0]['backgroundColor']);
+        });
+
+        return collect([
+            'all' => $articles_count,
+            'data' => $collection
+        ]);
+
     }
 }

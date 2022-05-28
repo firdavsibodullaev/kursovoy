@@ -219,7 +219,7 @@ class ScientificArticleService
             ->where('users.faculty_id', '=', $faculty)
             ->where('is_confirmed', '=', true)
             ->when($year, function (Builder $query) use ($year) {
-                $query->where('publish_year', '=', $year);
+                $query->where('scientific_articles.publish_year', '=', $year);
             })
             ->count('scientific_articles.*');
 
@@ -242,7 +242,7 @@ class ScientificArticleService
                     ->scientificArticles()
                     ->where('scientific_articles.is_confirmed', '=', true)
                     ->when($year, function (Builder $query) use ($year) {
-                        $query->where('publish_year', '=', $year);
+                        $query->where('scientific_articles.publish_year', '=', $year);
                     })
                     ->count();
             });

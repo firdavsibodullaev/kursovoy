@@ -91,6 +91,18 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function scientificArticleCitations(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            ScientificArticleCitation::class,
+            'scientific_article_citation_user',
+            'user_id',
+            'scientific_article_citation_id');
+    }
+
+    /**
      * @return string
      */
     public function getFullNameAttribute(): string

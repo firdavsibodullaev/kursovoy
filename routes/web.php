@@ -206,6 +206,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('report')->name('report.')->group(function () {
         Route::get('get-articles-report', [ReportsController::class, 'scientificArticles'])->name('scientificArticles');
         Route::get('get-articles-report-by-faculty', [ReportsController::class, 'scientificArticlesByFaculty'])->name('scientificArticlesByFaculty');
+        Route::get('get-article-citations-report', [ReportsController::class, 'scientificArticleCitations'])->name('scientificArticleCitations');
+        Route::get('get-article-citations-report-by-faculty', [ReportsController::class, 'scientificArticleCitationsByFaculty'])->name('scientificArticleCitationsByFaculty');
+        Route::get('get-degree-report', [[ReportsController::class, 'getDegreeReport']])->name('degreeReport');
     });
 });
 
