@@ -64,7 +64,7 @@
             <h3 class="text-center">
                 Фан номзоди (PhD) илмий даражасига эга (шунингдек, илмий даражага эга бўлмай доцент
                 илмий унвонини олган) профессор-ўқитувчилар улуши ҳақида
-                МАЪЛУМОТ
+                <br>МАЪЛУМОТ
             </h3>
             @include('partials.messages')
             <table class="table table-striped text-center table-bordered" id="users-list">

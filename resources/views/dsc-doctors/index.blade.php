@@ -64,7 +64,7 @@
             <h3 class="text-center">
                 Фан доктори (DSc-фан доктори) илмий даражасига эга (шунингдек, илмий даражага эга бўлмай профессор
                 илмий унвонини олган ёки унга тенглаштирилган) профессор-ўқитувчилар ҳақида
-                МАЪЛУМОТ
+                <br>МАЪЛУМОТ
             </h3>
             @include('partials.messages')
             <table class="table table-striped text-center table-bordered" id="users-list">
