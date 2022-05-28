@@ -29,6 +29,6 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole(Role::query()->first()->id);
 
-        User::factory(UserFactory::class)->count(500)->create();
+//        User::factory(UserFactory::class)->count(500)->create();
     }
 }

@@ -212,10 +212,10 @@ class ScientificArticleCitationService
             $temp_number = 0;
             $department->users->each(function (User $user) use (&$temp_number, $year) {
                 $temp_number += $user
-                    ->scientificArticles()
-                    ->where('is_confirmed', '=', true)
+                    ->scientificArticleCitations()
+                    ->where('scientific_article_citations.is_confirmed', '=', true)
                     ->when($year, function (Builder $query) use ($year) {
-                        $query->whereYear('magazine_publish_date', '=', $year);
+                        $query->whereYear('scientific_article_citations.magazine_publish_date', '=', $year);
                     })
                     ->count();
             });
