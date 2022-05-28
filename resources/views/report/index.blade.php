@@ -1,7 +1,7 @@
 <div class="card card-primary">
     <div class="card-body">
         <div class="col-12">
-            <h4>Илмий мақолаларга иқтибослар</h4>
+            <h4>Илмий мақолаларга иқтибослар (1.5-жадвал)</h4>
             <div class="row">
                 <div class="col-6">
                     <div class="card">
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div class="col-12">
-            <h4>Илмий мақолалар</h4>
+            <h4>Илмий мақолалар (1.6.1-жадвал)</h4>
             <div class="row">
                 <div class="col-6">
                     <div class="card">
@@ -197,7 +197,7 @@
             </div>
         </div>
         <div class="col-12">
-            <h4>Илмий мақолалар (ОАК рўйхатидаги)</h4>
+            <h4>Илмий мақолалар (ОАК рўйхатидаги) (1.6.2-жадвал)</h4>
             <div class="row">
                 <div class="col-6">
                     <div class="card">
