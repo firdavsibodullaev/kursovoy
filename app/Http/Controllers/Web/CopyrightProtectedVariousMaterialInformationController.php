@@ -82,8 +82,11 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
      */
     public function edit(CopyrightProtectedVariousMaterialInformation $information): string
     {
+        $information = $information->load(['users', 'institute', 'file']);
+        abort_unless(has_access_to_edit($information->users->pluck('id')->toArray()), 404);
+
         return view('copyright-protected-various-material-information.edit', [
-            'information' => $information->load(['users', 'institute', 'file']),
+            'information' => $information,
             'institutes' => (new ListService())->getInstitutesList(),
             'users' => (new UserService())->list(),
         ])->render();
@@ -98,6 +101,9 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
      */
     public function update(CopyrightProtectedVariousMaterialInformationRequest $request, CopyrightProtectedVariousMaterialInformation $information): RedirectResponse
     {
+        $information = $information->load(['users', 'institute', 'file']);
+        abort_unless(has_access_to_edit($information->users->pluck('id')->toArray()), 404);
+
         DB::transaction(function () use ($request, $information) {
             $this->informationService->update($information, $request->validated());
         });

@@ -82,8 +82,11 @@ class ObtainedIndustrialSamplePatentController extends Controller
      */
     public function edit(ObtainedIndustrialSamplePatent $obtainedIndustrialSamplePatent): string
     {
+        $obtainedIndustrialSamplePatent = $obtainedIndustrialSamplePatent->load(['users', 'institute', 'file']);
+        abort_unless(has_access_to_edit($obtainedIndustrialSamplePatent->users->pluck('id')->toArray()), 404);
+
         return view('obtained-industrial-sample-patent.edit', [
-            'patent' => $obtainedIndustrialSamplePatent->load(['users', 'institute', 'file']),
+            'patent' => $obtainedIndustrialSamplePatent,
 //            'institutes' => (new ListService())->getInstitutesList(),
             'users' => (new UserService())->list(),
         ])->render();
@@ -98,6 +101,9 @@ class ObtainedIndustrialSamplePatentController extends Controller
      */
     public function update(ObtainedIndustrialSamplePatentRequest $request, ObtainedIndustrialSamplePatent $obtainedIndustrialSamplePatent): RedirectResponse
     {
+        $obtainedIndustrialSamplePatent = $obtainedIndustrialSamplePatent->load(['users', 'institute', 'file']);
+        abort_unless(has_access_to_edit($obtainedIndustrialSamplePatent->users->pluck('id')->toArray()), 404);
+
         DB::transaction(function () use ($request, $obtainedIndustrialSamplePatent) {
             $this->patentService->update($obtainedIndustrialSamplePatent, $request->validated());
         });

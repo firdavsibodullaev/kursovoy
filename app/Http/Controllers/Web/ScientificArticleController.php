@@ -88,8 +88,11 @@ class ScientificArticleController extends Controller
      */
     public function edit(ScientificArticle $scientificArticle): string
     {
+        $scientificArticle = $scientificArticle->load(['users', 'magazine', 'country']);
+        abort_unless(has_access_to_edit($scientificArticle->users->pluck('id')->toArray()), 404);
+
         return view('articles.edit', [
-            'article' => $scientificArticle->load(['users', 'magazine', 'country']),
+            'article' => $scientificArticle,
             'countries' => (new ListService())->getCountries(),
             'users' => (new UserService())->list(),
             'magazines' => (new ListService())->getMagazinesList(),
@@ -108,6 +111,8 @@ class ScientificArticleController extends Controller
      */
     public function update(ScientificArticleRequest $request, ScientificArticle $scientificArticle): RedirectResponse
     {
+        abort_unless(has_access_to_edit($scientificArticle->users->pluck('id')->toArray()), 404);
+
         $this->articleService->update($scientificArticle, $request->validated());
         $status = $request->get('status');
         $status = $status === 'not-confirmed' ? 'not_confirmed' : 'index';

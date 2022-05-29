@@ -64,3 +64,30 @@ if (!function_exists('get_year_select_options')) {
         }
     }
 }
+
+if (!function_exists('has_access_to_edit')) {
+    /**
+     * @param mixed $user_id
+     * @return bool
+     */
+    function has_access_to_edit($user_id): bool
+    {
+        if (!auth()->check()) {
+            return false;
+        }
+
+        if (is_super_admin()) {
+            return true;
+        }
+
+        if (is_array($user_id) && !in_array(auth()->id(), $user_id)) {
+            return false;
+        }
+
+        if (!is_array($user_id) && $user_id != auth()->id()) {
+            return false;
+        }
+
+        return true;
+    }
+}

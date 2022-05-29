@@ -82,8 +82,11 @@ class ScientificArticleCitationController extends Controller
      */
     public function edit(ScientificArticleCitation $scientificArticleCitation): string
     {
+        $scientificArticleCitation = $scientificArticleCitation->load(['magazine', 'users']);
+        abort_unless(has_access_to_edit($scientificArticleCitation->users->pluck('id')->toArray()), 404);
+
         return view('article-citation.edit', [
-            'citation' => $scientificArticleCitation->load(['magazine', 'users']),
+            'citation' => $scientificArticleCitation,
             'magazines' => (new ListService())->getMagazinesList(),
             'languages' => LanguagesConstant::translatedList(),
             'users' => (new UserService())->list()
@@ -99,6 +102,8 @@ class ScientificArticleCitationController extends Controller
      */
     public function update(UpdateScientificArticleCitationRequest $request, ScientificArticleCitation $scientificArticleCitation): RedirectResponse
     {
+        abort_unless(has_access_to_edit($scientificArticleCitation->users->pluck('id')->toArray()), 404);
+
         $this->articleCitationService->update($scientificArticleCitation, $request->validated());
 
         $status = $request->get('status');

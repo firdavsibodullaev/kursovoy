@@ -85,8 +85,11 @@ class OakScientificArticleController extends Controller
      */
     public function edit(OakScientificArticle $oakScientificArticle): string
     {
+        $oakScientificArticle = $oakScientificArticle->load(['users', 'magazine']);
+        abort_unless(has_access_to_edit($oakScientificArticle->users->pluck('id')->toArray()), 404);
+
         return view('oak-articles.edit', [
-            'article' => $oakScientificArticle->load(['users', 'magazine']),
+            'article' => $oakScientificArticle,
             'users' => (new UserService())->list(),
             'magazines' => (new ListService())->getMagazinesList(),
             'collection' => MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE
@@ -104,7 +107,11 @@ class OakScientificArticleController extends Controller
      */
     public function update(OakScientificArticleRequest $request, OakScientificArticle $oakScientificArticle): RedirectResponse
     {
+        $oakScientificArticle = $oakScientificArticle->load(['users', 'magazine']);
+        abort_unless(has_access_to_edit($oakScientificArticle->users->pluck('id')->toArray()), 404);
+
         $this->articleService->update($oakScientificArticle, $request->validated());
+
         $status = $request->get('status');
         $status = $status === 'not-confirmed' ? 'not_confirmed' : 'index';
         return redirect()->route("oak_scientific_article.{$status}");

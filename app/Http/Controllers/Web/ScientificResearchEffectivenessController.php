@@ -78,6 +78,9 @@ class ScientificResearchEffectivenessController extends Controller
      */
     public function edit(ScientificResearchEffectiveness $scientificResearchEffectiveness): string
     {
+        $scientificResearchEffectiveness = $scientificResearchEffectiveness->load(['users', 'publication']);
+        abort_unless(has_access_to_edit($scientificResearchEffectiveness->users->pluck('id')->toArray()), 404);
+
         return view('scientific-research-effectiveness.edit', [
             'research' => $scientificResearchEffectiveness,
             'publications' => (new ListService())->getPublicationsList(),
@@ -94,6 +97,8 @@ class ScientificResearchEffectivenessController extends Controller
      */
     public function update(ScientificResearchEffectivenessRequest $request, ScientificResearchEffectiveness $scientificResearchEffectiveness): RedirectResponse
     {
+        abort_unless(has_access_to_edit($scientificResearchEffectiveness->users->pluck('id')->toArray()), 404);
+
         $this->effectivenessService->update($scientificResearchEffectiveness, $request->validated());
 
         return redirect()->route('scientific_research_effectiveness.index');
