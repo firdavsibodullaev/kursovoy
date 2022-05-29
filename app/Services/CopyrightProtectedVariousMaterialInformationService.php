@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Constants\MediaCollectionsConstant;
 use App\Models\CopyrightProtectedVariousMaterialInformation;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
@@ -18,8 +20,15 @@ class CopyrightProtectedVariousMaterialInformationService
 {
     public function fetchWithPagination(): LengthAwarePaginator
     {
+        /** @var User $user */
+        $user = auth()->user();
         return QueryBuilder::for(CopyrightProtectedVariousMaterialInformation::with(['institute', 'users', 'file']))
             ->where('is_confirmed', '=', true)
+            ->when(!is_super_admin(), function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('copyright_protected_various_material_information_users.user_id', '=', $user->id);
+                });
+            })
             ->paginate();
     }
 

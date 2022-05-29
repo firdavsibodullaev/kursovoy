@@ -1,46 +1,13 @@
 @extends('layout')
-@section('meta')
-    <meta name="filter" content="{{route('scientific_research_effectiveness.index')}}">
-@endsection
-@section('title', 'Илмий-тадқиқот ишларининг самарадорлиги')
+@section('title', 'Илмий-тадқиқот ишларининг самарадорлиги (Тасдиқланмаганлар)')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош саҳифа</a></li>
-    <li class="breadcrumb-item active">Илмий-тадқиқот ишларининг самарадорлиги</li>
+    <li class="breadcrumb-item active"><a href="{{route('scientific_research_effectiveness.index')}}">Илмий-тадқиқот ишларининг самарадорлиги</a></li>
+    <li class="breadcrumb-item active">Тасдиқланмаганлар</li>
 @endsection
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="row">
-                <div class="col-4">
-                    @php($param = request('filter', '')['user'] ?? '')
-                    <div class="search-block w-100 mb-3">
-                        <div class="input-group input-group">
-                            @php($param = request('filter', '')['user'] ?? '')
-                            <input class="form-control"
-                                   id="search-input"
-                                   type="text"
-                                   value="{{$param}}"
-                                   placeholder="Поиск..."
-                                   aria-label="Поиск">
-                            <div class="input-group-append">
-                                <button class="btn btn-info" onclick="filter(this, 'user')" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <button class="btn btn-default" onclick="filter(this, '')" type="submit">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @if(is_super_admin())
-                    <div class="col-8 d-flex justify-content-end">
-                        <div>
-                            <a href="{{route('scientific_research_effectiveness.not_confirmed')}}" class="btn btn-primary btn-flat">Тасдиқланмаганлар</a>
-                        </div>
-                    </div>
-                @endif
-            </div>
             <h3 class="text-center">
                 Рейтинги аниқланаётган йилда бажарилган илмий-тадқиқот ишларининг самарадорлиги ҳақида
                 <br>МАЪЛУМОТ
@@ -83,6 +50,14 @@
                         <td>{{$research->accept}}</td>
                         <td>{{$research->publication->title}}</td>
                         <td>
+                            <a href="javascript:void(0)"
+                               onclick="document.querySelector('#confirm-form-{{$research->id}}').submit()"
+                               class="btn btn-success btn-flat btn-sm">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <form action="{{route('scientific_research_effectiveness.confirm', $research->id)}}"
+                                  id="confirm-form-{{$research->id}}"
+                                  method="post">@csrf</form>
                             <a href="{{route('scientific_research_effectiveness.edit', $research->id)}}"
                                class="btn btn-warning btn-flat btn-sm">
                                 <i class="fas fa-pen"></i>
@@ -99,7 +74,6 @@
                 @endforeach
                 </tbody>
             </table>
-            {{$researches->links('components.pagination')}}
         </div>
     </div>
     <x-delete :url="route('scientific_research_effectiveness.delete', 'ID')"/>

@@ -115,7 +115,11 @@
                 </div>
                 <div class="form-group">
                     <label for="users">Муаллифлар</label>
-                    <select name="users[]" multiple="multiple" data-placeholder="Муаллифларни танланг" id="users"
+                    <select name="users[]"
+                            multiple="multiple"
+                            data-placeholder="Муаллифларни танланг"
+                            id="users"
+                            {{is_super_admin() ? '' : 'disabled'}}
                             class="select2 w-100">
                         @foreach($users as $user)
                             <option

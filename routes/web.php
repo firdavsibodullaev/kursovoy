@@ -84,14 +84,6 @@ Route::middleware('auth')->group(function () {
             Route::put('{stateGrantFund}', [StateGrantFundController::class, 'update'])->whereNumber('stateGrantFund')->name('update');
             Route::delete('{stateGrantFund}', [StateGrantFundController::class, 'destroy'])->whereNumber('stateGrantFund')->name('delete');
         });
-        Route::prefix('scientific-research-effectiveness')->name('scientific_research_effectiveness.')->group(function () {
-            Route::get('', [ScientificResearchEffectivenessController::class, 'index'])->name('index');
-            Route::get('create', [ScientificResearchEffectivenessController::class, 'create'])->name('create');
-            Route::get('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'edit'])->whereNumber('scientificResearchEffectiveness')->name('edit');
-            Route::post('', [ScientificResearchEffectivenessController::class, 'store'])->name('store');
-            Route::put('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'update'])->whereNumber('scientificResearchEffectiveness')->name('update');
-            Route::delete('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'destroy'])->whereNumber('scientificResearchEffectiveness')->name('delete');
-        });
         Route::prefix('faculty')->name('faculty.')->group(function () {
             Route::get('', [FacultyController::class, 'index'])->name('index');
             Route::get('create', [FacultyController::class, 'create'])->name('create');
@@ -169,6 +161,22 @@ Route::middleware('auth')->group(function () {
         Route::delete('{oakScientificArticle}', [OakScientificArticleController::class, 'destroy'])->whereNumber('oakScientificArticle')->name('delete');
         Route::delete('destroy/{oakScientificArticle}', [OakScientificArticleController::class, 'forceDestroy'])->whereNumber('oakScientificArticle')->name('force_delete');
         Route::post('attach/{oakScientificArticle}', [OakScientificArticleController::class, 'attach'])->whereNumber('oakScientificArticle')->name('attach');
+    });
+
+    Route::prefix('scientific-research-effectiveness')->name('scientific_research_effectiveness.')->group(function () {
+        Route::get('', [ScientificResearchEffectivenessController::class, 'index'])->name('index');
+        Route::get('not-confirmed', [ScientificResearchEffectivenessController::class, 'getNotConfirmedArticlesList'])
+            ->middleware('is_admin')
+            ->name('not_confirmed');
+        Route::get('create', [ScientificResearchEffectivenessController::class, 'create'])->name('create');
+        Route::get('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'edit'])->whereNumber('scientificResearchEffectiveness')->name('edit');
+        Route::post('', [ScientificResearchEffectivenessController::class, 'store'])->name('store');
+        Route::put('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'update'])->whereNumber('scientificResearchEffectiveness')->name('update');
+        Route::post('confirm/{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'confirm'])
+            ->middleware('is_admin')
+            ->whereNumber('scientificResearchEffectiveness')
+            ->name('confirm');
+        Route::delete('{scientificResearchEffectiveness}', [ScientificResearchEffectivenessController::class, 'destroy'])->whereNumber('scientificResearchEffectiveness')->name('delete');
     });
 
     Route::prefix('obtained-industrial-sample-patent')->name('obtained_industrial_sample_patent.')->group(function () {

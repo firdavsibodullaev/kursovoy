@@ -30,7 +30,9 @@ class ScientificResearchEffectivenessRequest extends FormRequest
             'accepted_report' => 'required|string|max:190',
             'accepted_date' => 'required|date',
             'publication_name' => 'required|string|max:190',
-            'users' => 'required|array',
+            'users' => $this->isMethod('post')
+                ? 'required|array'
+                : 'nullable|array',
             'users.*' => 'required|exists:users,id',
             'publication_checkbox' => ['nullable', 'string', 'regex:/^on$/']
         ];

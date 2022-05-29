@@ -18,6 +18,8 @@ class ScientificResearchEffectiveness extends BaseModel
         'accepted_report',
         'accepted_date',
         'publication_id',
+        'confirmed_at',
+        'is_confirmed'
     ];
 
     /**

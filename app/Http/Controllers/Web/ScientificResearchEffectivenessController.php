@@ -35,6 +35,16 @@ class ScientificResearchEffectivenessController extends Controller
     }
 
     /**
+     * @return string
+     */
+    public function getNotConfirmedArticlesList(): string
+    {
+        return view('scientific-research-effectiveness.not-confirmed', [
+            'researches' => $this->effectivenessService->getNotConfirmedArticlesList(),
+        ])->render();
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return string
@@ -85,6 +95,17 @@ class ScientificResearchEffectivenessController extends Controller
     public function update(ScientificResearchEffectivenessRequest $request, ScientificResearchEffectiveness $scientificResearchEffectiveness): RedirectResponse
     {
         $this->effectivenessService->update($scientificResearchEffectiveness, $request->validated());
+
+        return redirect()->route('scientific_research_effectiveness.index');
+    }
+
+    /**
+     * @param ScientificResearchEffectiveness $scientificResearchEffectiveness
+     * @return RedirectResponse
+     */
+    public function confirm(ScientificResearchEffectiveness $scientificResearchEffectiveness): RedirectResponse
+    {
+        $this->effectivenessService->confirm($scientificResearchEffectiveness);
 
         return redirect()->route('scientific_research_effectiveness.index');
     }

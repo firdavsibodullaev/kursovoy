@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Spatie\Filters\UsersRelationFilter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as CollectionAlias;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -24,14 +25,33 @@ class ScientificResearchEffectivenessService
      */
     public function fetchWithPagination(): LengthAwarePaginator
     {
+        /** @var User $user */
+        $user = auth()->user();
         return QueryBuilder::for(ScientificResearchEffectiveness::with(['users', 'publication']))
             ->defaultSort('id')
             ->allowedFilters([
                 AllowedFilter::custom('user', new UsersRelationFilter)
             ])
+            ->when(!is_super_admin(), function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('scientific_research_effectiveness_users.user_id', '=', $user->id);
+                });
+            })
             ->where('is_confirmed', '=', true)
             ->paginate()
             ->withQueryString();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getNotConfirmedArticlesList(): Collection
+    {
+
+        return QueryBuilder::for(ScientificResearchEffectiveness::with(['users', 'publication']))
+            ->defaultSort('id')
+            ->where('is_confirmed', '=', false)
+            ->get();
     }
 
     /**
@@ -61,10 +81,23 @@ class ScientificResearchEffectivenessService
 
         /** @var ScientificResearchEffectiveness $effectiveness */
         $effectiveness = tap($effectiveness)->update($validated);
-
-        $effectiveness->users()->sync($validated['users']);
+        if (is_super_admin()) {
+            $effectiveness->users()->sync($validated['users']);
+        }
 
         return $effectiveness->load('users');
+    }
+
+    /**
+     * @param ScientificResearchEffectiveness $article
+     * @return bool
+     */
+    public function confirm(ScientificResearchEffectiveness $article): bool
+    {
+        return $article->update([
+            'is_confirmed' => true,
+            'confirmed_at' => now()
+        ]);
     }
 
     /**
@@ -85,7 +118,7 @@ class ScientificResearchEffectivenessService
         $articles_count = ScientificResearchEffectiveness::query()
             ->where('is_confirmed', '=', true)
             ->when($year, function (Builder $query) use ($year) {
-                $query->where('accepted_date', '=', $year);
+                $query->whereYear('accepted_date', '=', $year);
             })
             ->count();
         $faculties = Faculty::query()->with('users.oakScientificArticles')->get();
@@ -102,7 +135,7 @@ class ScientificResearchEffectivenessService
                     ->scientificResearchEffectiveness()
                     ->where('scientific_research_effectivenesses.is_confirmed', '=', true)
                     ->when($year, function (Builder $query) use ($year) {
-                        $query->where('scientific_research_effectivenesses.accepted_date', '=', $year);
+                        $query->whereYear('scientific_research_effectivenesses.accepted_date', '=', $year);
                     })
                     ->count();
             });
@@ -129,7 +162,7 @@ class ScientificResearchEffectivenessService
             ->where('users.faculty_id', '=', $faculty)
             ->where('is_confirmed', '=', true)
             ->when($year, function (Builder $query) use ($year) {
-                $query->where('scientific_research_effectivenesses.accepted_date', '=', $year);
+                $query->whereYear('scientific_research_effectivenesses.accepted_date', '=', $year);
             })
             ->count('scientific_research_effectivenesses.*');
 
@@ -152,7 +185,7 @@ class ScientificResearchEffectivenessService
                     ->scientificResearchEffectiveness()
                     ->where('scientific_research_effectivenesses.is_confirmed', '=', true)
                     ->when($year, function (Builder $query) use ($year) {
-                        $query->where('scientific_research_effectivenesses.accepted_date', '=', $year);
+                        $query->whereYear('scientific_research_effectivenesses.accepted_date', '=', $year);
                     })
                     ->count();
             });

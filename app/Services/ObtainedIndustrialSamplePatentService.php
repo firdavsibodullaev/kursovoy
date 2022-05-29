@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Constants\MediaCollectionsConstant;
 use App\Models\ObtainedIndustrialSamplePatent;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
@@ -21,8 +23,16 @@ class ObtainedIndustrialSamplePatentService
      */
     public function fetchWithPagination(): LengthAwarePaginator
     {
+        /** @var User $user */
+        $user = auth()->user();
+
         return QueryBuilder::for(ObtainedIndustrialSamplePatent::with(['users', 'institute', 'file']))
             ->orderByDesc('date')
+            ->when(!is_super_admin(), function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('obtained_industrial_sample_patent_users.user_id', '=', $user->id);
+                });
+            })
             ->where('is_confirmed', '=', true)
             ->paginate()
             ->withQueryString();
@@ -31,7 +41,7 @@ class ObtainedIndustrialSamplePatentService
     /**
      * @return Collection
      */
-    public function getNotConfirmedArticlesList()
+    public function getNotConfirmedArticlesList(): Collection
     {
         return ObtainedIndustrialSamplePatent::query()->orderByDesc('id')
             ->where('is_confirmed', '=', false)
