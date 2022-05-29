@@ -208,8 +208,10 @@ Route::middleware('auth')->group(function () {
         Route::get('get-articles-report-by-faculty', [ReportsController::class, 'scientificArticlesByFaculty'])->name('scientificArticlesByFaculty');
         Route::get('get-article-citations-report', [ReportsController::class, 'scientificArticleCitations'])->name('scientificArticleCitations');
         Route::get('get-article-citations-report-by-faculty', [ReportsController::class, 'scientificArticleCitationsByFaculty'])->name('scientificArticleCitationsByFaculty');
-        Route::get('get-oak-article-report', [ReportsController::class, 'oakScientificArticleCitations'])->name('oakScientificArticleCitations');
-        Route::get('get-oak-article-report-by-faculty', [ReportsController::class, 'oakScientificArticleCitationsByFaculty'])->name('oakScientificArticleCitationsByFaculty');
+        Route::get('get-oak-article-report', [ReportsController::class, 'oakScientificArticles'])->name('oakScientificArticleCitations');
+        Route::get('get-oak-article-report-by-faculty', [ReportsController::class, 'oakScientificArticlesByFaculty'])->name('oakScientificArticleCitationsByFaculty');
+        Route::get('get-scientific-research-effectiveness', [ReportsController::class, 'scientificResearchEffectiveness'])->name('scientificResearchEffectiveness');
+        Route::get('get-scientific-research-effectiveness-by-faculty', [ReportsController::class, 'scientificResearchEffectivenessByFaculty'])->name('scientificResearchEffectivenessByFaculty');
         Route::get('get-degree-report', [[ReportsController::class, 'getDegreeReport']])->name('degreeReport');
     });
 });

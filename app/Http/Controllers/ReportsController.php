@@ -7,6 +7,7 @@ use App\Services\OakScientificArticleService;
 use App\Services\ReportService;
 use App\Services\ScientificArticleCitationService;
 use App\Services\ScientificArticleService;
+use App\Services\ScientificResearchEffectivenessService;
 
 class ReportsController extends Controller
 {
@@ -50,7 +51,7 @@ class ReportsController extends Controller
     /**
      * @return ArticlesResource
      */
-    public function oakScientificArticleCitations(): ArticlesResource
+    public function oakScientificArticles(): ArticlesResource
     {
         $articles = app(OakScientificArticleService::class)->getReport();
         return new ArticlesResource($articles);
@@ -59,9 +60,27 @@ class ReportsController extends Controller
     /**
      * @return ArticlesResource
      */
-    public function oakScientificArticleCitationsByFaculty(): ArticlesResource
+    public function oakScientificArticlesByFaculty(): ArticlesResource
     {
         $articles = app(OakScientificArticleService::class)->getReportByFaculty();
+        return new ArticlesResource($articles);
+    }
+
+    /**
+     * @return ArticlesResource
+     */
+    public function scientificResearchEffectiveness(): ArticlesResource
+    {
+        $articles = app(ScientificResearchEffectivenessService::class)->getReport();
+        return new ArticlesResource($articles);
+    }
+
+    /**
+     * @return ArticlesResource
+     */
+    public function scientificResearchEffectivenessByFaculty(): ArticlesResource
+    {
+        $articles = app(ScientificResearchEffectivenessService::class)->getReportByFaculty();
         return new ArticlesResource($articles);
     }
 }

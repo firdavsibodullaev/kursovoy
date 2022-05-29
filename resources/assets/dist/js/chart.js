@@ -3,7 +3,9 @@ var createScientificArticlesPieChart__var = null,
     scientificArticleCitationsByFacultyPieChart__var = null,
     createScientificArticleCitationsPieChart__var = null,
     oakScientificArticleCitationsByFacultyPieChart__var = null,
-    createOakScientificArticleCitationsPieChart__var = null;
+    createOakScientificArticleCitationsPieChart__var = null,
+    createScientificResearchEffectivenessPieChart__var = null,
+    scientificResearchEffectivenessByFacultyPieChart__var = null;
 
 const getScientificArticlePieChart = function (is_update = false) {
 
@@ -122,6 +124,46 @@ const getOakScientificArticleByFacultyPieChart = function (is_update = false) {
                 return;
             }
             updateScientificArticlesPieChart(oakScientificArticleCitationsByFacultyPieChart__var, data);
+        }
+    });
+}
+
+const getScientificResearchEffectivenessPieChart = function (is_update = false) {
+    let scientificArticlesPieChart = $('#scientificResearchEffectivenessPieChart');
+    let year = $('#scientificResearchEffectivenessPieChart_year').val();
+    scientificArticlesPieChart.parent().prev().removeClass('d-none');
+    $.ajax({
+        url: `${location.origin}/report/get-scientific-research-effectiveness?year=${year ? year : ''}`,
+        type: 'get',
+        success({data}) {
+            scientificArticlesPieChart.parent().prev().addClass('d-none');
+            scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
+            if (!is_update) {
+                createScientificResearchEffectivenessPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                return;
+            }
+
+            updateScientificArticlesPieChart(createScientificResearchEffectivenessPieChart__var, data);
+        }
+    });
+}
+
+const getScientificResearchEffectivenessByFacultyPieChart = function (is_update = false) {
+    let scientificArticleCitationsByFacultyPieChart = $('#scientificResearchEffectivenessByFacultyPieChart');
+    let year = $('#scientificResearchEffectivenessByFacultyPieChart_year').val();
+    let faculty = $('#scientificResearchEffectivenessByFacultyPieChart_faculty').val();
+    scientificArticleCitationsByFacultyPieChart.parent().prev().removeClass('d-none');
+    $.ajax({
+        url: `${location.origin}/report/get-scientific-research-effectiveness-by-faculty?yaer=${year ? year : ''}&faculty=${faculty ? faculty : ''}`,
+        type: 'get',
+        success({data}) {
+            scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
+            scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
+            if (!is_update) {
+                scientificResearchEffectivenessByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                return;
+            }
+            updateScientificArticlesPieChart(scientificResearchEffectivenessByFacultyPieChart__var, data);
         }
     });
 }

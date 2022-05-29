@@ -115,6 +115,19 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function scientificResearchEffectiveness(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            ScientificResearchEffectiveness::class,
+            'scientific_research_effectiveness_users',
+            'user_id',
+            'scientific_research_effectiveness_id'
+        );
+    }
+
+    /**
      * @return string
      */
     public function getFullNameAttribute(): string
