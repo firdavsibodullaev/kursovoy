@@ -40,8 +40,8 @@
 
 ## Миграция таблиц на БД
 
-- php artisan migrate
-- php artisan db:seed
+- php artisan migrate (bash-script)
+- php artisan db:seed (bash-script)
 
 ## Кешировать конфигурации
 
