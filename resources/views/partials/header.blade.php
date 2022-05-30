@@ -24,6 +24,11 @@
 {{--                <div class="dropdown-divider"></div>--}}
 {{--            </div>--}}
 {{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </a>
+        </li>
         <li title="Чиқиш" class="nav-item">
             <a class="nav-link"
                href="#"
@@ -33,11 +38,6 @@
                 <form action="{{route('logout')}}" id="logout-form" method="post">
                     @csrf
                 </form>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
     </ul>
