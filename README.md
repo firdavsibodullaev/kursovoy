@@ -1,7 +1,7 @@
 ## Deploy
 
 Системные требования: 
-- PHP >= 7.3
+- PHP >= 7.4
 - BCMath PHP Extension
 - Ctype PHP Extension
 - Fileinfo PHP Extension
