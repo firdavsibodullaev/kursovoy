@@ -20,7 +20,7 @@
 - composer install --optimize-autoloader --no-dev (bash-script)
 - Переименовать файл .env.example => .env
 - php artisan key:generate (bash-script)
-
+- php artisan storage:link
 ## Подключение Базы данных
 
 В файле .env:
