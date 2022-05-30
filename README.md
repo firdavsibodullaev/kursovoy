@@ -16,9 +16,9 @@
 [nginx](https://laravel.com/docs/8.x/deployment#nginx)
 
 - git clone https://github.com/firdavsibodullaev/kursovoy.git **project_directory**
-- composer install --optimize-autoloader --no-dev
+- composer install --optimize-autoloader --no-dev (bash-код)
 - Переименовать файл .env.example => .env
-- php artisan key:generate
+- php artisan key:generate (bash-код)
 
 ## Подключение Базы данных
 
@@ -39,6 +39,6 @@
 
 ## Кешировать конфигурации
 
-- php artisan config:cache
-- php artisan route:cache
-- php artisan view:cache
+- php artisan config:cache (bash-код)
+- php artisan route:cache (bash-код)
+- php artisan view:cache (bash-код)
