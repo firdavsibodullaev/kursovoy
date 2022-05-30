@@ -38,6 +38,11 @@
 - DB_USERNAME=
 - DB_PASSWORD=
 
+## Миграция таблиц на БД
+
+- php artisan migrate
+- php artisan db:seed
+
 ## Кешировать конфигурации
 
 - php artisan config:cache (bash-script)
