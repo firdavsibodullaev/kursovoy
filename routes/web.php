@@ -222,6 +222,8 @@ Route::middleware('auth')->group(function () {
         Route::get('get-scientific-research-effectiveness-by-faculty', [ReportsController::class, 'scientificResearchEffectivenessByFaculty'])->name('scientificResearchEffectivenessByFaculty');
         Route::get('get-copyright-protected-various-information', [ReportsController::class, 'copyrightProtectedVariousInformation'])->name('copyrightProtectedVariousInformation');
         Route::get('get-copyright-protected-various-information-by-faculty', [ReportsController::class, 'copyrightProtectedVariousInformationByFaculty'])->name('copyrightProtectedVariousInformationByFaculty');
+        Route::get('get-obtained-industrial-sample-patent', [ReportsController::class, 'obtainedIndustrialSamplePatent'])->name('obtainedIndustrialSamplePatent');
+        Route::get('get-obtained-industrial-sample-patent-by-faculty', [ReportsController::class, 'obtainedIndustrialSamplePatentByFaculty'])->name('obtainedIndustrialSamplePatentByFaculty');
         Route::get('get-degree-report', [[ReportsController::class, 'getDegreeReport']])->name('degreeReport');
     });
 });

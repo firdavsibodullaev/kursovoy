@@ -141,6 +141,19 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function obtainedIndustrialSamplePatent(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            ObtainedIndustrialSamplePatent::class,
+            'obtained_industrial_sample_patent_users',
+            'user_id',
+            'obtained_industrial_sample_patent_id'
+        );
+    }
+
+    /**
      * @return string
      */
     public function getFullNameAttribute(): string

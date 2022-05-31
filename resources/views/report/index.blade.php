@@ -395,7 +395,106 @@
             </div>
         </div>
         <div class="col-12">
-            <h4>Илмий-тадқиқот ишларининг самарадорлиги (1.9.1-жадвал)</h4>
+            <h4>Профессор-ўқитувчилар томонидан ихтиролари учун олинган патентлар (1.9.2-жадвал)</h4>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header bg-gradient-primary text-center">
+                            <div class="card-title">
+                                Факультетлар миқёсида
+                            </div>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                @php($year = get_year_select_options())
+                                <select id="obtainedIndustrialSamplePatentPieChart_year"
+                                        onchange="obtainedIndustrialSamplePatentPieChart(true)"
+                                        class="custom-select">
+                                    <option value="">Барчаси</option>
+                                    @foreach($year as $option)
+                                        {!! $option !!}
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="small-box">
+                                <!-- Loading (remove the following to stop the loading)-->
+                                <div class="overlay">
+                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                </div>
+                                <!-- end loading -->
+                                <div class="inner">
+                                    <canvas id="obtainedIndustrialSamplePatentPieChart" class="mb-3 charts"></canvas>
+                                </div>
+                                <p class="p-3"><strong>Умумий сони:</strong> <span class="number"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header bg-gradient-primary text-center">
+                            <div class="card-title">
+                                Кафедралар миқёсида
+                            </div>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <select id="obtainedIndustrialSamplePatentByFacultyPieChart_faculty"
+                                                onchange="obtainedIndustrialSamplePatentByFacultyPieChart(true)"
+                                                class="custom-select">
+                                            @foreach($faculties as $faculty)
+                                                <option
+                                                    {{$loop->first ? 'selected' : ''}}
+                                                    value="{{$faculty->id}}">{{$faculty->full_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        @php($year = get_year_select_options())
+                                        <select id="obtainedIndustrialSamplePatentByFacultyPieChart_year"
+                                                onchange="obtainedIndustrialSamplePatentByFacultyPieChart(true)"
+                                                class="custom-select">
+                                            <option value="">Барчаси</option>
+                                            @foreach($year as $option)
+                                                {!! $option !!}
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="small-box">
+                                <!-- Loading (remove the following to stop the loading)-->
+                                <div class="overlay">
+                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                </div>
+                                <!-- end loading -->
+                                <div class="inner">
+                                    <canvas id="obtainedIndustrialSamplePatentByFacultyPieChart"
+                                            class="charts mb-3"></canvas>
+                                </div>
+                                <p class="p-3"><strong>Умумий сони:</strong> <span class="number"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <h4>Гувоҳномалар, муаллифлик ҳуқуқи билан ҳимоя қилинадиган турли материаллар (1.9.3-жадвал)</h4>
             <div class="row">
                 <div class="col-6">
                     <div class="card">
@@ -516,6 +615,8 @@
             getOakScientificArticleByFacultyPieChart();
             getScientificResearchEffectivenessPieChart();
             getScientificResearchEffectivenessByFacultyPieChart();
+            obtainedIndustrialSamplePatentPieChart();
+            obtainedIndustrialSamplePatentByFacultyPieChart();
             getCopyrightProtectedVariousInformationPieChart();
             getCopyrightProtectedVariousInformationByFacultyPieChart();
         });

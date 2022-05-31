@@ -7,7 +7,9 @@ var createScientificArticlesPieChart__var = null,
     createScientificResearchEffectivenessPieChart__var = null,
     scientificResearchEffectivenessByFacultyPieChart__var = null,
     createCopyrightProtectedVariousInformationPieChart__var = null,
-    copyrightProtectedVariousInformationByFacultyPieChart__var = null;
+    copyrightProtectedVariousInformationByFacultyPieChart__var = null,
+    createObtainedIndustrialSamplePatentPieChart__var = null,
+    obtainedIndustrialSamplePatentByFacultyPieChart__var = null;
 
 const getScientificArticlePieChart = function (is_update = false) {
 
@@ -206,6 +208,46 @@ const getCopyrightProtectedVariousInformationByFacultyPieChart = function (is_up
                 return;
             }
             updateScientificArticlesPieChart(copyrightProtectedVariousInformationByFacultyPieChart__var, data);
+        }
+    });
+}
+
+const obtainedIndustrialSamplePatentPieChart = function (is_update = false) {
+    let scientificArticlesPieChart = $('#obtainedIndustrialSamplePatentPieChart');
+    let year = $('#obtainedIndustrialSamplePatentPieChart_year').val();
+    scientificArticlesPieChart.parent().prev().removeClass('d-none');
+    $.ajax({
+        url: `${location.origin}/report/get-obtained-industrial-sample-patent?year=${year ? year : ''}`,
+        type: 'get',
+        success({data}) {
+            scientificArticlesPieChart.parent().prev().addClass('d-none');
+            scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
+            if (!is_update) {
+                createObtainedIndustrialSamplePatentPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                return;
+            }
+
+            updateScientificArticlesPieChart(createObtainedIndustrialSamplePatentPieChart__var, data);
+        }
+    });
+}
+
+const obtainedIndustrialSamplePatentByFacultyPieChart = function (is_update = false) {
+    let scientificArticleCitationsByFacultyPieChart = $('#obtainedIndustrialSamplePatentByFacultyPieChart');
+    let year = $('#obtainedIndustrialSamplePatentByFacultyPieChart_year').val();
+    let faculty = $('#obtainedIndustrialSamplePatentByFacultyPieChart_faculty').val();
+    scientificArticleCitationsByFacultyPieChart.parent().prev().removeClass('d-none');
+    $.ajax({
+        url: `${location.origin}/report/get-obtained-industrial-sample-patent-by-faculty?yaer=${year ? year : ''}&faculty=${faculty ? faculty : ''}`,
+        type: 'get',
+        success({data}) {
+            scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
+            scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
+            if (!is_update) {
+                obtainedIndustrialSamplePatentByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                return;
+            }
+            updateScientificArticlesPieChart(obtainedIndustrialSamplePatentByFacultyPieChart__var, data);
         }
     });
 }

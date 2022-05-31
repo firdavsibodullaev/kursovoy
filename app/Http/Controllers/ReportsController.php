@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Report\ArticlesResource;
 use App\Services\CopyrightProtectedVariousMaterialInformationService;
 use App\Services\OakScientificArticleService;
+use App\Services\ObtainedIndustrialSamplePatentService;
 use App\Services\ReportService;
 use App\Services\ScientificArticleCitationService;
 use App\Services\ScientificArticleService;
@@ -100,6 +101,24 @@ class ReportsController extends Controller
     public function copyrightProtectedVariousInformationByFaculty(): ArticlesResource
     {
         $articles = app(CopyrightProtectedVariousMaterialInformationService::class)->getReportByFaculty();
+        return new ArticlesResource($articles);
+    }
+
+    /**
+     * @return ArticlesResource
+     */
+    public function obtainedIndustrialSamplePatent(): ArticlesResource
+    {
+        $articles = app(ObtainedIndustrialSamplePatentService::class)->getReport();
+        return new ArticlesResource($articles);
+    }
+
+    /**
+     * @return ArticlesResource
+     */
+    public function obtainedIndustrialSamplePatentByFaculty(): ArticlesResource
+    {
+        $articles = app(ObtainedIndustrialSamplePatentService::class)->getReportByFaculty();
         return new ArticlesResource($articles);
     }
 }
