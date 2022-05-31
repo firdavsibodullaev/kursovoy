@@ -5,7 +5,9 @@ var createScientificArticlesPieChart__var = null,
     oakScientificArticleCitationsByFacultyPieChart__var = null,
     createOakScientificArticleCitationsPieChart__var = null,
     createScientificResearchEffectivenessPieChart__var = null,
-    scientificResearchEffectivenessByFacultyPieChart__var = null;
+    scientificResearchEffectivenessByFacultyPieChart__var = null,
+    createCopyrightProtectedVariousInformationPieChart__var = null,
+    copyrightProtectedVariousInformationByFacultyPieChart__var = null;
 
 const getScientificArticlePieChart = function (is_update = false) {
 
@@ -164,6 +166,46 @@ const getScientificResearchEffectivenessByFacultyPieChart = function (is_update 
                 return;
             }
             updateScientificArticlesPieChart(scientificResearchEffectivenessByFacultyPieChart__var, data);
+        }
+    });
+}
+
+const getCopyrightProtectedVariousInformationPieChart = function (is_update = false) {
+    let scientificArticlesPieChart = $('#copyrightProtectedVariousInformationPieChart');
+    let year = $('#copyrightProtectedVariousInformationPieChart_year').val();
+    scientificArticlesPieChart.parent().prev().removeClass('d-none');
+    $.ajax({
+        url: `${location.origin}/report/get-copyright-protected-various-information?year=${year ? year : ''}`,
+        type: 'get',
+        success({data}) {
+            scientificArticlesPieChart.parent().prev().addClass('d-none');
+            scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
+            if (!is_update) {
+                createCopyrightProtectedVariousInformationPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                return;
+            }
+
+            updateScientificArticlesPieChart(createCopyrightProtectedVariousInformationPieChart__var, data);
+        }
+    });
+}
+
+const getCopyrightProtectedVariousInformationByFacultyPieChart = function (is_update = false) {
+    let scientificArticleCitationsByFacultyPieChart = $('#copyrightProtectedVariousInformationByFacultyPieChart');
+    let year = $('#copyrightProtectedVariousInformationByFacultyPieChart_year').val();
+    let faculty = $('#copyrightProtectedVariousInformationByFacultyPieChart_faculty').val();
+    scientificArticleCitationsByFacultyPieChart.parent().prev().removeClass('d-none');
+    $.ajax({
+        url: `${location.origin}/report/get-copyright-protected-various-information-by-faculty?yaer=${year ? year : ''}&faculty=${faculty ? faculty : ''}`,
+        type: 'get',
+        success({data}) {
+            scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
+            scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
+            if (!is_update) {
+                copyrightProtectedVariousInformationByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                return;
+            }
+            updateScientificArticlesPieChart(copyrightProtectedVariousInformationByFacultyPieChart__var, data);
         }
     });
 }

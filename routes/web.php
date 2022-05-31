@@ -220,6 +220,8 @@ Route::middleware('auth')->group(function () {
         Route::get('get-oak-article-report-by-faculty', [ReportsController::class, 'oakScientificArticlesByFaculty'])->name('oakScientificArticleCitationsByFaculty');
         Route::get('get-scientific-research-effectiveness', [ReportsController::class, 'scientificResearchEffectiveness'])->name('scientificResearchEffectiveness');
         Route::get('get-scientific-research-effectiveness-by-faculty', [ReportsController::class, 'scientificResearchEffectivenessByFaculty'])->name('scientificResearchEffectivenessByFaculty');
+        Route::get('get-copyright-protected-various-information', [ReportsController::class, 'copyrightProtectedVariousInformation'])->name('copyrightProtectedVariousInformation');
+        Route::get('get-copyright-protected-various-information-by-faculty', [ReportsController::class, 'copyrightProtectedVariousInformationByFaculty'])->name('copyrightProtectedVariousInformationByFaculty');
         Route::get('get-degree-report', [[ReportsController::class, 'getDegreeReport']])->name('degreeReport');
     });
 });

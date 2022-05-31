@@ -4,10 +4,13 @@ namespace App\Services;
 
 use App\Constants\MediaCollectionsConstant;
 use App\Models\CopyrightProtectedVariousMaterialInformation;
+use App\Models\Department;
+use App\Models\Faculty;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as CollectionAlias;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -107,5 +110,96 @@ class CopyrightProtectedVariousMaterialInformationService
     public function delete(CopyrightProtectedVariousMaterialInformation $information): ?bool
     {
         return $information->delete();
+    }
+
+    /**
+     * @return CollectionAlias
+     */
+    public function getReport(): CollectionAlias
+    {
+        $year = request('year');
+        $articles_count = CopyrightProtectedVariousMaterialInformation::query()
+            ->where('is_confirmed', '=', true)
+            ->when($year, function (Builder $query) use ($year) {
+                $query->whereYear('date', '=', $year);
+            })
+            ->count();
+        $faculties = Faculty::query()->with('users.copyrightProtectedVariousMaterialInformation')->get();
+        $collection = [];
+        $collection['labels'] = $faculties->pluck('short_name');
+        $collection['datasets'][] = [
+            'data' => [],
+            'backgroundColor' => []
+        ];
+        $faculties->each(function (Faculty $faculty) use (&$collection, $year) {
+            $temp_number = 0;
+            $faculty->users->each(function (User $user) use (&$temp_number, $year) {
+                $temp_number += $user
+                    ->copyrightProtectedVariousMaterialInformation()
+                    ->where('copyright_protected_various_material_information.is_confirmed', '=', true)
+                    ->when($year, function (Builder $query) use ($year) {
+                        $query->whereYear('copyright_protected_various_material_information.date', '=', $year);
+                    })
+                    ->count();
+            });
+            $collection['datasets'][0]['data'][] = $temp_number;
+            $collection['datasets'][0]['backgroundColor'][] = random_color($collection['datasets'][0]['backgroundColor']);
+        });
+
+        return collect([
+            'all' => $articles_count,
+            'data' => $collection
+        ]);
+    }
+
+    /**
+     * @return CollectionAlias
+     */
+    public function getReportByFaculty(): CollectionAlias
+    {
+        $year = request('year');
+        $faculty = request('faculty', 1);
+        $articles_count = CopyrightProtectedVariousMaterialInformation::query()
+            ->join('copyright_protected_various_material_information_users', 'copyright_protected_various_material_information.id', '=', 'copyright_protected_various_material_information_users.copyright_protected_various_material_information_id')
+            ->join('users', 'copyright_protected_various_material_information_users.user_id', '=', 'users.id')
+            ->where('users.faculty_id', '=', $faculty)
+            ->where('is_confirmed', '=', true)
+            ->when($year, function (Builder $query) use ($year) {
+                $query->whereYear('copyright_protected_various_material_information.date', '=', $year);
+            })
+            ->count('copyright_protected_various_material_information.*');
+
+        $departments = Department::query()
+            ->with('users.copyrightProtectedVariousMaterialInformation')
+            ->where('faculty_id', '=', $faculty)
+            ->get();
+
+        $collection = [];
+        $collection['labels'] = $departments->pluck('short_name');
+
+        $collection['datasets'][] = [
+            'data' => [],
+            'backgroundColor' => []
+        ];
+        $departments->each(function (Department $department) use (&$collection, $year) {
+            $temp_number = 0;
+            $department->users->each(function (User $user) use (&$temp_number, $year) {
+                $temp_number += $user
+                    ->copyrightProtectedVariousMaterialInformation()
+                    ->where('copyright_protected_various_material_information.is_confirmed', '=', true)
+                    ->when($year, function (Builder $query) use ($year) {
+                        $query->whereYear('copyright_protected_various_material_information.date', '=', $year);
+                    })
+                    ->count();
+            });
+            $collection['datasets'][0]['data'][] = $temp_number;
+            $collection['datasets'][0]['backgroundColor'][] = random_color($collection['datasets'][0]['backgroundColor']);
+        });
+
+        return collect([
+            'all' => $articles_count,
+            'data' => $collection
+        ]);
+
     }
 }

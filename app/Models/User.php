@@ -128,6 +128,19 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function copyrightProtectedVariousMaterialInformation(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            CopyrightProtectedVariousMaterialInformation::class,
+            'copyright_protected_various_material_information_users',
+            'user_id',
+            'copyright_protected_various_material_information_id'
+        );
+    }
+
+    /**
      * @return string
      */
     public function getFullNameAttribute(): string
