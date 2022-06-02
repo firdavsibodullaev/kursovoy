@@ -3,7 +3,7 @@
 namespace App\ExcelReports\Reports;
 
 use App\ExcelReports\ReportSheet;
-use App\Models\ScientificResearchConduct;
+use App\Models\StateGrantFund;
 use Illuminate\Database\Eloquent\Builder;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -36,7 +36,7 @@ class StateGrantFundSheet implements ReportSheet
     public function getCollection()
     {
         $year = request('state_grant_fund_year');
-        return ScientificResearchConduct::query()
+        return StateGrantFund::query()
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('year', '=', $year);
             })
@@ -56,7 +56,7 @@ class StateGrantFundSheet implements ReportSheet
         $full_price_total = $collection->sum('full_price');
         /**
          * @var int $key
-         * @var ScientificResearchConduct $item
+         * @var StateGrantFund $item
          */
         foreach ($collection as $key => $item) {
             unset($collection[$key]);
