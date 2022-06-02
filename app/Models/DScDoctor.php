@@ -10,6 +10,13 @@ namespace App\Models;
  */
 class DScDoctor extends BaseModel
 {
+    protected $fillable = [
+        'user',
+        'diploma',
+        'professor_without_science_degree',
+        'speciality_name',
+        'employment'
+    ];
     protected $casts = [
         'user' => 'object',
         'diploma' => 'array',

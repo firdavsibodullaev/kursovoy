@@ -12,7 +12,5 @@ class BaseModel extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, SoftDeletes;
 
-    protected $guarded = ['id'];
-
     const DELETED_AT = 'deleted_at';
 }
