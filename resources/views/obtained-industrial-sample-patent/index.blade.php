@@ -33,6 +33,13 @@
                         </div>
                     </div>
                 </div>
+                @if(is_super_admin())
+                    <div class="col-8 d-flex justify-content-end">
+                        <div>
+                            <a href="{{route('obtained_industrial_sample_patent.not_confirmed')}}" class="btn btn-primary btn-flat">Тасдиқланмаганлар</a>
+                        </div>
+                    </div>
+                @endif
             </div>
             <h3 class="text-center">
                 Рейтинги аниқланаётган йилда профессор-ўқитувчилари томонидан ихтиро,
