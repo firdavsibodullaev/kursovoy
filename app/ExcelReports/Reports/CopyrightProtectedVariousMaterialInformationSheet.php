@@ -4,6 +4,7 @@ namespace App\ExcelReports\Reports;
 
 use App\ExcelReports\ReportSheet;
 use App\Models\CopyrightProtectedVariousMaterialInformation;
+use Illuminate\Database\Eloquent\Builder;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -34,8 +35,12 @@ class CopyrightProtectedVariousMaterialInformationSheet implements ReportSheet
 
     public function getCollection()
     {
+        $year = request('copyright_protected_various_material_information_year');
         return CopyrightProtectedVariousMaterialInformation::query()
             ->with(['users', 'institute'])
+            ->when($year, function (Builder $query) use ($year) {
+                $query->whereYear('date', '=', $year);
+            })
             ->get();
     }
 

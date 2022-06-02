@@ -35,12 +35,12 @@ class ScientificResearchEffectivenessSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('accepted_date');
+        $year = request('scientific_research_effectiveness_year');
         return ScientificResearchEffectiveness::query()
             ->with(['users', 'publication'])
             ->where('is_confirmed', '=', true)
             ->when($year, function (Builder $query) use ($year) {
-                $query->where('accepted_date', '=', $year);
+                $query->whereYear('accepted_date', '=', $year);
             })
             ->get();
     }

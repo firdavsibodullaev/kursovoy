@@ -35,7 +35,7 @@ class ScientificResearchConductSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('year');
+        $year = request('scientific_research_conduct_year');
         return ScientificResearchConduct::query()
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('year', '=', $year);
@@ -46,7 +46,6 @@ class ScientificResearchConductSheet implements ReportSheet
     /**
      * @param Worksheet $worksheet
      * @return int
-     * @throws Exception
      */
     public function body(Worksheet &$worksheet): int
     {

@@ -4,6 +4,7 @@ namespace App\ExcelReports\Reports;
 
 use App\ExcelReports\ReportSheet;
 use App\Models\ObtainedIndustrialSamplePatent;
+use Illuminate\Database\Eloquent\Builder;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -34,8 +35,12 @@ class ObtainedIndustrialSamplePatentSheet implements ReportSheet
 
     public function getCollection()
     {
+        $year = request('obtained_industrial_sample_patent_year');
         return ObtainedIndustrialSamplePatent::query()
             ->with(['users', 'institute'])
+            ->when($year, function (Builder $query) use ($year) {
+                $query->whereYear('date', '=', $year);
+            })
             ->get();
     }
 

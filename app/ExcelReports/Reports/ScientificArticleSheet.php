@@ -4,6 +4,7 @@ namespace App\ExcelReports\Reports;
 
 use App\ExcelReports\ReportSheet;
 use App\Models\ScientificArticle;
+use Illuminate\Database\Eloquent\Builder;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -35,9 +36,13 @@ class ScientificArticleSheet implements ReportSheet
 
     public function getCollection()
     {
+        $year = request('scientific_article_year');
         return ScientificArticle::query()
             ->where('is_confirmed', '=', true)
             ->with(['users', 'magazine', 'country'])
+            ->when($year, function (Builder $query) use ($year) {
+                $query->where('publish_year', '=', $year);
+            })
             ->get();
     }
 

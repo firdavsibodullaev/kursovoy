@@ -102,7 +102,8 @@ Route::middleware('auth')->group(function () {
             Route::delete('{department}', [DepartmentController::class, 'destroy'])->whereNumber('department')->name('delete');
         });
 
-        Route::get('excel-export', ExcelExportController::class);
+        Route::view('excel-page', 'report.excel-page')->name('excel_page');
+        Route::get('excel-export', ExcelExportController::class)->name('excel_export');
     });
 
     Route::prefix('article-citation')->name('article_citation.')->group(function () {

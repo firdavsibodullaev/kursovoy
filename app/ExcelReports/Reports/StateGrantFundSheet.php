@@ -35,7 +35,7 @@ class StateGrantFundSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('year');
+        $year = request('state_grant_fund_year');
         return ScientificResearchConduct::query()
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('year', '=', $year);
@@ -46,8 +46,7 @@ class StateGrantFundSheet implements ReportSheet
     /**
      * @param Worksheet $worksheet
      * @return int
-     * @throws Exception
-     */
+     4*/
     public function body(Worksheet &$worksheet): int
     {
         $iter = 0;

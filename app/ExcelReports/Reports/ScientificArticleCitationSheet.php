@@ -5,6 +5,7 @@ namespace App\ExcelReports\Reports;
 use App\Constants\LanguagesConstant;
 use App\ExcelReports\ReportSheet;
 use App\Models\ScientificArticleCitation;
+use Illuminate\Database\Eloquent\Builder;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -36,9 +37,13 @@ class ScientificArticleCitationSheet implements ReportSheet
 
     public function getCollection()
     {
+        $year = request('citation_year');
         return ScientificArticleCitation::query()
             ->where('is_confirmed', '=', true)
             ->with(['users', 'magazine'])
+            ->when($year, function (Builder $query) use ($year) {
+                $query->whereYear('magazine_publish_date', '=', $year);
+            })
             ->get();
     }
 
