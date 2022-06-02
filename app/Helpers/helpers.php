@@ -91,3 +91,10 @@ if (!function_exists('has_access_to_edit')) {
         return true;
     }
 }
+
+if (!function_exists('br2nl')) {
+    function br2nl(string $string)
+    {
+        return str_ireplace(["<br />","<br>","<br/>"], " \n", $string);
+    }
+}

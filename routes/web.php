@@ -228,5 +228,5 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-
+Route::get('excel-export', \App\Http\Controllers\ExcelExportController::class);
 Auth::routes();
