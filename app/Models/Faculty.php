@@ -11,6 +11,11 @@ class Faculty extends BaseModel
 {
     use HasTranslations;
 
+    protected $fillable = [
+        'full_name',
+        'short_name'
+    ];
+
     public $translatable = ['short_name', 'full_name'];
 
     /**

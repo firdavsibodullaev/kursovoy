@@ -10,6 +10,14 @@ namespace App\Models;
  */
 class PhdDoctor extends BaseModel
 {
+    protected $fillable = [
+        'user',
+        'diploma',
+        'professor_without_science_degree',
+        'employment',
+        'speciality_name'
+    ];
+
     protected $casts = [
         'user' => 'object',
         'diploma' => 'array',
