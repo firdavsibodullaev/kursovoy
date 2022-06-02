@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExcelExportController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\Web\CopyrightProtectedVariousMaterialInformationController;
 use App\Http\Controllers\Web\DepartmentController;
@@ -100,6 +101,8 @@ Route::middleware('auth')->group(function () {
             Route::put('{department}', [DepartmentController::class, 'update'])->whereNumber('department')->name('update');
             Route::delete('{department}', [DepartmentController::class, 'destroy'])->whereNumber('department')->name('delete');
         });
+
+        Route::get('excel-export', ExcelExportController::class);
     });
 
     Route::prefix('article-citation')->name('article_citation.')->group(function () {
@@ -228,5 +231,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('excel-export', \App\Http\Controllers\ExcelExportController::class);
 Auth::routes();
