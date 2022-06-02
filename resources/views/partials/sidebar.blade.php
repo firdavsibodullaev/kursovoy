@@ -173,32 +173,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item {{is_route($pages['scientific_research_effectiveness_group'], 'group')}}">
-                        <a href="#"
-                           class="nav-link {{is_route($pages['scientific_research_effectiveness_group'], 'link')}}">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Илмий-тадқиқот ишларининг самарадорлиги
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('scientific_research_effectiveness.index')}}"
-                                   class="nav-link {{is_route($pages['scientific_research_effectiveness'], 'link')}}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Рўйҳат</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('scientific_research_effectiveness.create')}}"
-                                   class="nav-link {{is_route($pages['scientific_research_effectiveness_create'], 'link')}}">
-                                    <i class="fas fa-plus-circle nav-icon"></i>
-                                    <p>Янги</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 @endif
                 <li class="nav-item {{is_route($pages['scientific_research_effectiveness_group'], 'group')}}">
                     <a href="#"
