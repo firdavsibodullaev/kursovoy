@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <h4 class="text-bold">Данные аутентификационные</h4>
+                        <h4 class="text-bold">Данные аутентификации</h4>
                         <hr>
                         <div class="form-group">
                             <label for="username">Логин</label>
