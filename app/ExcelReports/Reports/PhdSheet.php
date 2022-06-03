@@ -43,7 +43,7 @@ class PhdSheet implements ReportSheet
      */
     public function body(Worksheet &$worksheet): int
     {
-        $iter = 0;
+        $iter = 6;
         $dsc = $this->getCollection();
         /**
          * @var int $key
@@ -51,7 +51,7 @@ class PhdSheet implements ReportSheet
          */
         foreach ($dsc as $key => $item) {
             unset($dsc[$key]);
-            $iter = $key + 6;
+            $iter += $key;
             $worksheet->setCellValue("A{$iter}", $key + 1)
                 ->setCellValue("B{$iter}", $item->user_full_name)
                 ->setCellValue("C{$iter}", is_null($item->diploma) ? '' : $item->diploma['series'])

@@ -51,7 +51,7 @@ class ScientificResearchEffectivenessSheet implements ReportSheet
      */
     public function body(Worksheet &$worksheet): int
     {
-        $iter = 0;
+        $iter = 9;
         $collection = $this->getCollection();
         /**
          * @var int $key
@@ -59,7 +59,7 @@ class ScientificResearchEffectivenessSheet implements ReportSheet
          */
         foreach ($collection as $key => $item) {
             unset($collection[$key]);
-            $iter = $key + 9;
+            $iter += $key;
             $worksheet->setCellValue("A{$iter}", $key + 1)
                 ->setCellValue("B{$iter}", br2nl($item->users_formatted))
                 ->setCellValue("C{$iter}", "{$item->specialized_code} - {$item->specialized_name}")

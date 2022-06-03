@@ -54,7 +54,7 @@ class ScientificArticleCitationSheet implements ReportSheet
      */
     public function body(Worksheet &$worksheet): int
     {
-        $iter = 0;
+        $iter = 8;
         $collection = $this->getCollection();
         $count = $collection->count();
         /**
@@ -63,7 +63,7 @@ class ScientificArticleCitationSheet implements ReportSheet
          */
         foreach ($collection as $key => $item) {
             unset($collection[$key]);
-            $iter = $key + 8;
+            $iter += $key;
             $worksheet->setCellValue("A{$iter}", $key + 1)
                 ->setCellValue("B{$iter}", br2nl($item->users_formatted))
                 ->setCellValue("C{$iter}", $item->magazine->title)

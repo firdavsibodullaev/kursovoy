@@ -50,7 +50,7 @@ class ObtainedIndustrialSamplePatentSheet implements ReportSheet
      */
     public function body(Worksheet &$worksheet): int
     {
-        $iter = 0;
+        $iter = 8;
         $dsc = $this->getCollection();
         /**
          * @var int $key
@@ -58,7 +58,7 @@ class ObtainedIndustrialSamplePatentSheet implements ReportSheet
          */
         foreach ($dsc as $key => $item) {
             unset($dsc[$key]);
-            $iter = $key + 8;
+            $iter += $key;
             $worksheet->setCellValue("A{$iter}", $key + 1)
                 ->setCellValue("B{$iter}", "Навоий давлат кончилик ва технологиялар университети")
                 ->setCellValue("C{$iter}", br2nl($item->users_formatted))

@@ -49,7 +49,7 @@ class GrantFundOrderSheet implements ReportSheet
      */
     public function body(Worksheet &$worksheet): int
     {
-        $iter = 0;
+        $iter = 9;
         $collection = $this->getCollection();
         $count = $collection->count();
         $price_total = $collection->sum('price');
@@ -60,7 +60,7 @@ class GrantFundOrderSheet implements ReportSheet
          */
         foreach ($collection as $key => $item) {
             unset($collection[$key]);
-            $iter = $key + 9;
+            $iter += $key;
 
             $worksheet->setCellValue("A{$iter}", $key + 1)
                 ->setCellValue("B{$iter}", $item->name)
