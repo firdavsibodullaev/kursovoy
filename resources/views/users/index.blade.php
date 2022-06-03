@@ -155,40 +155,4 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-
-@endsection
-@section('js')
-    <script>
-
-        const setRolesFormAction = function (id) {
-            const modal = $('#modal-permissions');
-            $.ajax({
-                url: `${location.origin}/users/role/${id}`,
-                type: 'get',
-                success({permissions, user}) {
-                    let checkboxes = "";
-
-                    for (let permission of permissions) {
-
-                        let exists = user.permissions.filter((item) => item.name === permission.name).length !== 0;
-                        let permissionsByRole = user.post.permissions.filter((item) => item.name === permission.name);
-                        permissionsByRole = permissionsByRole.length !== 0 ? permissionsByRole[0].key : '';
-                        checkboxes += `
-                        <div class="form-group clearfix">
-                            <div class="icheck-primary d-inline">
-                                <input type="checkbox" name="permissions[]" value="${permission.key}" ${permissionsByRole === permission.key ? 'disabled' : ''} id="permission-${permission.id}" ${(exists ? 'checked' : '')}>
-                                <label for="permission-${permission.id}">
-                                    ${permission.name}
-                                </label>
-                            </div>
-                        </div>`;
-                    }
-                    const url = modal.attr('data-url').replace('ID', id);
-                    $('#permissions-form').attr('action', url);
-                    modal.find('form').children('.form-body').html(checkboxes);
-                    modal.modal('show');
-                }
-            })
-        }
-    </script>
 @endsection

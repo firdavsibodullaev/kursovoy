@@ -54,7 +54,6 @@ const setFormAction = function (id) {
     $('#delete-form').attr('action', url);
 }
 
-
 const toggleInput = (e) => {
     const block = $(e).parents('.form-group');
     const select = block.children('select');
@@ -79,4 +78,17 @@ const removeFile = function (el) {
     const $this = $(el);
     $this.parents('form').find('#file-block').removeClass('d-none');
     $this.parents('.form-group').remove();
+}
+
+const setRolesFormAction = function (id) {
+    const modal = $('#modal-permissions');
+    $.ajax({
+        url: `${location.origin}/users/role/${id}`, type: 'get', success({permissions, user}) {
+            let checkboxes = config.users.permissions(permissions, user);
+            const url = modal.attr('data-url').replace('ID', id);
+            $('#permissions-form').attr('action', url);
+            modal.find('form').children('.form-body').html(checkboxes);
+            modal.modal('show');
+        }
+    })
 }
