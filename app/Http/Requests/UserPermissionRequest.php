@@ -24,7 +24,7 @@ class UserPermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'permissions' => 'array|required',
+            'permissions' => 'array|nullable',
             'permissions.*' => 'exists:permissions,name|required'
         ];
     }

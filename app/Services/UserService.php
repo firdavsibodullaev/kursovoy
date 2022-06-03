@@ -81,11 +81,9 @@ class UserService
 
         $validated['post'] = $role->id;
 
-        $user->removeRole($user->post);
         $user = tap($user)->update($validated);
 
-        $user->assignRole($role);
-
+        $user->syncRoles($role);
 
         return $user->load(['faculty', 'department']);
     }
@@ -97,7 +95,9 @@ class UserService
      */
     public function givePermissions(User $user, array $permissions): User
     {
-        return $user->syncPermissions($permissions['permissions']);
+        $permissions = empty($permissions) ?: $permissions['permissions'];
+
+        return $user->syncPermissions($permissions);
     }
 
     /**
