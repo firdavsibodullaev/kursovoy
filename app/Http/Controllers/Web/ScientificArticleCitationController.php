@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Constants\LanguagesConstant;
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreScientificArticleCitationRequest;
 use App\Http\Requests\UpdateScientificArticleCitationRequest;
@@ -36,7 +37,12 @@ class ScientificArticleCitationController extends Controller
     {
         return view('article-citation.index', [
             'citations' => $this->articleCitationService->fetchWithPagination(),
-            'languages' => LanguagesConstant::translatedList()
+            'languages' => LanguagesConstant::translatedList(),
+            'permissions' => [
+                'confirm' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_CONFIRM,
+                'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_EDIT,
+                'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_DELETE
+            ]
         ])->render();
     }
 
@@ -44,7 +50,11 @@ class ScientificArticleCitationController extends Controller
     {
         return view('article-citation.not-confirmed', [
             'citations' => $this->articleCitationService->getNotConfirmedArticlesList(),
-            'languages' => LanguagesConstant::translatedList()
+            'languages' => LanguagesConstant::translatedList(),
+            'permissions' => [
+                'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_EDIT,
+                'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_DELETE
+            ]
         ]);
     }
 

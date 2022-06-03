@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserPermissionRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\PermissionsResource;
 use App\Models\Faculty;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -33,8 +37,14 @@ class UserController extends Controller
      */
     public function index(): string
     {
+//        dd(auth()->user()->hasPermissionTo(PermissionsConstant::USERS_EDIT));
         return view('users.index', [
-            'users' => $this->userService->fetchWithPagination()
+            'users' => $this->userService->fetchWithPagination(),
+            'permissions' => [
+                'edit' => PermissionsConstant::USERS_EDIT,
+                'roles' => PermissionsConstant::USERS_CHANGE_ROLES,
+                'delete' => PermissionsConstant::USERS_DELETE,
+            ]
         ])->render();
     }
 
@@ -44,6 +54,29 @@ class UserController extends Controller
     public function search(): AnonymousResourceCollection
     {
         return UserResource::collection($this->userService->fetchWithPagination());
+    }
+
+    /**
+     * @param User $user
+     * @return Collection
+     */
+    public function roles(User $user): Collection
+    {
+        return collect([
+            'user' => new UserResource($user->load(['permissions', 'post_name.permissions'])),
+            'permissions' => PermissionsResource::collection(Permission::query()->get())
+        ]);
+    }
+
+    /**
+     * @param User $user
+     * @param UserPermissionRequest $request
+     * @return RedirectResponse
+     */
+    public function saveRole(User $user, UserPermissionRequest $request): RedirectResponse
+    {
+        $this->userService->givePermissions($user, $request->validated());
+        return redirect()->back();
     }
 
     /**

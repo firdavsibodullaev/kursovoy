@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StateGrantFundRequest;
 use App\Models\StateGrantFund;
@@ -29,7 +30,11 @@ class StateGrantFundController extends Controller
     public function index(): string
     {
         return view('state-grant-fund.index', [
-            'orders' => $this->fundService->fetchWithPagination()
+            'orders' => $this->fundService->fetchWithPagination(),
+            'permissions' => [
+                'edit' => PermissionsConstant::STATE_GRANT_FUND_EDIT,
+                'delete' => PermissionsConstant::STATE_GRANT_FUND_DELETE,
+            ]
         ])->render();
     }
 

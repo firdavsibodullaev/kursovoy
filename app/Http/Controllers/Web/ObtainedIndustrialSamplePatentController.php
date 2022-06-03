@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Constants\MediaCollectionsConstant;
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ObtainedIndustrialSamplePatentRequest;
 use App\Models\ObtainedIndustrialSamplePatent;
@@ -32,7 +33,12 @@ class ObtainedIndustrialSamplePatentController extends Controller
     public function index(): string
     {
         return view('obtained-industrial-sample-patent.index', [
-            'patents' => $this->patentService->fetchWithPagination()
+            'patents' => $this->patentService->fetchWithPagination(),
+            'permissions' => [
+                'confirm' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM,
+                'edit' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_EDIT,
+                'delete' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_DELETE,
+            ]
         ])->render();
     }
 
@@ -42,7 +48,11 @@ class ObtainedIndustrialSamplePatentController extends Controller
     public function getNotConfirmedArticlesList(): string
     {
         return view('obtained-industrial-sample-patent.not-confirmed', [
-            'patents' => $this->patentService->getNotConfirmedArticlesList()
+            'patents' => $this->patentService->getNotConfirmedArticlesList(),
+            'permissions' => [
+                'edit' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_EDIT,
+                'delete' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_DELETE,
+            ]
         ])->render();
     }
 

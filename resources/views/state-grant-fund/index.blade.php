@@ -54,7 +54,8 @@
                             <div class="col-6">
                                 <div class="input-group input-group">
                                     <select onchange="sort()" class="custom-select" name="" id="sort-directions">
-                                        <option {{$direction === 'asc'  || $sort ? 'selected' : ''}} value="asc">По возрастанию
+                                        <option {{$direction === 'asc'  || $sort ? 'selected' : ''}} value="asc">По
+                                            возрастанию
                                         </option>
                                         <option
                                             {{$direction === 'desc' || !$sort ? 'selected' : ''}} value="desc">По
@@ -103,17 +104,21 @@
                         <td>{{$order->full_price}}</td>
                         <td>{{$order->year}}</td>
                         <td>
-                            <a href="{{route('state_grant_fund.edit', $order->id)}}"
-                               class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$order->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @can($permissions['edit'])
+                                <a href="{{route('state_grant_fund.edit', $order->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$order->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -122,5 +127,7 @@
             {{$orders->links('components.pagination')}}
         </div>
     </div>
-    <x-delete :url="route('state_grant_fund.delete', 'ID')"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('state_grant_fund.delete', 'ID')"/>
+    @endcan
 @endsection

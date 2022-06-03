@@ -2,7 +2,8 @@
 @section('title', 'Илмий-тадқиқот ишларининг самарадорлиги (Тасдиқланмаганлар)')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош саҳифа</a></li>
-    <li class="breadcrumb-item active"><a href="{{route('scientific_research_effectiveness.index')}}">Илмий-тадқиқот ишларининг самарадорлиги</a></li>
+    <li class="breadcrumb-item active"><a href="{{route('scientific_research_effectiveness.index')}}">Илмий-тадқиқот
+            ишларининг самарадорлиги</a></li>
     <li class="breadcrumb-item active">Тасдиқланмаганлар</li>
 @endsection
 @section('content')
@@ -58,17 +59,21 @@
                             <form action="{{route('scientific_research_effectiveness.confirm', $research->id)}}"
                                   id="confirm-form-{{$research->id}}"
                                   method="post">@csrf</form>
-                            <a href="{{route('scientific_research_effectiveness.edit', $research->id)}}"
-                               class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$research->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @can($permissions['edit'])
+                                <a href="{{route('scientific_research_effectiveness.edit', $research->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$research->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -76,5 +81,7 @@
             </table>
         </div>
     </div>
-    <x-delete :url="route('scientific_research_effectiveness.delete', 'ID')"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('scientific_research_effectiveness.delete', 'ID')"/>
+    @endcan
 @endsection

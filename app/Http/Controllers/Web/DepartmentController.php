@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
@@ -29,7 +30,11 @@ class DepartmentController extends Controller
     public function index(): string
     {
         return view('department.index', [
-            'faculties' => (new FacultyService())->fetchFacultiesList()
+            'faculties' => (new FacultyService())->fetchFacultiesList(),
+            'permissions' => [
+                'edit' => PermissionsConstant::DEPARTMENT_EDIT,
+                'delete' => PermissionsConstant::DEPARTMENT_DELETE,
+            ]
         ])->render();
     }
 

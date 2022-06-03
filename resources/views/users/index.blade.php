@@ -89,23 +89,35 @@
                         </td>
                         <td>{{$user->phone_formatted}}</td>
                         <td>
-                            <a href="{{route('users.edit', $user->username)}}" class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            @if(auth()->id() === $user->id)
-                                <button disabled
-                                        class="btn btn-danger btn-flat btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            @else
-                                <a href="javascript:void(0)"
-                                   data-toggle="modal"
-                                   data-target="#modal-delete"
-                                   onclick="setFormAction('{{$user->username}}')"
-                                   class="btn btn-danger btn-flat btn-sm">
-                                    <i class="fas fa-trash"></i>
+                            @can($permissions['roles'])
+                                <a href="javascript:"
+                                   onclick="setRolesFormAction('{{$user->username}}')"
+                                   class="btn btn-success btn-flat btn-sm">
+                                    <i class="fas fa-eye"></i>
                                 </a>
-                            @endif
+                            @endcan
+                            @can($permissions['edit'])
+                                <a href="{{route('users.edit', $user->username)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                @if(auth()->id() === $user->id)
+                                    <button disabled
+                                            class="btn btn-danger btn-flat btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                @else
+                                    <a href="javascript:void(0)"
+                                       data-toggle="modal"
+                                       data-target="#modal-delete"
+                                       onclick="setFormAction('{{$user->username}}')"
+                                       class="btn btn-danger btn-flat btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                @endif
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -115,4 +127,68 @@
         </div>
     </div>
     <x-delete :url="route('users.delete', 'ID')"/>
+    <div class="modal fade" data-url="{{route('users.save_role', 'ID')}}" id="modal-permissions">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ваколатлар!</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Ваколатлар рўйҳати?</p>
+                    <form action="" id="permissions-form" method="post">
+                        @csrf
+                        <div class="form-body"></div>
+                    </form>
+
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="button"
+                            onclick="document.querySelector('#permissions-form').submit()"
+                            class="btn btn-primary btn-flat">Сақлаш
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+@endsection
+@section('js')
+    <script>
+
+        const setRolesFormAction = function (id) {
+            const modal = $('#modal-permissions');
+            $.ajax({
+                url: `${location.origin}/users/role/${id}`,
+                type: 'get',
+                success({permissions, user}) {
+                    let checkboxes = "";
+
+                    for (let permission of permissions) {
+
+                        let exists = user.permissions.filter((item) => item.name === permission.name).length !== 0;
+                        let permissionsByRole = user.post.permissions.filter((item) => item.name === permission.name);
+                        permissionsByRole = permissionsByRole.length !== 0 ? permissionsByRole[0].key : '';
+                        checkboxes += `
+                        <div class="form-group clearfix">
+                            <div class="icheck-primary d-inline">
+                                <input type="checkbox" name="permissions[]" value="${permission.key}" ${permissionsByRole === permission.key ? 'disabled' : ''} id="permission-${permission.id}" ${(exists ? 'checked' : '')}>
+                                <label for="permission-${permission.id}">
+                                    ${permission.name}
+                                </label>
+                            </div>
+                        </div>`;
+                    }
+                    const url = modal.attr('data-url').replace('ID', id);
+                    $('#permissions-form').attr('action', url);
+                    modal.find('form').children('.form-body').html(checkboxes);
+                    modal.modal('show');
+                }
+            })
+        }
+    </script>
 @endsection

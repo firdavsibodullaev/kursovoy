@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $post = Role::query()->with('permissions')->first();
         /** @var User $user */
         $user = User::query()->create([
             'last_name' => "Admin",
@@ -23,12 +24,10 @@ class UserSeeder extends Seeder
             'patronymic' => "Admin",
             'username' => 'admin',
             'password' => 'admin', // admin
-            'post' => Role::query()->first()->id,
+            'post' => $post->id,
             'faculty_id' => 1,
             'department_id' => 1,
         ]);
-        $user->assignRole(Role::query()->first()->id);
-
-//        User::factory(UserFactory::class)->count(500)->create();
+        $user->assignRole($post->id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScientificResearchEffectivenessRequest;
 use App\Models\ScientificResearchEffectiveness;
@@ -30,7 +31,12 @@ class ScientificResearchEffectivenessController extends Controller
     public function index(): string
     {
         return view('scientific-research-effectiveness.index', [
-            'researches' => $this->effectivenessService->fetchWithPagination()
+            'researches' => $this->effectivenessService->fetchWithPagination(),
+            'permissions' => [
+                'confirm' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM,
+                'edit' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_EDIT,
+                'delete' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_DELETE,
+            ]
         ])->render();
     }
 
@@ -41,6 +47,10 @@ class ScientificResearchEffectivenessController extends Controller
     {
         return view('scientific-research-effectiveness.not-confirmed', [
             'researches' => $this->effectivenessService->getNotConfirmedArticlesList(),
+            'permissions' => [
+                'edit' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_EDIT,
+                'delete' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_DELETE,
+            ]
         ])->render();
     }
 

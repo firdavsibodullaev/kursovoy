@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', 'Excel')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош саҳифа</a></li>
     <li class="breadcrumb-item active">Excel</li>

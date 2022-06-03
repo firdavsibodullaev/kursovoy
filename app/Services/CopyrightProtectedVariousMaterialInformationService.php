@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Constants\MediaCollectionsConstant;
+use App\Constants\UserRoles;
 use App\Models\CopyrightProtectedVariousMaterialInformation;
 use App\Models\Department;
 use App\Models\Faculty;
@@ -27,7 +28,7 @@ class CopyrightProtectedVariousMaterialInformationService
         $user = auth()->user();
         return QueryBuilder::for(CopyrightProtectedVariousMaterialInformation::with(['institute', 'users', 'file']))
             ->where('is_confirmed', '=', true)
-            ->when(!is_super_admin(), function (Builder $query) use ($user) {
+            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
                     $query->where('copyright_protected_various_material_information_users.user_id', '=', $user->id);
                 });
@@ -80,7 +81,7 @@ class CopyrightProtectedVariousMaterialInformationService
         /** @var CopyrightProtectedVariousMaterialInformation $copyright */
         $copyright = tap($information)->update($validated);
 
-        if (is_super_admin()) {
+        if (auth()->user()->hasRole(UserRoles::SUPER_ADMIN)) {
             $copyright->users()->sync($validated['users']);
         }
 

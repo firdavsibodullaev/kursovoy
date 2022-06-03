@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePhdDoctorRequest;
 use App\Http\Requests\UpdatePhdDoctorRequest;
@@ -30,7 +31,11 @@ class PhdDoctorController extends Controller
     public function index(): string
     {
         return view('phd-doctors.index', [
-            'doctors' => $this->doctorService->fetchWithPaginate()
+            'doctors' => $this->doctorService->fetchWithPaginate(),
+            'permissions' => [
+                'edit' => PermissionsConstant::PHD_EDIT,
+                'delete' => PermissionsConstant::PHD_DELETE,
+            ]
         ])->render();
     }
 

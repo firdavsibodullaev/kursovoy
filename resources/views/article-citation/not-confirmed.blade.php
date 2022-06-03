@@ -80,17 +80,21 @@
                             <form action="{{route('article_citation.confirm', $citation->id)}}"
                                   id="confirm-form-{{$citation->id}}"
                                   method="post">@csrf</form>
-                            <a href="{{route('article_citation.edit', [$citation->id, 'status' => 'not-confirmed'])}}"
-                               class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$citation->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @can($permissions['edit'])
+                                <a href="{{route('article_citation.edit', $citation->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$citation->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -98,5 +102,7 @@
             </table>
         </div>
     </div>
-    <x-delete :url="route('article_citation.force_delete', 'ID')"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('article_citation.force_delete', 'ID')"/>
+    @endcan
 @endsection

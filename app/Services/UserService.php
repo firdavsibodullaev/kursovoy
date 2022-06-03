@@ -52,11 +52,20 @@ class UserService
 
     /**
      * @param array $validated
-     * @return Builder|Model
+     * @return User
      */
-    public function create(array $validated)
+    public function create(array $validated): User
     {
-        return User::query()->create($validated)->load(['faculty', 'department']);
+        /** @var Role $role */
+
+        $role = Role::query()->with('permissions')->find($validated['post']);
+
+        /** @var User $user */
+        $user = User::query()->create($validated);
+
+        $user->assignRole($role->id);
+
+        return $user->load(['faculty', 'department']);
     }
 
     /**
@@ -69,11 +78,28 @@ class UserService
         return tap($user)->update($validated)->load(['faculty', 'department']);
     }
 
+    /**
+     * @param User $user
+     * @param array $permissions
+     * @return User
+     */
+    public function givePermissions(User $user, array $permissions): User
+    {
+        return $user->syncPermissions($permissions['permissions']);
+    }
+
+    /**
+     * @param User $user
+     * @return void
+     */
     public function delete(User $user)
     {
         $user->delete();
     }
 
+    /**
+     * @return Builder[]|Collection
+     */
     public function getPosts()
     {
         return Role::query()->orderBy('id')->get();

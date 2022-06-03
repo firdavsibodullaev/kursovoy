@@ -29,7 +29,7 @@ if (!function_exists('is_super_admin')) {
      */
     function is_super_admin(): bool
     {
-        return auth()->user()->post == 1;
+        return auth()->user()->hasRole(\App\Constants\UserRoles::SUPER_ADMIN);
     }
 }
 
@@ -95,6 +95,6 @@ if (!function_exists('has_access_to_edit')) {
 if (!function_exists('br2nl')) {
     function br2nl(string $string)
     {
-        return str_ireplace(["<br />","<br>","<br/>"], " \n", $string);
+        return str_ireplace(["<br />", "<br>", "<br/>"], " \n", $string);
     }
 }

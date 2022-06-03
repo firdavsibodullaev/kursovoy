@@ -3,5 +3,7 @@
     <li class="breadcrumb-item active">Бош саҳифа</li>
 @endsection
 @section('content')
-    @include('report.index')
+    @can($permissions['reports'])
+        @include('report.index')
+    @endcan
 @endsection

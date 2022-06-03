@@ -61,17 +61,21 @@
                                                 ({{$department->getTranslation('short_name','en',false)}})</p>
                                         </div>
                                         <div class="card-footer d-flex justify-content-end">
-                                            <a href="{{route('department.edit', $department->id)}}"
-                                               class="btn btn-flat btn-sm btn-warning">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a href="javascript:void(0)"
-                                               data-toggle="modal"
-                                               data-target="#modal-delete"
-                                               onclick="setFormAction('{{$department->id}}')"
-                                               class="btn btn-danger btn-flat btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
+                                            @can($permissions['edit'])
+                                                <a href="{{route('department.edit', $department->id)}}"
+                                                   class="btn btn-flat btn-sm btn-warning">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                            @endcan
+                                            @can($permissions['delete'])
+                                                <a href="javascript:void(0)"
+                                                   data-toggle="modal"
+                                                   data-target="#modal-delete"
+                                                   onclick="setFormAction('{{$department->id}}')"
+                                                   class="btn btn-danger btn-flat btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            @endcan
                                         </div>
                                     </div>
                                 @endforeach
@@ -83,5 +87,7 @@
             </div>
         </div>
     </div>
-    <x-delete :url="route('department.delete', 'ID')"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('department.delete', 'ID')"/>
+    @endcan
 @endsection

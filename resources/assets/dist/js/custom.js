@@ -3,6 +3,10 @@ $(function () {
         $('#delete-form').attr('action', '');
     });
 
+    $('#modal-permissions').on('hide.bs.modal', function () {
+        $('#permissions-form').attr('action', '');
+    });
+
     $('.year').on('keyup keydown', function (el) {
         let value = $(this).val();
 
@@ -49,6 +53,7 @@ const setFormAction = function (id) {
     const url = $('#modal-delete').attr('data-url').replace('ID', id);
     $('#delete-form').attr('action', url);
 }
+
 
 const toggleInput = (e) => {
     const block = $(e).parents('.form-group');

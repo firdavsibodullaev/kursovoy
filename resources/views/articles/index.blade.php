@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-{{is_super_admin() ? 6 : 8}}">
+                <div class="col-{{auth()->user()->can($permissions['confirm']) ? 6 : 8}}">
                     <div class="sort-block">
                         <div class="row">
                             @php($sort = request('sort'))
@@ -68,11 +68,11 @@
                         </div>
                     </div>
                 </div>
-                @if(is_super_admin())
+                @can($permissions['confirm'])
                     <div class="col-2">
                         <a href="{{route('scientific_article.not_confirmed')}}" class="btn btn-primary btn-flat">Тасдиқланмаганлар</a>
                     </div>
-                @endif
+                @endcan
             </div>
             <h3 class="text-center">
                 Рейтингни аниқлаш йилида халқаро илмий журналларда
@@ -142,17 +142,21 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{route('scientific_article.edit', $article->id)}}"
-                               class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$article->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @can($permissions['edit'])
+                                <a href="{{route('scientific_article.edit', $article->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$article->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -161,5 +165,7 @@
             {{$articles->links('components.pagination')}}
         </div>
     </div>
-    <x-delete :url="route('scientific_article.delete', 'ID')"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('scientific_article.delete', 'ID')"/>
+    @endcan
 @endsection

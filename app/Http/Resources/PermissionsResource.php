@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Constants\PermissionsConstant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class PermissionsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +18,8 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'permissions' => PermissionsResource::collection($this->whenLoaded('permissions'))
+            'name' => PermissionsConstant::groupedTranslations()[$this->name],
+            'key' => $this->name
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Constants\MediaCollectionsConstant;
+use App\Constants\UserRoles;
 use App\Models\Department;
 use App\Models\Faculty;
 use App\Models\ObtainedIndustrialSamplePatent;
@@ -31,7 +32,7 @@ class ObtainedIndustrialSamplePatentService
 
         return QueryBuilder::for(ObtainedIndustrialSamplePatent::with(['users', 'institute', 'file']))
             ->orderByDesc('date')
-            ->when(!is_super_admin(), function (Builder $query) use ($user) {
+            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
                     $query->where('obtained_industrial_sample_patent_users.user_id', '=', $user->id);
                 });
@@ -89,7 +90,7 @@ class ObtainedIndustrialSamplePatentService
         /** @var ObtainedIndustrialSamplePatent $patent */
         $patent = tap($patent)->update($validated);
 
-        if (is_super_admin()) {
+        if (auth()->user()->hasRole(UserRoles::SUPER_ADMIN)) {
             $patent->users()->sync($validated['users']);
         }
 

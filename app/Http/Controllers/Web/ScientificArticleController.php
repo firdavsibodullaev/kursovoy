@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Constants\LanguagesConstant;
 use App\Constants\MediaCollectionsConstant;
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScientificArticleRequest;
 use App\Models\ScientificArticle;
@@ -37,7 +38,12 @@ class ScientificArticleController extends Controller
     {
         return view('articles.index', [
             'articles' => $this->articleService->fetchWithPagination(),
-            'collection' => MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE
+            'collection' => MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE,
+            'permissions' => [
+                'confirm' => PermissionsConstant::SCIENTIFIC_ARTICLE_CONFIRM,
+                'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_EDIT,
+                'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_DELETE,
+            ]
         ])->render();
     }
 
@@ -48,7 +54,9 @@ class ScientificArticleController extends Controller
     {
         return view('articles.not-confirmed', [
             'articles' => $this->articleService->getNotConfirmedArticlesList(),
-            'collection' => MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE
+            'collection' => MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE,
+            'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_EDIT,
+            'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_DELETE,
         ])->render();
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Constants\MediaCollectionsConstant;
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Models\OakScientificArticle;
 use App\Http\Requests\OakScientificArticleRequest;
@@ -35,7 +36,12 @@ class OakScientificArticleController extends Controller
     {
         return view('oak-articles.index', [
             'articles' => $this->articleService->fetchWithPagination(),
-            'collection' => MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE
+            'collection' => MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE,
+            'permissions' => [
+                'confirm' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_CONFIRM,
+                'edit' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_EDIT,
+                'delete' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_DELETE,
+            ]
         ])->render();
     }
 
@@ -46,7 +52,11 @@ class OakScientificArticleController extends Controller
     {
         return view('oak-articles.not-confirmed', [
             'articles' => $this->articleService->getNotConfirmedArticlesList(),
-            'collection' => MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE
+            'collection' => MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE,
+            'permissions' => [
+                'edit' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_EDIT,
+                'delete' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_DELETE,
+            ]
         ])->render();
     }
 

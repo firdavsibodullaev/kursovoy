@@ -33,13 +33,14 @@
                         </div>
                     </div>
                 </div>
-                @if(is_super_admin())
+                @can($permissions['confirm'])
                     <div class="col-8 d-flex justify-content-end">
                         <div>
-                            <a href="{{route('obtained_industrial_sample_patent.not_confirmed')}}" class="btn btn-primary btn-flat">Тасдиқланмаганлар</a>
+                            <a href="{{route('obtained_industrial_sample_patent.not_confirmed')}}"
+                               class="btn btn-primary btn-flat">Тасдиқланмаганлар</a>
                         </div>
                     </div>
-                @endif
+                @endcan
             </div>
             <h3 class="text-center">
                 Рейтинги аниқланаётган йилда профессор-ўқитувчилари томонидан ихтиро,
@@ -91,17 +92,21 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{route('obtained_industrial_sample_patent.edit', $patent->id)}}"
-                               class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$patent->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @can($permissions['edit'])
+                                <a href="{{route('obtained_industrial_sample_patent.edit', $patent->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$patent->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -110,5 +115,7 @@
             {{$patents->links('components.pagination')}}
         </div>
     </div>
-    <x-delete :url="route('obtained_industrial_sample_patent.delete', 'ID')"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('obtained_industrial_sample_patent.delete', 'ID')"/>
+    @endcan
 @endsection
