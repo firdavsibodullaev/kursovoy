@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScientificResearchConductRequest;
 use App\Models\ScientificResearchConduct;
@@ -28,7 +29,11 @@ class ScientificResearchConductController extends Controller
     public function index(): string
     {
         return view('scientific-research-conduct.index', [
-            'orders' => $this->conductService->fetchWithPagination()
+            'orders' => $this->conductService->fetchWithPagination(),
+            'permissions' => [
+                'edit' => PermissionsConstant::SCIENTIFIC_RESEARCH_CONDUCT_EDIT,
+                'delete' => PermissionsConstant::SCIENTIFIC_RESEARCH_CONDUCT_DELETE,
+            ]
         ])->render();
     }
 

@@ -23,7 +23,7 @@
             @include('partials.messages')
             <table class="table table-striped text-center table-bordered" id="users-list">
                 <thead class="thead-dark">
-                    <tr>
+                <tr>
                     <th style="width: 60px" data-type="number" class="position-relative">
                         <div class="d-flex justify-content-between align-items-center absolute-positions">
                             Id
@@ -69,20 +69,25 @@
                                class="btn btn-success btn-flat btn-sm">
                                 <i class="fas fa-check"></i>
                             </a>
-                            <form action="{{route('copyright_protected_various_material_information.confirm', $item->id)}}"
-                                      id="confirm-form-{{$item->id}}"
-                                      method="post">@csrf</form>
-                            <a href="{{route('copyright_protected_various_material_information.edit', $item->id)}}"
-                               class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$item->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            <form
+                                action="{{route('copyright_protected_various_material_information.confirm', $item->id)}}"
+                                id="confirm-form-{{$item->id}}"
+                                method="post">@csrf</form>
+                            @can($permissions['edit'])
+                                <a href="{{route('copyright_protected_various_material_information.edit', $item->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$item->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

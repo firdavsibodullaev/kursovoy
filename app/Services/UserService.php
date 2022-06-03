@@ -52,28 +52,66 @@ class UserService
 
     /**
      * @param array $validated
-     * @return Builder|Model
+     * @return User
      */
-    public function create(array $validated)
+    public function create(array $validated): User
     {
-        return User::query()->create($validated)->load(['faculty', 'department']);
+        /** @var Role $role */
+        $role = Role::query()->firstWhere('name', '=', $validated['post']);
+        /** @var User $user */
+
+        $validated['post'] = $role->id;
+        $user = User::query()->create($validated);
+
+        $user->assignRole($role);
+
+        return $user->load(['faculty', 'department']);
     }
 
     /**
      * @param User $user
      * @param array $validated
-     * @return mixed
+     * @return User
      */
-    public function update(User $user, array $validated)
+    public function update(User $user, array $validated): User
     {
-        return tap($user)->update($validated)->load(['faculty', 'department']);
+        /** @var Role $role */
+        $role = Role::query()->firstWhere('name', '=', $validated['post']);
+        /** @var User $user */
+
+        $validated['post'] = $role->id;
+
+        $user = tap($user)->update($validated);
+
+        $user->syncRoles($role);
+
+        return $user->load(['faculty', 'department']);
     }
 
+    /**
+     * @param User $user
+     * @param array $permissions
+     * @return User
+     */
+    public function givePermissions(User $user, array $permissions): User
+    {
+        $permissions = empty($permissions) ?: $permissions['permissions'];
+
+        return $user->syncPermissions($permissions);
+    }
+
+    /**
+     * @param User $user
+     * @return void
+     */
     public function delete(User $user)
     {
         $user->delete();
     }
 
+    /**
+     * @return Builder[]|Collection
+     */
     public function getPosts()
     {
         return Role::query()->orderBy('id')->get();

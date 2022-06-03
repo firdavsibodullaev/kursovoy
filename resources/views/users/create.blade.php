@@ -141,10 +141,10 @@
                                     required
                                     class="custom-select">
                                 <option value="">Выберите должность</option>
-                                @foreach($roles as $role)
+                                @foreach($roles as $key => $role)
                                     <option
-                                        value="{{$role->id}}" {{old('post') == $role->id ? 'selected' : ''}}>
-                                        {{$role->name}}
+                                        value="{{$key}}" {{old('post') == $key ? 'selected' : ''}}>
+                                        {{$role}}
                                     </option>
                                 @endforeach
                             </select>

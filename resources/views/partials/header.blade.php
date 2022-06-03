@@ -12,11 +12,11 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
-        @if(is_super_admin())
+        @can($permissions['excel'])
             <li class="nav-item mr-3 mt-1">
                 <a href="{{route('excel_page')}}" class="btn btn-sm btn-flat btn-success">Excel</a>
             </li>
-        @endif
+        @endcan
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>

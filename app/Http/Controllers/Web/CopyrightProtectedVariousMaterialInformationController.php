@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CopyrightProtectedVariousMaterialInformationRequest;
 use App\Models\CopyrightProtectedVariousMaterialInformation;
@@ -32,7 +33,12 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
     public function index(): string
     {
         return view('copyright-protected-various-material-information.index', [
-            'information' => $this->informationService->fetchWithPagination()
+            'information' => $this->informationService->fetchWithPagination(),
+            'permissions' => [
+                'confirm' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM,
+                'edit' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_EDIT,
+                'delete' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_DELETE,
+            ]
         ])->render();
     }
 
@@ -42,7 +48,11 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
     public function getNotConfirmedArticlesList(): string
     {
         return view('copyright-protected-various-material-information.not-confirmed', [
-            'information' => $this->informationService->getNotConfirmedArticlesList()
+            'information' => $this->informationService->getNotConfirmedArticlesList(),
+            'permissions' => [
+                'edit' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_EDIT,
+                'delete' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_DELETE,
+            ]
         ])->render();
     }
 

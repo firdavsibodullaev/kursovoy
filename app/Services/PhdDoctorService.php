@@ -49,6 +49,11 @@ class PhdDoctorService
         return PhdDoctor::query()->create($validated);
     }
 
+    /**
+     * @param PhdDoctor $doctor
+     * @param array $validated
+     * @return mixed
+     */
     public function update(PhdDoctor $doctor, array $validated)
     {
         $this->prepareData($validated);

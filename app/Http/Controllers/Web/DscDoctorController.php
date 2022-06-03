@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDScDoctorRequest;
 use App\Http\Requests\UpdateDScDoctorRequest;
@@ -30,7 +31,11 @@ class DscDoctorController extends Controller
     public function index(): string
     {
         return view('dsc-doctors.index', [
-            'doctors' => $this->doctorService->fetchWithPagination()
+            'doctors' => $this->doctorService->fetchWithPagination(),
+            'permissions' => [
+                'edit' => PermissionsConstant::DSC_EDIT,
+                'delete' => PermissionsConstant::DSC_DELETE,
+            ]
         ])->render();
     }
 

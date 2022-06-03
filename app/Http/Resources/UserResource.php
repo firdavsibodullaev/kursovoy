@@ -26,10 +26,13 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'birthdate' => $this->birthdate,
             'phone' => $this->phone,
-            'post' => new PostResource($this->post_name),
+            'post' => new PostResource($this->whenLoaded('post_name')),
             'email' => $this->email,
             'faculty' => new FacultyResource($this->whenLoaded('faculty')),
             'department' => new DepartmentResource($this->whenLoaded('department')),
+            'permissions' => PermissionsResource::collection($this->whenLoaded('permissions', function () {
+                return $this->getAllPermissions();
+            }))
         ];
     }
 }

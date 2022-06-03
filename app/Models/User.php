@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\UserRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -12,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -175,7 +177,7 @@ class User extends Authenticatable implements HasMedia
         if (!is_null($faculty) && !is_null($department)) {
             $return_value .= "{$faculty->short_name}, {$department->short_name}, ";
         }
-        $return_value .= "{$post->name}";
+        $return_value .= UserRoles::translate($post->name);
 
         return $return_value;
     }

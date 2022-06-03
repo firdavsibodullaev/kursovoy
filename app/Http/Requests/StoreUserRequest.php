@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Constants\UserRoles;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class StoreUserRequest extends FormRequest
@@ -40,12 +42,8 @@ class StoreUserRequest extends FormRequest
             ],
             'faculty_id' => 'exists:faculties,id|nullable',
             'department_id' => 'exists:departments,id|nullable',
-            'post' => 'exists:roles,id',
+            'post' => ['required', Rule::in(UserRoles::list())],
             'email' => 'nullable|email|unique:users,email,NULL,id,deleted_at,NULL',
-            'roles' => 'array|nullable',
-            'roles.*' => 'exists:roles,id|required',
-            'permissions' => 'array|nullable',
-            'permissions.*' => 'exists:permissions,id|required',
         ];
     }
 }

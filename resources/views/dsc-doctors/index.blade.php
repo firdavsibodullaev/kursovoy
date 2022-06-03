@@ -76,7 +76,7 @@
                         </div>
                     </th>
                     <th data-type="string">
-                            Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш (алфавит тартибида тўлиқ ёзилади)
+                        Асосий штатдаги профессор-ўқитувчиларнинг Ф.И.Ш (алфавит тартибида тўлиқ ёзилади)
                     </th>
                     <th class="" data-type="string">
                         Фан номзоди дипломи
@@ -116,16 +116,21 @@
                             {{$doctor->employment_formatted}}
                         </td>
                         <td>
-                            <a href="{{route('dsc_doctors.edit', $doctor->id)}}" class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$doctor->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @can($permissions['edit'])
+                                <a href="{{route('dsc_doctors.edit', $doctor->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$doctor->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -134,5 +139,7 @@
             {{$doctors->links('components.pagination')}}
         </div>
     </div>
-    <x-delete :url="route('dsc_doctors.delete', 'ID')"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('dsc_doctors.delete', 'ID')"/>
+    @endcan
 @endsection

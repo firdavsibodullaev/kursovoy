@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FacultyRequest;
 use App\Models\Faculty;
@@ -29,7 +30,11 @@ class FacultyController extends Controller
     public function index(): string
     {
         return view('faculty.index', [
-            'faculties' => $this->facultyService->fetchFacultiesList()
+            'faculties' => $this->facultyService->fetchFacultiesList(),
+            'permissions' => [
+                'edit' => PermissionsConstant::FACULTY_EDIT,
+                'delete' => PermissionsConstant::FACULTY_DELETE,
+            ]
         ])->render();
     }
 

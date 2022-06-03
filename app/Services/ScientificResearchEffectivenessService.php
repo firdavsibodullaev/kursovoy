@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\UserRoles;
 use App\Models\Department;
 use App\Models\Faculty;
 use App\Models\ScientificResearchEffectiveness;
@@ -32,7 +33,7 @@ class ScientificResearchEffectivenessService
             ->allowedFilters([
                 AllowedFilter::custom('user', new UsersRelationFilter)
             ])
-            ->when(!is_super_admin(), function (Builder $query) use ($user) {
+            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
                     $query->where('scientific_research_effectiveness_users.user_id', '=', $user->id);
                 });
@@ -81,7 +82,7 @@ class ScientificResearchEffectivenessService
 
         /** @var ScientificResearchEffectiveness $effectiveness */
         $effectiveness = tap($effectiveness)->update($validated);
-        if (is_super_admin()) {
+        if (auth()->user()->hasRole(UserRoles::SUPER_ADMIN)) {
             $effectiveness->users()->sync($validated['users']);
         }
 

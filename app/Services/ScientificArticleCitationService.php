@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\UserRoles;
 use App\Models\Department;
 use App\Models\Faculty;
 use App\Models\ScientificArticleCitation;
@@ -36,7 +37,7 @@ class ScientificArticleCitationService
             ->allowedFilters([
                 AllowedFilter::custom('user', new UsersRelationFilter)
             ])
-            ->when(!is_super_admin(), function (Builder $query) use ($user) {
+            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
                     $query->where('user_id', '=', $user->id);
                 });
@@ -101,7 +102,7 @@ class ScientificArticleCitationService
         /** @var ScientificArticleCitation $articleCitation */
         $articleCitation = tap($articleCitation)->update($validated);
 
-        if (is_super_admin()) {
+        if (auth()->user()->hasRole(UserRoles::SUPER_ADMIN)) {
             $users = $validated['users'] ?? [auth()->id()];
             $articleCitation->users()->sync($users);
         }

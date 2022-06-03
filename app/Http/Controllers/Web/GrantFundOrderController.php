@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\PermissionsConstant;
 use App\Http\Controllers\Controller;
 use App\Models\GrantFundOrder;
 use App\Http\Requests\StoreGrantFundOrderRequest;
@@ -29,7 +30,11 @@ class GrantFundOrderController extends Controller
     public function index(): string
     {
         return view('grant-fund-orders.index', [
-            'orders' => $this->grantFundOrderService->fetchWithPagination()
+            'orders' => $this->grantFundOrderService->fetchWithPagination(),
+            'permissions' => [
+                'edit' => PermissionsConstant::GRANT_FUND_ORDER_EDIT,
+                'delete' => PermissionsConstant::GRANT_FUND_ORDER_DELETE,
+            ]
         ])->render();
     }
 

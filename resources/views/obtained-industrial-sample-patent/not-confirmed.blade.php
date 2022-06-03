@@ -70,17 +70,21 @@
                             <form action="{{route('obtained_industrial_sample_patent.confirm', $patent->id)}}"
                                   id="confirm-form-{{$patent->id}}"
                                   method="post">@csrf</form>
-                            <a href="{{route('obtained_industrial_sample_patent.edit', $patent->id)}}"
-                               class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$patent->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @can($permissions['edit'])
+                                <a href="{{route('obtained_industrial_sample_patent.edit', $patent->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$patent->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -88,5 +92,7 @@
             </table>
         </div>
     </div>
-    <x-delete :url="route('obtained_industrial_sample_patent.delete', 'ID')"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('obtained_industrial_sample_patent.delete', 'ID')"/>
+    @endcan
 @endsection

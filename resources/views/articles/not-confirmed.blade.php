@@ -84,17 +84,21 @@
                             <form action="{{route('scientific_article.confirm', $article->id)}}"
                                   id="confirm-form-{{$article->id}}"
                                   method="post">@csrf</form>
-                            <a href="{{route('scientific_article.edit', [$article->id, 'status' => 'not-confirmed'])}}"
-                               class="btn btn-warning btn-flat btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)"
-                               data-toggle="modal"
-                               data-target="#modal-delete"
-                               onclick="setFormAction('{{$article->id}}')"
-                               class="btn btn-danger btn-flat btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @can($permissions['edit'])
+                                <a href="{{route('scientific_article.edit', $article->id)}}"
+                                   class="btn btn-warning btn-flat btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            @endcan
+                            @can($permissions['delete'])
+                                <a href="javascript:void(0)"
+                                   data-toggle="modal"
+                                   data-target="#modal-delete"
+                                   onclick="setFormAction('{{$article->id}}')"
+                                   class="btn btn-danger btn-flat btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -102,5 +106,7 @@
             </table>
         </div>
     </div>
-    <x-delete :url="route('scientific_article.force_delete', ['ID', 'status' => 'not-confirmed'])"/>
+    @can($permissions['delete'])
+        <x-delete :url="route('scientific_article.force_delete', ['ID', 'status' => 'not-confirmed'])"/>
+    @endcan
 @endsection
