@@ -57,13 +57,13 @@ class UserService
     public function create(array $validated): User
     {
         /** @var Role $role */
-
-        $role = Role::query()->with('permissions')->find($validated['post']);
-
+        $role = Role::query()->firstWhere('name', '=', $validated['post']);
         /** @var User $user */
+
+        $validated['post'] = $role->id;
         $user = User::query()->create($validated);
 
-        $user->assignRole($role->id);
+        $user->assignRole($role);
 
         return $user->load(['faculty', 'department']);
     }
@@ -71,11 +71,23 @@ class UserService
     /**
      * @param User $user
      * @param array $validated
-     * @return mixed
+     * @return User
      */
-    public function update(User $user, array $validated)
+    public function update(User $user, array $validated): User
     {
-        return tap($user)->update($validated)->load(['faculty', 'department']);
+        /** @var Role $role */
+        $role = Role::query()->firstWhere('name', '=', $validated['post']);
+        /** @var User $user */
+
+        $validated['post'] = $role->id;
+
+        $user->removeRole($user->post);
+        $user = tap($user)->update($validated);
+
+        $user->assignRole($role);
+
+
+        return $user->load(['faculty', 'department']);
     }
 
     /**

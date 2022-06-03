@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Constants\PermissionsConstant;
+use App\Constants\UserRoles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -88,7 +89,7 @@ class UserController extends Controller
     {
         return view('users.create', [
             'faculties' => Faculty::query()->orderBy('id')->get(),
-            'roles' => Role::query()->orderBy('id')->get()
+            'roles' => UserRoles::translate()
         ])->render();
     }
 
@@ -116,10 +117,10 @@ class UserController extends Controller
     public function edit(User $user): string
     {
         return view('users.edit', [
-            'user' => $user,
+            'user' => $user->load('post_name'),
             'faculties' => Faculty::query()->orderBy('id')->get(),
             'departments' => $user->faculty()->with('departments')->first()->departments ?? [],
-            'roles' => Role::query()->orderBy('id')->get()
+            'roles' => UserRoles::translate()
         ])->render();
     }
 

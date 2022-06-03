@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Constants\UserRoles;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class UpdateUserRequest extends FormRequest
@@ -44,8 +46,8 @@ class UpdateUserRequest extends FormRequest
                 "unique:users,phone,{$user->id},id,deleted_at,NULL"
             ],
             'faculty_id' => 'exists:faculties,id|nullable',
-            'department_id' => 'exists:faculties,id|nullable',
-            'post' => 'exists:roles,id',
+            'department_id' => 'exists:departments,id|nullable',
+            'post' => ['required', Rule::in(UserRoles::list())],
             'email' => "nullable|email|unique:users,email,{$user->id},id,deleted_at,NULL",
         ];
     }

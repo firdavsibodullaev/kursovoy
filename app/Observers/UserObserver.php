@@ -25,8 +25,11 @@ class UserObserver
      */
     public function updating(User $user)
     {
-        if ($user->isDirty('password')) {
-            $user->password = Hash::make(request()->get('password'));
+        $password = request()->get('password');
+        if ($password) {
+            $user->password = Hash::make($password);
+        } else {
+            $user->password = $user->getOriginal('password');
         }
         $user->phone = str_replace('+', '', $user->phone);
     }
