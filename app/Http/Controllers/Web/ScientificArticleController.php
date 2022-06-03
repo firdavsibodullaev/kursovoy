@@ -55,8 +55,10 @@ class ScientificArticleController extends Controller
         return view('articles.not-confirmed', [
             'articles' => $this->articleService->getNotConfirmedArticlesList(),
             'collection' => MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE,
-            'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_EDIT,
-            'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_DELETE,
+            'permissions' => [
+                'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_EDIT,
+                'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_DELETE,
+            ]
         ])->render();
     }
 
