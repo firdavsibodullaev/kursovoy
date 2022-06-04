@@ -99,9 +99,9 @@ class ScientificResearchEffectivenessSheet implements ReportSheet
     /**
      * @throws Exception
      */
-    public static function get(Spreadsheet &$spreadsheet, int $worksheet_index)
+    public static function get(Spreadsheet &$spreadsheet, string $worksheet_name)
     {
-        $worksheet = $spreadsheet->getSheet($worksheet_index);
+        $worksheet = $spreadsheet->getSheetByName($worksheet_name);
         $sheet = new static();
         $footer_iter = $sheet->body($worksheet) + 3;
         $sheet->footer($worksheet, $footer_iter);

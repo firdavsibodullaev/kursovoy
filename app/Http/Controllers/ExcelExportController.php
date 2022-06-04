@@ -44,17 +44,17 @@ class ExcelExportController extends Controller
         $spreadsheet = IOFactory::load($path);
 
         MainReport::get([
-            DScSheet::class,
-            PhdSheet::class,
-            ScientificArticleCitationSheet::class,
-            ScientificArticleSheet::class,
-            OakScientificArticleSheet::class,
-            GrantFundOrderSheet::class,
-            ScientificResearchConductSheet::class,
-            StateGrantFundSheet::class,
-            ScientificResearchEffectivenessSheet::class,
-            ObtainedIndustrialSamplePatentSheet::class,
-            CopyrightProtectedVariousMaterialInformationSheet::class
+            '1.3.1' => DScSheet::class,
+            '1.3.2' => PhdSheet::class,
+            '1.5' => ScientificArticleCitationSheet::class,
+            '1.6.1' => ScientificArticleSheet::class,
+            '1.6.2' => OakScientificArticleSheet::class,
+            '1.7.1' => GrantFundOrderSheet::class,
+            '1.7.2' => ScientificResearchConductSheet::class,
+            '1.7.3' => StateGrantFundSheet::class,
+            '1.9.1' => ScientificResearchEffectivenessSheet::class,
+            '1.9.2' => ObtainedIndustrialSamplePatentSheet::class,
+            '1.9.3' => CopyrightProtectedVariousMaterialInformationSheet::class
         ], $spreadsheet);
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');

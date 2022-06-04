@@ -8,8 +8,8 @@ interface ReportSheet
 {
     /**
      * @param Spreadsheet $spreadsheet
-     * @param int $worksheet_index
+     * @param string $worksheet_name
      * @return mixed
      */
-    public static function get(Spreadsheet &$spreadsheet, int $worksheet_index);
+    public static function get(Spreadsheet &$spreadsheet, string $worksheet_name);
 }
