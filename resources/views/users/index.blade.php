@@ -126,33 +126,37 @@
             {{$users->links('components.pagination')}}
         </div>
     </div>
-    <x-delete :url="route('users.delete', 'ID')"/>
-    <div class="modal fade" data-url="{{route('users.save_role', 'ID')}}" id="modal-permissions">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Ваколатлар!</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Ваколатлар рўйҳати?</p>
-                    <form action="" id="permissions-form" method="post">
-                        @csrf
-                        <div class="form-body"></div>
-                    </form>
+    @can($permissions['delete'])
+        <x-delete :url="route('users.delete', 'ID')"/>
+    @endcan
+    @can($permissions['roles'])
+        <div class="modal fade" data-url="{{route('users.save_role', 'ID')}}" id="modal-permissions">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Ваколатлар!</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ваколатлар рўйҳати?</p>
+                        <form action="" id="permissions-form" method="post">
+                            @csrf
+                            <div class="form-body"></div>
+                        </form>
 
+                    </div>
+                    <div class="modal-footer justify-content-end">
+                        <button type="button"
+                                onclick="document.querySelector('#permissions-form').submit()"
+                                class="btn btn-primary btn-flat">Сақлаш
+                        </button>
+                    </div>
                 </div>
-                <div class="modal-footer justify-content-end">
-                    <button type="button"
-                            onclick="document.querySelector('#permissions-form').submit()"
-                            class="btn btn-primary btn-flat">Сақлаш
-                    </button>
-                </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
+    @endcan
 @endsection

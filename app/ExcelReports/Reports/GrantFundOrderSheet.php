@@ -35,7 +35,7 @@ class GrantFundOrderSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('grant_fund_order_year');
+        $year = request('year');
         return GrantFundOrder::query()
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('year', '=', $year);

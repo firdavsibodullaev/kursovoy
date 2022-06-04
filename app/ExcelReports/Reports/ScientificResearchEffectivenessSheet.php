@@ -35,7 +35,7 @@ class ScientificResearchEffectivenessSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('scientific_research_effectiveness_year');
+        $year = request('year');
         return ScientificResearchEffectiveness::query()
             ->with(['users', 'publication'])
             ->where('is_confirmed', '=', true)

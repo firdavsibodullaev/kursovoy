@@ -35,7 +35,7 @@ class ScientificResearchConductSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('scientific_research_conduct_year');
+        $year = request('year');
         return ScientificResearchConduct::query()
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('year', '=', $year);

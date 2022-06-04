@@ -35,7 +35,7 @@ class ObtainedIndustrialSamplePatentSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('obtained_industrial_sample_patent_year');
+        $year = request('year');
         return ObtainedIndustrialSamplePatent::query()
             ->with(['users', 'institute'])
             ->when($year, function (Builder $query) use ($year) {

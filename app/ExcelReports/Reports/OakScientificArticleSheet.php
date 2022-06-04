@@ -36,7 +36,7 @@ class OakScientificArticleSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('oak_scientific_article_year');
+        $year = request('year');
         return OakScientificArticle::query()
             ->where('is_confirmed', '=', true)
             ->with(['users', 'magazine'])

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\View\Composers\HeaderComposer;
+use App\View\Composers\LayoutComposer;
 use App\View\Composers\MainPageComposer;
 use App\View\Composers\SidebarVariablesComposer;
 use App\View\Composers\StatisticsPageComposer;
@@ -32,5 +33,6 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer('report.index', StatisticsPageComposer::class);
         View::composer('index', MainPageComposer::class);
         View::composer('partials.header', HeaderComposer::class);
+        View::composer('layout', LayoutComposer::class);
     }
 }

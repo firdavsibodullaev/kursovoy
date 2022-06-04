@@ -229,7 +229,6 @@ Route::middleware('auth')->group(function () {
             ->whereNumber('department')
             ->name('delete');
     });
-    Route::view('excel-page', 'report.excel-page')->middleware('can:' . PermissionsConstant::EXPORT_EXCEL)->name('excel_page');
     Route::get('excel-export', ExcelExportController::class)->middleware('can:' . PermissionsConstant::EXPORT_EXCEL)->name('excel_export');
     Route::prefix('article-citation')->name('article_citation.')->group(function () {
         Route::get('', [ScientificArticleCitationController::class, 'index'])

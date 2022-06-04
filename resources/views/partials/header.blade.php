@@ -14,7 +14,11 @@
         <!-- Notifications Dropdown Menu -->
         @can($permissions['excel'])
             <li class="nav-item mr-3 mt-1">
-                <a href="{{route('excel_page')}}" class="btn btn-sm btn-flat btn-success">Excel</a>
+                <button type="button"
+                        data-toggle="modal"
+                        data-target="#modal-excel"
+                        class="btn btn-sm btn-flat btn-success">Excel
+                </button>
             </li>
         @endcan
         <li class="nav-item">

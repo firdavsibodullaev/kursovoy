@@ -35,7 +35,7 @@ class StateGrantFundSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('state_grant_fund_year');
+        $year = request('year');
         return StateGrantFund::query()
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('year', '=', $year);

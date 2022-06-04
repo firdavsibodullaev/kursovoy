@@ -37,7 +37,7 @@ class ScientificArticleCitationSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('citation_year');
+        $year = request('year');
         return ScientificArticleCitation::query()
             ->where('is_confirmed', '=', true)
             ->with(['users', 'magazine'])

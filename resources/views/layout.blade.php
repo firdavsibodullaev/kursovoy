@@ -10,6 +10,7 @@
         .cursor-pointer {
             cursor: pointer;
         }
+
         .absolute-positions {
             position: absolute;
             left: 12px;
@@ -61,6 +62,39 @@
     </div>
     <!-- /.content-wrapper -->
     @include('partials.footer')
+    @can($permissions['excel'])
+        <div class="modal fade" id="modal-excel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Excel!</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{route('excel_export')}}" method="get">
+                            <div class="form-group">
+                                <label for="excel_report_year">Хисобот йилини танланг</label>
+                                @php($year = get_year_select_options(date('Y')))
+                                <select id="excel_report_year"
+                                        name="year"
+                                        class="custom-select">
+                                    <option value="">Барчаси</option>
+                                    @foreach($year as $option)
+                                        {!! $option !!}
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-flat">Юклаб олиш</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    @endcan
 </div>
 <!-- ./wrapper -->
 <script src="{{mix('js/combine.js')}}"></script>

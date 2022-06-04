@@ -35,7 +35,7 @@ class CopyrightProtectedVariousMaterialInformationSheet implements ReportSheet
 
     public function getCollection()
     {
-        $year = request('copyright_protected_various_material_information_year');
+        $year = request('year');
         return CopyrightProtectedVariousMaterialInformation::query()
             ->with(['users', 'institute'])
             ->when($year, function (Builder $query) use ($year) {
