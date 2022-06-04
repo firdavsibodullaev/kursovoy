@@ -64,7 +64,7 @@
     @include('partials.footer')
     @can($permissions['excel'])
         <div class="modal fade" id="modal-excel">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Excel!</h4>
@@ -86,7 +86,11 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-flat">Юклаб олиш</button>
+                            <div class="d-flex justify-content-end">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-flat">Юклаб олиш</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
