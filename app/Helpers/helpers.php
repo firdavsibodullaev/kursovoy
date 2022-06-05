@@ -41,13 +41,13 @@ if (!function_exists('random_color')) {
      */
     function random_color(array $except_colors = []): string
     {
-        $hex_string = bin2hex(openssl_random_pseudo_bytes(3));
+        $hex_string = "#" . bin2hex(openssl_random_pseudo_bytes(3));
 
         if (in_array($hex_string, $except_colors)) {
             return random_color($except_colors);
         }
 
-        return "#{$hex_string}";
+        return $hex_string;
     }
 }
 

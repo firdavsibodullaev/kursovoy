@@ -23,11 +23,11 @@ const getScientificArticlePieChart = function (is_update = false) {
             scientificArticlesPieChart.parent().prev().addClass('d-none');
             scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                createScientificArticlesPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                createScientificArticlesPieChart__var = createPieChart(scientificArticlesPieChart, data);
                 return;
             }
 
-            updateScientificArticlesPieChart(createScientificArticlesPieChart__var, data);
+            updatePieChart(createScientificArticlesPieChart__var, data);
         }
     });
 }
@@ -44,10 +44,10 @@ const getScientificArticleByFacultyPieChart = function (is_update = false) {
             scientificArticlesByFacultyPieChart.parent().prev().addClass('d-none');
             scientificArticlesByFacultyPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                getScientificArticleByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticlesByFacultyPieChart, data);
+                getScientificArticleByFacultyPieChart__var = createPieChart(scientificArticlesByFacultyPieChart, data);
                 return;
             }
-            updateScientificArticlesPieChart(getScientificArticleByFacultyPieChart__var, data);
+            updatePieChart(getScientificArticleByFacultyPieChart__var, data);
         }
     });
 }
@@ -63,11 +63,11 @@ const getScientificArticleCitationPieChart = function (is_update = false) {
             scientificArticlesPieChart.parent().prev().addClass('d-none');
             scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                createScientificArticleCitationsPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                createScientificArticleCitationsPieChart__var = createPieChart(scientificArticlesPieChart, data);
                 return;
             }
 
-            updateScientificArticlesPieChart(createScientificArticleCitationsPieChart__var, data);
+            updatePieChart(createScientificArticleCitationsPieChart__var, data);
         }
     });
 }
@@ -84,10 +84,10 @@ const getScientificArticleCitationByFacultyPieChart = function (is_update = fals
             scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
             scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                scientificArticleCitationsByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                scientificArticleCitationsByFacultyPieChart__var = createPieChart(scientificArticleCitationsByFacultyPieChart, data);
                 return;
             }
-            updateScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart__var, data);
+            updatePieChart(scientificArticleCitationsByFacultyPieChart__var, data);
         }
     });
 }
@@ -103,11 +103,11 @@ const getOakScientificArticlePieChart = function (is_update = false) {
             scientificArticlesPieChart.parent().prev().addClass('d-none');
             scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                createOakScientificArticleCitationsPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                createOakScientificArticleCitationsPieChart__var = createPieChart(scientificArticlesPieChart, data);
                 return;
             }
 
-            updateScientificArticlesPieChart(createOakScientificArticleCitationsPieChart__var, data);
+            updatePieChart(createOakScientificArticleCitationsPieChart__var, data);
         }
     });
 }
@@ -124,10 +124,10 @@ const getOakScientificArticleByFacultyPieChart = function (is_update = false) {
             scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
             scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                oakScientificArticleCitationsByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                oakScientificArticleCitationsByFacultyPieChart__var = createPieChart(scientificArticleCitationsByFacultyPieChart, data);
                 return;
             }
-            updateScientificArticlesPieChart(oakScientificArticleCitationsByFacultyPieChart__var, data);
+            updatePieChart(oakScientificArticleCitationsByFacultyPieChart__var, data);
         }
     });
 }
@@ -143,11 +143,11 @@ const getScientificResearchEffectivenessPieChart = function (is_update = false) 
             scientificArticlesPieChart.parent().prev().addClass('d-none');
             scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                createScientificResearchEffectivenessPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                createScientificResearchEffectivenessPieChart__var = createPieChart(scientificArticlesPieChart, data);
                 return;
             }
 
-            updateScientificArticlesPieChart(createScientificResearchEffectivenessPieChart__var, data);
+            updatePieChart(createScientificResearchEffectivenessPieChart__var, data);
         }
     });
 }
@@ -164,10 +164,10 @@ const getScientificResearchEffectivenessByFacultyPieChart = function (is_update 
             scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
             scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                scientificResearchEffectivenessByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                scientificResearchEffectivenessByFacultyPieChart__var = createPieChart(scientificArticleCitationsByFacultyPieChart, data);
                 return;
             }
-            updateScientificArticlesPieChart(scientificResearchEffectivenessByFacultyPieChart__var, data);
+            updatePieChart(scientificResearchEffectivenessByFacultyPieChart__var, data);
         }
     });
 }
@@ -183,11 +183,11 @@ const getCopyrightProtectedVariousInformationPieChart = function (is_update = fa
             scientificArticlesPieChart.parent().prev().addClass('d-none');
             scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                createCopyrightProtectedVariousInformationPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                createCopyrightProtectedVariousInformationPieChart__var = createPieChart(scientificArticlesPieChart, data);
                 return;
             }
 
-            updateScientificArticlesPieChart(createCopyrightProtectedVariousInformationPieChart__var, data);
+            updatePieChart(createCopyrightProtectedVariousInformationPieChart__var, data);
         }
     });
 }
@@ -204,10 +204,10 @@ const getCopyrightProtectedVariousInformationByFacultyPieChart = function (is_up
             scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
             scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                copyrightProtectedVariousInformationByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                copyrightProtectedVariousInformationByFacultyPieChart__var = createPieChart(scientificArticleCitationsByFacultyPieChart, data);
                 return;
             }
-            updateScientificArticlesPieChart(copyrightProtectedVariousInformationByFacultyPieChart__var, data);
+            updatePieChart(copyrightProtectedVariousInformationByFacultyPieChart__var, data);
         }
     });
 }
@@ -223,11 +223,11 @@ const obtainedIndustrialSamplePatentPieChart = function (is_update = false) {
             scientificArticlesPieChart.parent().prev().addClass('d-none');
             scientificArticlesPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                createObtainedIndustrialSamplePatentPieChart__var = createScientificArticlesPieChart(scientificArticlesPieChart, data);
+                createObtainedIndustrialSamplePatentPieChart__var = createPieChart(scientificArticlesPieChart, data);
                 return;
             }
 
-            updateScientificArticlesPieChart(createObtainedIndustrialSamplePatentPieChart__var, data);
+            updatePieChart(createObtainedIndustrialSamplePatentPieChart__var, data);
         }
     });
 }
@@ -244,21 +244,15 @@ const obtainedIndustrialSamplePatentByFacultyPieChart = function (is_update = fa
             scientificArticleCitationsByFacultyPieChart.parent().prev().addClass('d-none');
             scientificArticleCitationsByFacultyPieChart.parent().next('p').find('.number').text(data.all);
             if (!is_update) {
-                obtainedIndustrialSamplePatentByFacultyPieChart__var = createScientificArticlesPieChart(scientificArticleCitationsByFacultyPieChart, data);
+                obtainedIndustrialSamplePatentByFacultyPieChart__var = createPieChart(scientificArticleCitationsByFacultyPieChart, data);
                 return;
             }
-            updateScientificArticlesPieChart(obtainedIndustrialSamplePatentByFacultyPieChart__var, data);
+            updatePieChart(obtainedIndustrialSamplePatentByFacultyPieChart__var, data);
         }
     });
 }
 
-const updateScientificArticlesPieChart = function (scientificArticlesPieChart, data) {
-    scientificArticlesPieChart.data.labels = data.donutData.labels;
-    scientificArticlesPieChart.data.datasets[0].data = data.donutData.datasets[0].data;
-    scientificArticlesPieChart.update();
-}
-
-const createScientificArticlesPieChart = function (scientificArticlesPieChart, data) {
+const createPieChart = function (scientificArticlesPieChart, data) {
     var scientificArticlesPieChartCanvas = scientificArticlesPieChart.get(0).getContext('2d')
     var pieData = data.donutData;
     var pieOptions = {
@@ -272,4 +266,11 @@ const createScientificArticlesPieChart = function (scientificArticlesPieChart, d
         options: pieOptions
     });
 
+}
+
+
+const updatePieChart = function (scientificArticlesPieChart, data) {
+    scientificArticlesPieChart.data.labels = data.donutData.labels;
+    scientificArticlesPieChart.data.datasets[0].data = data.donutData.datasets[0].data;
+    scientificArticlesPieChart.update();
 }
