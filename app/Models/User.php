@@ -18,6 +18,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property-read string $full_name
+ * @property-read string $full_name_abbr
  * @property-read string $full_post
  * @property-read string $phone_formatted
  */
@@ -162,6 +163,21 @@ class User extends Authenticatable implements HasMedia
     public function getFullNameAttribute(): string
     {
         return "{$this->last_name} {$this->first_name} {$this->patronymic}";
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullNameAbbrAttribute(): string
+    {
+        $last = $this->last_name;
+        $first = $this->first_name[1] == '\''
+            ? substr($this->first_name, 0, 2)
+            : substr($this->first_name, 0, 1);
+        $patronymic = $this->patronymic[1] == '\''
+            ? substr($this->patronymic, 0, 2)
+            : substr($this->patronymic, 0, 1);
+        return "{$last} {$first}. {$patronymic}.";
     }
 
     /**

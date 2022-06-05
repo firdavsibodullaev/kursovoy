@@ -1,10 +1,10 @@
 @extends('layout')
-@section('title', 'Новый пользователь')
-@section('content-header', 'Новый пользователь')
+@section('title', 'Янги фойдаланувчи')
+@section('content-header', 'Янги фойдаланувчи')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{route('index')}}">Главная страница</a></li>
-    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Пользователи</a></li>
-    <li class="breadcrumb-item active">Новый пользователь</li>
+    <li class="breadcrumb-item"><a href="{{route('index')}}">Бош саҳифа</a></li>
+    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Фойдаланувчилар</a></li>
+    <li class="breadcrumb-item active">Янги фойдаланувчи</li>
 @endsection
 @section('content')
     <div class="card">
@@ -14,7 +14,7 @@
                 @csrf
                 <div class="row">
                     <div class="col-4">
-                        <h4 class="text-bold">Личная информация</h4>
+                        <h4 class="text-bold">Шахсий маълумотлар</h4>
                         <hr>
                         <div class="form-group">
                             <label for="last_name">Фамилия</label>
@@ -24,36 +24,36 @@
                                     ])
                                    id="last_name"
                                    required
-                                   placeholder="Введите фамилию"
+                                   placeholder="Фамилияни киритинг"
                                    value="{{old('last_name')}}"
                                    name="last_name">
                         </div>
                         <div class="form-group">
-                            <label for="first_name">Имя</label>
+                            <label for="first_name">Исм</label>
                             <input type="text"
                                    @class([
                                         'form-control',
                                     ])
                                    id="first_name"
                                    required
-                                   placeholder="Введите имя"
+                                   placeholder="Исмни киритинг"
                                    value="{{old('first_name')}}"
                                    name="first_name">
                         </div>
                         <div class="form-group">
-                            <label for="patronymic">Отчество</label>
+                            <label for="patronymic">Отасининг исми</label>
                             <input type="text"
                                    @class([
                                         'form-control',
                                     ])
                                    id="patronymic"
                                    required
-                                   placeholder="Введите отчество"
+                                   placeholder="Отасининг исмини киритинг"
                                    value="{{old('patronymic')}}"
                                    name="patronymic">
                         </div>
                         <div class="form-group">
-                            <label for="birthdate">Дата рождения</label>
+                            <label for="birthdate">Туғилган санаси</label>
                             <input type="date"
                                    @class([
                                         'form-control',
@@ -63,7 +63,7 @@
                                    name="birthdate">
                         </div>
                         <div class="form-group">
-                            <label for="phone">Номер телефона</label>
+                            <label for="phone">Телефон рақами</label>
                             <input type="text"
                                    @class([
                                         'form-control',
@@ -72,13 +72,13 @@
                                    data-mask
                                    id="phone"
                                    required
-                                   placeholder="Введите номер телефона"
+                                   placeholder="Телефон рақамини киритинг"
                                    value="{{old('phone')}}"
                                    name="phone">
                         </div>
                     </div>
                     <div class="col-4">
-                        <h4 class="text-bold">Данные аутентификации</h4>
+                        <h4 class="text-bold">Аутентификация маълумотлари</h4>
                         <hr>
                         <div class="form-group">
                             <label for="username">Логин</label>
@@ -88,7 +88,7 @@
                                     ])
                                    id="username"
                                    required
-                                   placeholder="Введите логин"
+                                   placeholder="Логинни киритинг"
                                    value="{{old('username')}}"
                                    name="username">
                         </div>
@@ -100,17 +100,17 @@
                                     ])
                                    id="password"
                                    required
-                                   placeholder="Введите пароль"
+                                   placeholder="Парольни киритинг"
                                    value="{{old('password')}}"
                                    name="password">
                         </div>
                         <button type="button"
                                 onclick="generatePassword('#password')"
-                                class="btn btn-secondary btn-sm btn-flat">Сгенерировать пароль
+                                class="btn btn-secondary btn-sm btn-flat">Парольни яратиш
                         </button>
                     </div>
                     <div class="col-4">
-                        <h4 class="text-bold">Другие данные</h4>
+                        <h4 class="text-bold">Бошқа маълумотлар</h4>
                         <hr>
                         <div class="form-group">
                             <label for="faculty_id">Факультет</label>
@@ -118,7 +118,7 @@
                                     id="faculty_id"
                                     onchange="requests.prof.getDepartments(this)"
                                     class="custom-select">
-                                <option value="">Выберите факультет</option>
+                                <option value="">Факультетни танланг</option>
                                 @foreach($faculties as $faculty)
                                     <option value="{{$faculty->id}}">
                                         {{$faculty->full_name}}
@@ -131,16 +131,16 @@
                             <select name="department_id"
                                     id="department_id"
                                     class="custom-select">
-                                <option value="">Выберите кафедру</option>
+                                <option value="">Кафедрани танланг</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="post">Должность</label>
+                            <label for="post">Лавозим</label>
                             <select name="post"
                                     id="post"
                                     required
                                     class="custom-select">
-                                <option value="">Выберите должность</option>
+                                <option value="">Лавозимини танланг</option>
                                 @foreach($roles as $key => $role)
                                     <option
                                         value="{{$key}}" {{old('post') == $key ? 'selected' : ''}}>
@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-flat">Сохранить</button>
+                    <button type="submit" class="btn btn-primary btn-flat">Сақлаш</button>
                 </div>
             </form>
         </div>

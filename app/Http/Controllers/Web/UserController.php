@@ -38,7 +38,6 @@ class UserController extends Controller
      */
     public function index(): string
     {
-//        dd(auth()->user()->hasPermissionTo(PermissionsConstant::USERS_EDIT));
         return view('users.index', [
             'users' => $this->userService->fetchWithPagination(),
             'permissions' => [
