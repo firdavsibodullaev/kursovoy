@@ -37,7 +37,7 @@ class ScientificArticleService
 
         return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
             ->where('is_confirmed', '=', true)
-            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
+            ->when(!is_super_admin(), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
                     $query->where('scientific_article_users.user_id', '=', $user->id);
                 });
@@ -109,7 +109,7 @@ class ScientificArticleService
         /** @var ScientificArticle $article */
         $article = tap($article)->update($validated);
 
-        if (auth()->user()->hasRole(UserRoles::SUPER_ADMIN)) {
+        if (is_super_admin()) {
             $article->users()->sync($validated['users']);
         }
 

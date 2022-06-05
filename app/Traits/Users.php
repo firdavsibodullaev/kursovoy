@@ -15,11 +15,20 @@ trait Users
         $users = '';
         /** @var User $user */
         foreach ($this->users as $key => $user) {
+
+            $last = $user->last_name;
+            $first = $user->first_name[1] == '\''
+                ? substr($user->first_name, 0, 2)
+                : substr($user->first_name, 0, 1);
+            $patronymic = $user->patronymic[1] == '\''
+                ? substr($user->patronymic, 0, 2)
+                : substr($user->patronymic, 0, 1);
+
             if ($key === 0) {
-                $users .= "{$user->last_name} {$user->first_name} {$user->patronymic}";
+                $users .= "{$last} {$first}. {$patronymic}.";
                 continue;
             }
-            $users .= ",<br/>{$user->last_name} {$user->first_name} {$user->patronymic}";
+            $users .= ",<br/>{$last} {$first}. {$patronymic}.";
         }
 
         return $users;
