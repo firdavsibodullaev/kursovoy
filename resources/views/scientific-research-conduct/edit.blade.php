@@ -62,6 +62,19 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="user_id">Лойиҳа раҳбари</label>
+                    <select name="user_id" data-placeholder="Лойиҳа раҳбарини танланг" id="user_id"
+                            class="select2 w-100">
+                        <option></option>
+                        @foreach($users as $user)
+                            <option
+                                {{($order->user_id == $user->id) ? 'selected' : ''}}
+                                value="{{$user->id}}"
+                            >{{$user->full_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-flat" value="Сақлаш">
                 </div>
             </form>

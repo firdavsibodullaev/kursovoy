@@ -8,6 +8,7 @@ use App\Models\GrantFundOrder;
 use App\Http\Requests\StoreGrantFundOrderRequest;
 use App\Http\Requests\UpdateGrantFundOrderRequest;
 use App\Services\GrantFundOrderService;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 
 class GrantFundOrderController extends Controller
@@ -45,7 +46,9 @@ class GrantFundOrderController extends Controller
      */
     public function create(): string
     {
-        return view('grant-fund-orders.create')->render();
+        return view('grant-fund-orders.create', [
+            'users' => (new UserService())->list()
+        ])->render();
     }
 
     /**
@@ -70,7 +73,8 @@ class GrantFundOrderController extends Controller
     public function edit(GrantFundOrder $grantFundOrder): string
     {
         return view('grant-fund-orders.edit', [
-            'order' => $grantFundOrder
+            'order' => $grantFundOrder,
+            'users' => (new UserService())->list()
         ])->render();
     }
 

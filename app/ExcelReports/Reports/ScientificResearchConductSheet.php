@@ -37,6 +37,7 @@ class ScientificResearchConductSheet implements ReportSheet
     {
         $year = request('year');
         return ScientificResearchConduct::query()
+            ->with('user')
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('year', '=', $year);
             })
@@ -64,7 +65,8 @@ class ScientificResearchConductSheet implements ReportSheet
             $worksheet->setCellValue("A{$iter}", $key + 1)
                 ->setCellValue("B{$iter}", $item->name)
                 ->setCellValue("C{$iter}", $item->price)
-                ->setCellValue("D{$iter}", $item->full_price);
+                ->setCellValue("D{$iter}", $item->user->full_name_abbr)
+                ->setCellValue("E{$iter}", $item->full_price);
 
 
             if (($key + 1) === $count) {
@@ -73,18 +75,18 @@ class ScientificResearchConductSheet implements ReportSheet
                 $worksheet->setCellValue("B{$iter}", "Жами")
                     ->setCellValue("C{$iter}", $price_total)
                     ->setCellValue("D{$iter}", $full_price_total);
-                $worksheet->getStyle("B{$iter}:D{$iter}")
+                $worksheet->getStyle("B{$iter}:E{$iter}")
                     ->getFont()
                     ->setBold(true);
             }
         }
 
-        $worksheet->getStyle("A9:D{$iter}")
+        $worksheet->getStyle("A9:E{$iter}")
             ->applyFromArray(self::BODY_STYLE)
             ->getFont()
             ->setName('Times New Roman')
             ->setSize(12);
-        $worksheet->getStyle("A9:D{$iter}")
+        $worksheet->getStyle("A9:E{$iter}")
             ->getAlignment()
             ->setWrapText(true);
         return $iter;
@@ -95,10 +97,10 @@ class ScientificResearchConductSheet implements ReportSheet
      */
     public function footer(Worksheet &$worksheet, int $footer_iter)
     {
-        $worksheet->mergeCells("B{$footer_iter}:C" . ($footer_iter + 1));
+        $worksheet->mergeCells("B{$footer_iter}:D" . ($footer_iter + 1));
 
         $worksheet->setCellValue("B{$footer_iter}", "Ректор                                                                                 Қ.С.Санақулов")
-            ->getStyle("B{$footer_iter}:C" . ($footer_iter + 1))
+            ->getStyle("B{$footer_iter}:D" . ($footer_iter + 1))
             ->applyFromArray(self::FOOTER_STYLE)
             ->getFont()
             ->setName('Times New Roman')
@@ -107,10 +109,10 @@ class ScientificResearchConductSheet implements ReportSheet
 
         $footer_iter += 2;
 
-        $worksheet->mergeCells("B{$footer_iter}:C" . ($footer_iter + 1));
+        $worksheet->mergeCells("B{$footer_iter}:D" . ($footer_iter + 1));
 
         $worksheet->setCellValue("B{$footer_iter}", "Бош ҳисобчи                                                                      Т.А.Абдуллаев    ")
-            ->getStyle("B{$footer_iter}:C" . ($footer_iter + 1))
+            ->getStyle("B{$footer_iter}:D" . ($footer_iter + 1))
             ->applyFromArray(self::FOOTER_STYLE)
             ->getFont()
             ->setName('Times New Roman')

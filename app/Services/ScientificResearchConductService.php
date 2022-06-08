@@ -21,6 +21,7 @@ class ScientificResearchConductService
     public function fetchWithPagination(): LengthAwarePaginator
     {
         return QueryBuilder::for(ScientificResearchConduct::class)
+            ->with('user')
             ->allowedSorts('year', 'name', 'id')
             ->defaultSort('-year')
             ->allowedFilters([

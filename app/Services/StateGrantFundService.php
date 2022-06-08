@@ -21,6 +21,7 @@ class StateGrantFundService
     public function fetchWithPagination(): LengthAwarePaginator
     {
         return QueryBuilder::for(StateGrantFund::class)
+            ->with('user')
             ->allowedSorts('year', 'name', 'id')
             ->defaultSort('-year')
             ->allowedFilters([

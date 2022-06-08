@@ -2,7 +2,8 @@
 @section('title', 'Илмий тадқиқотлар маблағлари')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('scientific_research_conduct.index')}}">Илмий тадқиқотлар маблағлари</a>
+    <li class="breadcrumb-item"><a href="{{route('scientific_research_conduct.index')}}">Илмий тадқиқотлар
+            маблағлари</a>
     </li>
     <li class="breadcrumb-item active">Маблағ қўшиш</li>
 @endsection
@@ -59,6 +60,19 @@
                                    placeholder="Жами суммасини киритинг">
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="user_id">Лойиҳа раҳбари</label>
+                    <select name="user_id" data-placeholder="Лойиҳа раҳбарини танланг" id="user_id"
+                            class="select2 w-100">
+                        <option></option>
+                        @foreach($users as $user)
+                            <option
+                                {{(old('user_id') == $user->id) ? 'selected' : ''}}
+                                value="{{$user->id}}"
+                            >{{$user->full_name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-flat" value="Сақлаш">

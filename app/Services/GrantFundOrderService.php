@@ -22,6 +22,7 @@ class GrantFundOrderService
     public function fetchWithPagination(): LengthAwarePaginator
     {
         return QueryBuilder::for(GrantFundOrder::class)
+            ->with('user')
             ->allowedFilters([
                 AllowedFilter::custom('name', new GrantFundOrderFilter)
             ])

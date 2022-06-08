@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ScientificResearchConductRequest;
 use App\Models\ScientificResearchConduct;
 use App\Services\ScientificResearchConductService;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 
 class ScientificResearchConductController extends Controller
@@ -44,7 +45,9 @@ class ScientificResearchConductController extends Controller
      */
     public function create(): string
     {
-        return view('scientific-research-conduct.create')->render();
+        return view('scientific-research-conduct.create', [
+            'users' => (new UserService())->list()
+        ])->render();
     }
 
     /**
@@ -69,7 +72,8 @@ class ScientificResearchConductController extends Controller
     public function edit(ScientificResearchConduct $scientificResearchConduct): string
     {
         return view('scientific-research-conduct.edit', [
-            'order' => $scientificResearchConduct
+            'order' => $scientificResearchConduct,
+            'users' => (new UserService())->list()
         ])->render();
     }
 

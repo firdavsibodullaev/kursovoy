@@ -2,7 +2,8 @@
 @section('title', 'Давлат грантлари асосида ўтказилган тадқиқотлар маблағлар')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{route('index')}}">Бош сахифа</a></li>
-    <li class="breadcrumb-item"><a href="{{route('state_grant_fund.index')}}">Давлат грантлари асосида ўтказилган тадқиқотлар маблағлар</a>
+    <li class="breadcrumb-item"><a href="{{route('state_grant_fund.index')}}">Давлат грантлари асосида ўтказилган
+            тадқиқотлар маблағлар</a>
     </li>
     <li class="breadcrumb-item active">Маблағни таҳрирлаш</li>
 @endsection
@@ -60,6 +61,19 @@
                                    placeholder="Жами суммасини киритинг">
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="user_id">Лойиҳа раҳбари</label>
+                    <select name="user_id" data-placeholder="Лойиҳа раҳбарини танланг" id="user_id"
+                            class="select2 w-100">
+                        <option></option>
+                        @foreach($users as $user)
+                            <option
+                                {{($order->user_id == $user->id) ? 'selected' : ''}}
+                                value="{{$user->id}}"
+                            >{{$user->full_name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-flat" value="Сақлаш">

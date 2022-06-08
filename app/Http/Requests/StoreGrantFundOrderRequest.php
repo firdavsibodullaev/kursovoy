@@ -27,7 +27,8 @@ class StoreGrantFundOrderRequest extends FormRequest
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0|max:10000000000000',
             'full_price' => 'required|numeric|min:0|max:10000000000000',
-            'year' => ['required', 'string', 'regex:/^\d{4}$/', 'max:'.date('Y')]
+            'year' => ['required', 'string', 'regex:/^\d{4}$/', 'max:' . date('Y')],
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }

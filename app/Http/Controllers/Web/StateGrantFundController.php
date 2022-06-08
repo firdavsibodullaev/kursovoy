@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StateGrantFundRequest;
 use App\Models\StateGrantFund;
 use App\Services\StateGrantFundService;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 
 class StateGrantFundController extends Controller
@@ -45,7 +46,9 @@ class StateGrantFundController extends Controller
      */
     public function create(): string
     {
-        return view('state-grant-fund.create')->render();
+        return view('state-grant-fund.create', [
+            'users' => (new UserService())->list()
+        ])->render();
     }
 
     /**
@@ -70,7 +73,8 @@ class StateGrantFundController extends Controller
     public function edit(StateGrantFund $stateGrantFund): string
     {
         return view('state-grant-fund.edit', [
-            'order' => $stateGrantFund
+            'order' => $stateGrantFund,
+            'users' => (new UserService())->list()
         ])->render();
     }
 

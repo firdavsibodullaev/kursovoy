@@ -27,7 +27,8 @@ class StateGrantFundRequest extends FormRequest
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0|max:10000000000000',
             'full_price' => 'required|numeric|min:0|max:10000000000000',
-            'year' => ['required', 'numeric', 'regex:/^\d{4}$/', 'min:2000', 'max:'.date('Y')]
+            'year' => ['required', 'numeric', 'regex:/^\d{4}$/', 'min:2000', 'max:' . date('Y')],
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }

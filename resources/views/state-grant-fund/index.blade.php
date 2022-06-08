@@ -82,17 +82,18 @@
                             Id
                         </div>
                     </th>
-                    <th colspan="3">Сўм ҳисобида</th>
+                    <th colspan="4">Сўм ҳисобида</th>
                     <th rowspan="3" style="width: 8%;">Йил</th>
                     <th rowspan="3" style="width: 8%;"></th>
                 </tr>
                 <tr>
-                    <th colspan="2">Давлат грантлари асосида ўтказилган тадқиқотлар*</th>
+                    <th colspan="3">Давлат грантлари асосида ўтказилган тадқиқотлар*</th>
                     <th rowspan="2">Жами суммаси</th>
                 </tr>
                 <tr>
                     <th>Давлат гранти мавзуси номи</th>
                     <th>Суммаси</th>
+                    <th>Лойиҳа раҳбари</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -101,6 +102,7 @@
                         <td>{{$order->id}}</td>
                         <td>{{$order->name}}</td>
                         <td>{{$order->price}}</td>
+                        <td>{{$order->user->full_name_abbr}}</td>
                         <td>{{$order->full_price}}</td>
                         <td>{{$order->year}}</td>
                         <td>
