@@ -40,7 +40,7 @@ class ExcelExportController extends Controller
             unlink($store_path);
         }
 
-        $path = storage_path('app/example.xlsx');
+        $path = storage_path('excel-example/example.xlsx');
         $spreadsheet = IOFactory::load($path);
 
         MainReport::get([
