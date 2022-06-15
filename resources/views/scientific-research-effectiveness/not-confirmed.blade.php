@@ -51,14 +51,16 @@
                         <td>{{$research->accept}}</td>
                         <td>{{$research->publication->title}}</td>
                         <td>
-                            <a href="javascript:void(0)"
-                               onclick="document.querySelector('#confirm-form-{{$research->id}}').submit()"
-                               class="btn btn-success btn-flat btn-sm">
-                                <i class="fas fa-check"></i>
-                            </a>
-                            <form action="{{route('scientific_research_effectiveness.confirm', $research->id)}}"
-                                  id="confirm-form-{{$research->id}}"
-                                  method="post">@csrf</form>
+                            @can($permissions['confirm'])
+                                <a href="javascript:void(0)"
+                                   onclick="document.querySelector('#confirm-form-{{$research->id}}').submit()"
+                                   class="btn btn-success btn-flat btn-sm">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                <form action="{{route('scientific_research_effectiveness.confirm', $research->id)}}"
+                                      id="confirm-form-{{$research->id}}"
+                                      method="post">@csrf</form>
+                            @endcan
                             @can($permissions['edit'])
                                 <a href="{{route('scientific_research_effectiveness.edit', $research->id)}}"
                                    class="btn btn-warning btn-flat btn-sm">

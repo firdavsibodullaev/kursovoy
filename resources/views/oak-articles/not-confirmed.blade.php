@@ -68,14 +68,16 @@
                             @endif
                         </td>
                         <td>
-                            <a href="javascript:void(0)"
-                               onclick="document.querySelector('#confirm-form-{{$article->id}}').submit()"
-                               class="btn btn-success btn-flat btn-sm">
-                                <i class="fas fa-check"></i>
-                            </a>
-                            <form action="{{route('oak_scientific_article.confirm', $article->id)}}"
-                                  id="confirm-form-{{$article->id}}"
-                                  method="post">@csrf</form>
+                            @can($permissions['confirm'])
+                                <a href="javascript:void(0)"
+                                   onclick="document.querySelector('#confirm-form-{{$article->id}}').submit()"
+                                   class="btn btn-success btn-flat btn-sm">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                <form action="{{route('oak_scientific_article.confirm', $article->id)}}"
+                                      id="confirm-form-{{$article->id}}"
+                                      method="post">@csrf</form>
+                            @endcan
                             @can($permissions['edit'])
                                 <a href="{{route('oak_scientific_article.edit', $article->id)}}"
                                    class="btn btn-warning btn-flat btn-sm">

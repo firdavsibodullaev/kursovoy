@@ -33,7 +33,7 @@ class ScientificResearchEffectivenessController extends Controller
         return view('scientific-research-effectiveness.index', [
             'researches' => $this->effectivenessService->fetchWithPagination(),
             'permissions' => [
-                'confirm' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM,
+                'confirm' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM_PAGE,
                 'edit' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_EDIT,
                 'delete' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_DELETE,
             ]
@@ -48,6 +48,7 @@ class ScientificResearchEffectivenessController extends Controller
         return view('scientific-research-effectiveness.not-confirmed', [
             'researches' => $this->effectivenessService->getNotConfirmedArticlesList(),
             'permissions' => [
+                'confirm' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM,
                 'edit' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_EDIT,
                 'delete' => PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_DELETE,
             ]

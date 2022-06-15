@@ -35,7 +35,7 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
         return view('copyright-protected-various-material-information.index', [
             'information' => $this->informationService->fetchWithPagination(),
             'permissions' => [
-                'confirm' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM,
+                'confirm' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM_PAGE,
                 'edit' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_EDIT,
                 'delete' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_DELETE,
             ]
@@ -52,6 +52,7 @@ class CopyrightProtectedVariousMaterialInformationController extends Controller
             'permissions' => [
                 'edit' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_EDIT,
                 'delete' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_DELETE,
+                'confirm' => PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM
             ]
         ])->render();
     }

@@ -35,7 +35,7 @@ class ObtainedIndustrialSamplePatentController extends Controller
         return view('obtained-industrial-sample-patent.index', [
             'patents' => $this->patentService->fetchWithPagination(),
             'permissions' => [
-                'confirm' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM,
+                'confirm' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM_PAGE,
                 'edit' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_EDIT,
                 'delete' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_DELETE,
             ]
@@ -50,6 +50,7 @@ class ObtainedIndustrialSamplePatentController extends Controller
         return view('obtained-industrial-sample-patent.not-confirmed', [
             'patents' => $this->patentService->getNotConfirmedArticlesList(),
             'permissions' => [
+                'confirm' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM,
                 'edit' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_EDIT,
                 'delete' => PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_DELETE,
             ]

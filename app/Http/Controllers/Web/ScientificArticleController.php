@@ -40,7 +40,7 @@ class ScientificArticleController extends Controller
             'articles' => $this->articleService->fetchWithPagination(),
             'collection' => MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE,
             'permissions' => [
-                'confirm' => PermissionsConstant::SCIENTIFIC_ARTICLE_CONFIRM,
+                'confirm' => PermissionsConstant::SCIENTIFIC_ARTICLE_CONFIRM_PAGE,
                 'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_EDIT,
                 'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_DELETE,
             ]
@@ -56,6 +56,7 @@ class ScientificArticleController extends Controller
             'articles' => $this->articleService->getNotConfirmedArticlesList(),
             'collection' => MediaCollectionsConstant::SCIENTIFIC_ARTICLE_FILE,
             'permissions' => [
+                'confirm' => PermissionsConstant::SCIENTIFIC_ARTICLE_CONFIRM,
                 'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_EDIT,
                 'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_DELETE,
             ]

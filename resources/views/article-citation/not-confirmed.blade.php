@@ -72,14 +72,16 @@
                             {{$citation->citations_count}}
                         </td>
                         <td>
-                            <a href="javascript:void(0)"
-                               onclick="document.querySelector('#confirm-form-{{$citation->id}}').submit()"
-                               class="btn btn-success btn-flat btn-sm">
-                                <i class="fas fa-check"></i>
-                            </a>
-                            <form action="{{route('article_citation.confirm', $citation->id)}}"
-                                  id="confirm-form-{{$citation->id}}"
-                                  method="post">@csrf</form>
+                            @can($permissions['confirm'])
+                                <a href="javascript:void(0)"
+                                   onclick="document.querySelector('#confirm-form-{{$citation->id}}').submit()"
+                                   class="btn btn-success btn-flat btn-sm">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                <form action="{{route('article_citation.confirm', $citation->id)}}"
+                                      id="confirm-form-{{$citation->id}}"
+                                      method="post">@csrf</form>
+                            @endcan
                             @can($permissions['edit'])
                                 <a href="{{route('article_citation.edit', $citation->id)}}"
                                    class="btn btn-warning btn-flat btn-sm">

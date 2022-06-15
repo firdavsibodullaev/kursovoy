@@ -38,7 +38,7 @@ class OakScientificArticleController extends Controller
             'articles' => $this->articleService->fetchWithPagination(),
             'collection' => MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE,
             'permissions' => [
-                'confirm' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_CONFIRM,
+                'confirm' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_CONFIRM_PAGE,
                 'edit' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_EDIT,
                 'delete' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_DELETE,
             ]
@@ -54,6 +54,7 @@ class OakScientificArticleController extends Controller
             'articles' => $this->articleService->getNotConfirmedArticlesList(),
             'collection' => MediaCollectionsConstant::OAK_SCIENTIFIC_ARTICLE_FILE,
             'permissions' => [
+                'confirm' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_CONFIRM,
                 'edit' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_EDIT,
                 'delete' => PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_DELETE,
             ]

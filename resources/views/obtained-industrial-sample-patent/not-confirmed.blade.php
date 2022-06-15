@@ -62,14 +62,16 @@
                             @endif
                         </td>
                         <td>
-                            <a href="javascript:void(0)"
-                               onclick="document.querySelector('#confirm-form-{{$patent->id}}').submit()"
-                               class="btn btn-success btn-flat btn-sm">
-                                <i class="fas fa-check"></i>
-                            </a>
-                            <form action="{{route('obtained_industrial_sample_patent.confirm', $patent->id)}}"
-                                  id="confirm-form-{{$patent->id}}"
-                                  method="post">@csrf</form>
+                            @can($permissions['confirm'])
+                                <a href="javascript:void(0)"
+                                   onclick="document.querySelector('#confirm-form-{{$patent->id}}').submit()"
+                                   class="btn btn-success btn-flat btn-sm">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                <form action="{{route('obtained_industrial_sample_patent.confirm', $patent->id)}}"
+                                      id="confirm-form-{{$patent->id}}"
+                                      method="post">@csrf</form>
+                            @endcan
                             @can($permissions['edit'])
                                 <a href="{{route('obtained_industrial_sample_patent.edit', $patent->id)}}"
                                    class="btn btn-warning btn-flat btn-sm">

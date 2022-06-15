@@ -39,7 +39,7 @@ class ScientificArticleCitationController extends Controller
             'citations' => $this->articleCitationService->fetchWithPagination(),
             'languages' => LanguagesConstant::translatedList(),
             'permissions' => [
-                'confirm' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_CONFIRM,
+                'confirm' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_CONFIRM_PAGE,
                 'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_EDIT,
                 'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_DELETE
             ]
@@ -52,6 +52,7 @@ class ScientificArticleCitationController extends Controller
             'citations' => $this->articleCitationService->getNotConfirmedArticlesList(),
             'languages' => LanguagesConstant::translatedList(),
             'permissions' => [
+                'confirm' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_CONFIRM,
                 'edit' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_EDIT,
                 'delete' => PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_DELETE
             ]

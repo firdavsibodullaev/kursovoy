@@ -236,7 +236,7 @@ Route::middleware('auth')->group(function () {
             ->middleware('can:' . PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_LIST)
             ->name('index');
         Route::get('not-confirmed', [ScientificArticleCitationController::class, 'notConfirmed'])
-            ->middleware('can:' . PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_CONFIRM)
+            ->middleware('can:' . PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_CONFIRM_PAGE)
             ->name('not_confirmed');
         Route::get('create', [ScientificArticleCitationController::class, 'create'])
             ->middleware('can:' . PermissionsConstant::SCIENTIFIC_ARTICLE_CITATION_CREATE)
@@ -270,7 +270,7 @@ Route::middleware('auth')->group(function () {
             ->middleware('can:' . PermissionsConstant::SCIENTIFIC_ARTICLE_LIST)
             ->name('index');
         Route::get('not-confirmed', [ScientificArticleController::class, 'getNotConfirmedArticlesList'])
-            ->middleware('can:' . PermissionsConstant::SCIENTIFIC_ARTICLE_CONFIRM)
+            ->middleware('can:' . PermissionsConstant::SCIENTIFIC_ARTICLE_CONFIRM_PAGE)
             ->name('not_confirmed');
         Route::get('create', [ScientificArticleController::class, 'create'])
             ->middleware('can:' . PermissionsConstant::SCIENTIFIC_ARTICLE_CREATE)
@@ -304,7 +304,7 @@ Route::middleware('auth')->group(function () {
             ->middleware('can:' . PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_LIST)
             ->name('index');
         Route::get('not-confirmed', [OakScientificArticleController::class, 'getNotConfirmedArticlesList'])
-            ->middleware('can:' . PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_CONFIRM)
+            ->middleware('can:' . PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_CONFIRM_PAGE)
             ->name('not_confirmed');
         Route::get('create', [OakScientificArticleController::class, 'create'])
             ->middleware('can:' . PermissionsConstant::OAK_SCIENTIFIC_ARTICLE_CREATE)
@@ -338,7 +338,7 @@ Route::middleware('auth')->group(function () {
             ->middleware('can:' . PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_LIST)
             ->name('index');
         Route::get('not-confirmed', [ScientificResearchEffectivenessController::class, 'getNotConfirmedArticlesList'])
-            ->middleware('can:' . PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM)
+            ->middleware('can:' . PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM_PAGE)
             ->name('not_confirmed');
         Route::get('create', [ScientificResearchEffectivenessController::class, 'create'])
             ->middleware('can:' . PermissionsConstant::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CREATE)
@@ -368,7 +368,7 @@ Route::middleware('auth')->group(function () {
             ->middleware('can:' . PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_LIST)
             ->name('index');
         Route::get('not-confirmed', [ObtainedIndustrialSamplePatentController::class, 'getNotConfirmedArticlesList'])
-            ->middleware('can:' . PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM)
+            ->middleware('can:' . PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM_PAGE)
             ->name('not_confirmed');
         Route::get('create', [ObtainedIndustrialSamplePatentController::class, 'create'])
             ->middleware('can:' . PermissionsConstant::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CREATE)
@@ -398,7 +398,7 @@ Route::middleware('auth')->group(function () {
             ->middleware('can:' . PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_LIST)
             ->name('index');
         Route::get('not-confirmed', [CopyrightProtectedVariousMaterialInformationController::class, 'getNotConfirmedArticlesList'])
-            ->middleware('can:' . PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM)
+            ->middleware('can:' . PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM_PAGE)
             ->name('not_confirmed');
         Route::get('create', [CopyrightProtectedVariousMaterialInformationController::class, 'create'])
             ->middleware('can:' . PermissionsConstant::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CREATE)

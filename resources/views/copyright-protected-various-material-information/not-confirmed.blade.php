@@ -64,15 +64,17 @@
                             @endif
                         </td>
                         <td>
-                            <a href="javascript:void(0)"
-                               onclick="document.querySelector('#confirm-form-{{$item->id}}').submit()"
-                               class="btn btn-success btn-flat btn-sm">
-                                <i class="fas fa-check"></i>
-                            </a>
-                            <form
-                                action="{{route('copyright_protected_various_material_information.confirm', $item->id)}}"
-                                id="confirm-form-{{$item->id}}"
-                                method="post">@csrf</form>
+                            @can($permissions['confirm'])
+                                <a href="javascript:void(0)"
+                                   onclick="document.querySelector('#confirm-form-{{$item->id}}').submit()"
+                                   class="btn btn-success btn-flat btn-sm">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                <form
+                                    action="{{route('copyright_protected_various_material_information.confirm', $item->id)}}"
+                                    id="confirm-form-{{$item->id}}"
+                                    method="post">@csrf</form>
+                            @endcan
                             @can($permissions['edit'])
                                 <a href="{{route('copyright_protected_various_material_information.edit', $item->id)}}"
                                    class="btn btn-warning btn-flat btn-sm">

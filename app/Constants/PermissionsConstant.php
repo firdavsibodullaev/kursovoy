@@ -37,18 +37,21 @@ class PermissionsConstant
     const SCIENTIFIC_ARTICLE_CITATION_LIST = 'scientific_article_citation_list';
     const SCIENTIFIC_ARTICLE_CITATION_CREATE = 'scientific_article_citation_create';
     const SCIENTIFIC_ARTICLE_CITATION_EDIT = 'scientific_article_citation_edit';
+    const SCIENTIFIC_ARTICLE_CITATION_CONFIRM_PAGE = 'scientific_article_citation_confirm_page';
     const SCIENTIFIC_ARTICLE_CITATION_CONFIRM = 'scientific_article_citation_confirm';
     const SCIENTIFIC_ARTICLE_CITATION_DELETE = 'scientific_article_citation_delete';
 
     const SCIENTIFIC_ARTICLE_LIST = 'scientific_article_list';
     const SCIENTIFIC_ARTICLE_CREATE = 'scientific_article_create';
     const SCIENTIFIC_ARTICLE_EDIT = 'scientific_article_edit';
+    const SCIENTIFIC_ARTICLE_CONFIRM_PAGE = 'scientific_article_confirm_page';
     const SCIENTIFIC_ARTICLE_CONFIRM = 'scientific_article_confirm';
     const SCIENTIFIC_ARTICLE_DELETE = 'scientific_article_delete';
 
     const OAK_SCIENTIFIC_ARTICLE_LIST = 'oak_scientific_article_list';
     const OAK_SCIENTIFIC_ARTICLE_CREATE = 'oak_scientific_article_create';
     const OAK_SCIENTIFIC_ARTICLE_EDIT = 'oak_scientific_article_edit';
+    const OAK_SCIENTIFIC_ARTICLE_CONFIRM_PAGE = 'oak_scientific_article_confirm_page';
     const OAK_SCIENTIFIC_ARTICLE_CONFIRM = 'oak_scientific_article_confirm';
     const OAK_SCIENTIFIC_ARTICLE_DELETE = 'oak_scientific_article_delete';
 
@@ -70,18 +73,21 @@ class PermissionsConstant
     const SCIENTIFIC_RESEARCH_EFFECTIVENESS_LIST = 'scientific_research_effectiveness_list';
     const SCIENTIFIC_RESEARCH_EFFECTIVENESS_CREATE = 'scientific_research_effectiveness_create';
     const SCIENTIFIC_RESEARCH_EFFECTIVENESS_EDIT = 'scientific_research_effectiveness_edit';
+    const SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM_PAGE = 'scientific_research_effectiveness_confirm_page';
     const SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM = 'scientific_research_effectiveness_confirm';
     const SCIENTIFIC_RESEARCH_EFFECTIVENESS_DELETE = 'scientific_research_effectiveness_delete';
 
     const OBTAINED_INDUSTRIAL_SAMPLE_PATENT_LIST = 'obtained_industrial_sample_patent_list';
     const OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CREATE = 'obtained_industrial_sample_patent_create';
     const OBTAINED_INDUSTRIAL_SAMPLE_PATENT_EDIT = 'obtained_industrial_sample_patent_edit';
+    const OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM_PAGE = 'obtained_industrial_sample_patent_confirm_page';
     const OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM = 'obtained_industrial_sample_patent_confirm';
     const OBTAINED_INDUSTRIAL_SAMPLE_PATENT_DELETE = 'obtained_industrial_sample_patent_delete';
 
     const COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_LIST = 'copyright_protected_various_material_information_list';
     const COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CREATE = 'copyright_protected_various_material_information_create';
     const COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_EDIT = 'copyright_protected_various_material_information_edit';
+    const COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM_PAGE = 'copyright_protected_various_material_information_confirm_page';
     const COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM = 'copyright_protected_various_material_information_confirm';
     const COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_DELETE = 'copyright_protected_various_material_information_delete';
 
@@ -122,18 +128,21 @@ class PermissionsConstant
                 self::SCIENTIFIC_ARTICLE_CITATION_LIST,
                 self::SCIENTIFIC_ARTICLE_CITATION_CREATE,
                 self::SCIENTIFIC_ARTICLE_CITATION_EDIT,
+                self::SCIENTIFIC_ARTICLE_CITATION_CONFIRM_PAGE,
                 self::SCIENTIFIC_ARTICLE_CITATION_CONFIRM,
                 self::SCIENTIFIC_ARTICLE_CITATION_DELETE,
 
                 self::SCIENTIFIC_ARTICLE_LIST,
                 self::SCIENTIFIC_ARTICLE_CREATE,
                 self::SCIENTIFIC_ARTICLE_EDIT,
+                self::SCIENTIFIC_ARTICLE_CONFIRM_PAGE,
                 self::SCIENTIFIC_ARTICLE_CONFIRM,
                 self::SCIENTIFIC_ARTICLE_DELETE,
 
                 self::OAK_SCIENTIFIC_ARTICLE_LIST,
                 self::OAK_SCIENTIFIC_ARTICLE_CREATE,
                 self::OAK_SCIENTIFIC_ARTICLE_EDIT,
+                self::OAK_SCIENTIFIC_ARTICLE_CONFIRM_PAGE,
                 self::OAK_SCIENTIFIC_ARTICLE_CONFIRM,
                 self::OAK_SCIENTIFIC_ARTICLE_DELETE,
 
@@ -155,18 +164,21 @@ class PermissionsConstant
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_LIST,
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CREATE,
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_EDIT,
+                self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM_PAGE,
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM,
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_DELETE,
 
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_LIST,
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CREATE,
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_EDIT,
+                self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM_PAGE,
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM,
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_DELETE,
 
                 self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_LIST,
                 self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CREATE,
                 self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_EDIT,
+                self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM_PAGE,
                 self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM,
                 self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_DELETE,
             ],
@@ -185,42 +197,54 @@ class PermissionsConstant
 
                 self::SCIENTIFIC_ARTICLE_CITATION_LIST,
                 self::SCIENTIFIC_ARTICLE_CITATION_CREATE,
+                self::SCIENTIFIC_ARTICLE_CITATION_CONFIRM_PAGE,
 
                 self::OAK_SCIENTIFIC_ARTICLE_LIST,
                 self::OAK_SCIENTIFIC_ARTICLE_CREATE,
+                self::OAK_SCIENTIFIC_ARTICLE_CONFIRM_PAGE,
 
                 self::SCIENTIFIC_ARTICLE_LIST,
                 self::SCIENTIFIC_ARTICLE_CREATE,
+                self::SCIENTIFIC_ARTICLE_CONFIRM_PAGE,
 
-                self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CREATE,
                 self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_LIST,
+                self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CREATE,
+                self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM_PAGE,
 
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_LIST,
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CREATE,
+                self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM_PAGE,
 
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_LIST,
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CREATE,
+                self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM_PAGE,
             ],
             UserRoles::TEACHER => [
                 self::SEE_REPORTS,
 
                 self::SCIENTIFIC_ARTICLE_CITATION_LIST,
                 self::SCIENTIFIC_ARTICLE_CITATION_CREATE,
+                self::SCIENTIFIC_ARTICLE_CITATION_CONFIRM_PAGE,
 
                 self::OAK_SCIENTIFIC_ARTICLE_LIST,
                 self::OAK_SCIENTIFIC_ARTICLE_CREATE,
+                self::OAK_SCIENTIFIC_ARTICLE_CONFIRM_PAGE,
 
                 self::SCIENTIFIC_ARTICLE_LIST,
                 self::SCIENTIFIC_ARTICLE_CREATE,
+                self::SCIENTIFIC_ARTICLE_CONFIRM_PAGE,
 
-                self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CREATE,
                 self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_LIST,
+                self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CREATE,
+                self::COPYRIGHT_PROTECTED_VARIOUS_MATERIAL_INFORMATION_CONFIRM_PAGE,
 
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_LIST,
                 self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CREATE,
+                self::OBTAINED_INDUSTRIAL_SAMPLE_PATENT_CONFIRM_PAGE,
 
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_LIST,
                 self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CREATE,
+                self::SCIENTIFIC_RESEARCH_EFFECTIVENESS_CONFIRM_PAGE,
             ],
         ];
     }
