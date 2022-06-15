@@ -74,7 +74,7 @@ class ScientificResearchConductSheet implements ReportSheet
 
                 $worksheet->setCellValue("B{$iter}", "Жами")
                     ->setCellValue("C{$iter}", $price_total)
-                    ->setCellValue("D{$iter}", $full_price_total);
+                    ->setCellValue("E{$iter}", $full_price_total);
                 $worksheet->getStyle("B{$iter}:E{$iter}")
                     ->getFont()
                     ->setBold(true);
