@@ -165,7 +165,8 @@ class ScientificResearchEffectivenessService
             ->when($year, function (Builder $query) use ($year) {
                 $query->whereYear('scientific_research_effectivenesses.accepted_date', '=', $year);
             })
-            ->count('scientific_research_effectivenesses.*');
+            ->groupBy('scientific_research_effectivenesses.id')
+            ->get('scientific_research_effectivenesses.id')->count();
 
         $departments = Department::query()
             ->with('users.oakScientificArticles')

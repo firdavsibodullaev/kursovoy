@@ -174,7 +174,8 @@ class ObtainedIndustrialSamplePatentService
             ->when($year, function (Builder $query) use ($year) {
                 $query->whereYear('obtained_industrial_sample_patents.date', '=', $year);
             })
-            ->count('obtained_industrial_sample_patents.*');
+            ->groupBy('obtained_industrial_sample_patents.id')
+            ->get('obtained_industrial_sample_patents.id')->count();
 
         $departments = Department::query()
             ->with('users.obtainedIndustrialSamplePatent')

@@ -222,7 +222,8 @@ class ScientificArticleService
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('scientific_articles.publish_year', '=', $year);
             })
-            ->count('scientific_articles.*');
+            ->groupBy('scientific_articles.id')
+            ->get('scientific_articles.id')->count();
 
         $departments = Department::query()
             ->with('users.scientificArticles')

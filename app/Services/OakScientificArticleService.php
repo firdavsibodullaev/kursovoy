@@ -215,7 +215,8 @@ class OakScientificArticleService
             ->when($year, function (Builder $query) use ($year) {
                 $query->where('oak_scientific_articles.publish_year', '=', $year);
             })
-            ->count('oak_scientific_articles.*');
+            ->groupBy('oak_scientific_articles.id')
+            ->get('oak_scientific_articles.id')->count();
 
         $departments = Department::query()
             ->with('users.oakScientificArticles')

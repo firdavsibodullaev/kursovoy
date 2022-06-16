@@ -194,7 +194,8 @@ class ScientificArticleCitationService
             ->when($year, function (Builder $query) use ($year) {
                 $query->whereYear('scientific_article_citations.magazine_publish_date', '=', $year);
             })
-            ->count('scientific_article_citations.*');
+            ->groupBy('scientific_article_citations.id')
+            ->get('scientific_article_citations.id')->count();
 
         $departments = Department::query()
             ->with('users.scientificArticleCitations')

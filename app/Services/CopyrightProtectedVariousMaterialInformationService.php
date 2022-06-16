@@ -168,7 +168,8 @@ class CopyrightProtectedVariousMaterialInformationService
             ->when($year, function (Builder $query) use ($year) {
                 $query->whereYear('copyright_protected_various_material_information.date', '=', $year);
             })
-            ->count('copyright_protected_various_material_information.*');
+            ->groupBy('copyright_protected_various_material_information.id')
+            ->get('copyright_protected_various_material_information.id')->count();
 
         $departments = Department::query()
             ->with('users.copyrightProtectedVariousMaterialInformation')
