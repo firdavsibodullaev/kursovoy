@@ -41,8 +41,15 @@ class CopyrightProtectedVariousMaterialInformationService
      */
     public function getNotConfirmedArticlesList(): Collection
     {
+        /** @var User $user */
+        $user = auth()->user();
         return CopyrightProtectedVariousMaterialInformation::query()->with(['institute', 'users', 'file'])
             ->where('is_confirmed', '=', false)
+            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('copyright_protected_various_material_information_users.user_id', '=', $user->id);
+                });
+            })
             ->get();
     }
 

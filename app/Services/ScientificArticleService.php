@@ -60,10 +60,17 @@ class ScientificArticleService
      */
     public function getNotConfirmedArticlesList()
     {
+        /** @var User $user */
+        $user = auth()->user();
 
         return QueryBuilder::for(ScientificArticle::with(['users', 'magazine', 'country']))
             ->defaultSort('id')
             ->where('is_confirmed', '=', false)
+            ->when(!is_super_admin(), function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('scientific_article_users.user_id', '=', $user->id);
+                });
+            })
             ->get();
     }
 

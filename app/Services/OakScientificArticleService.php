@@ -60,8 +60,16 @@ class OakScientificArticleService
      */
     public function getNotConfirmedArticlesList()
     {
+        /** @var User $user */
+        $user = auth()->user();
+
         return QueryBuilder::for(OakScientificArticle::with(['users', 'magazine']))
             ->defaultSort('id')
+            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('oak_scientific_article_users.user_id', '=', $user->id);
+                });
+            })
             ->where('is_confirmed', '=', false)
             ->get();
     }

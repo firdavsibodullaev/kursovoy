@@ -48,10 +48,17 @@ class ScientificResearchEffectivenessService
      */
     public function getNotConfirmedArticlesList(): Collection
     {
+        /** @var User $user */
+        $user = auth()->user();
 
         return QueryBuilder::for(ScientificResearchEffectiveness::with(['users', 'publication']))
             ->defaultSort('id')
             ->where('is_confirmed', '=', false)
+            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('scientific_research_effectiveness_users.user_id', '=', $user->id);
+                });
+            })
             ->get();
     }
 

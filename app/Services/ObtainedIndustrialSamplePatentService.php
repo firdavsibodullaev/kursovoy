@@ -47,8 +47,15 @@ class ObtainedIndustrialSamplePatentService
      */
     public function getNotConfirmedArticlesList(): Collection
     {
+        /** @var User $user */
+        $user = auth()->user();
         return ObtainedIndustrialSamplePatent::query()->orderByDesc('id')
             ->where('is_confirmed', '=', false)
+            ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
+                $query->whereHas('users', function (Builder $query) use ($user) {
+                    $query->where('obtained_industrial_sample_patent_users.user_id', '=', $user->id);
+                });
+            })
             ->get();
     }
 
