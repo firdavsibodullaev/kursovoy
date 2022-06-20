@@ -30,7 +30,7 @@ class ScientificArticleCitation extends BaseModel
     {
         return $this->belongsToMany(
             User::class,
-            'scientific_article_citation_user',
+            'article_citation_user',
             'citation_id',
             'user_id'
         );

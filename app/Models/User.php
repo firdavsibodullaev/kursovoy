@@ -101,9 +101,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(
             ScientificArticleCitation::class,
-            'scientific_article_citation_user',
+            'article_citation_user',
             'user_id',
-            'scientific_article_citation_id');
+            'citation_id');
     }
 
     /**
@@ -125,7 +125,7 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(
             ScientificResearchEffectiveness::class,
-            'scientific_research_effectiveness_users',
+            'effectiveness_users',
             'user_id',
             'scientific_research_effectiveness_id'
         );
@@ -151,7 +151,7 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(
             ObtainedIndustrialSamplePatent::class,
-            'obtained_industrial_sample_patent_users',
+            'patent_users',
             'user_id',
             'obtained_industrial_sample_patent_id'
         );

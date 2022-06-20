@@ -30,7 +30,7 @@ class CopyrightProtectedVariousMaterialInformationService
             ->where('is_confirmed', '=', true)
             ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
-                    $query->where('copyright_protected_various_material_information_users.user_id', '=', $user->id);
+                    $query->where('copyright_information_users.user_id', '=', $user->id);
                 });
             })
             ->paginate();
@@ -47,7 +47,7 @@ class CopyrightProtectedVariousMaterialInformationService
             ->where('is_confirmed', '=', false)
             ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
-                    $query->where('copyright_protected_various_material_information_users.user_id', '=', $user->id);
+                    $query->where('copyright_information_users.user_id', '=', $user->id);
                 });
             })
             ->get();
@@ -144,9 +144,9 @@ class CopyrightProtectedVariousMaterialInformationService
             $faculty->users->each(function (User $user) use (&$temp_number, $year) {
                 $temp_number += $user
                     ->copyrightProtectedVariousMaterialInformation()
-                    ->where('copyright_protected_various_material_information.is_confirmed', '=', true)
+                    ->where('copyright_information.is_confirmed', '=', true)
                     ->when($year, function (Builder $query) use ($year) {
-                        $query->whereYear('copyright_protected_various_material_information.date', '=', $year);
+                        $query->whereYear('copyright_information.date', '=', $year);
                     })
                     ->count();
             });
@@ -168,15 +168,15 @@ class CopyrightProtectedVariousMaterialInformationService
         $year = request('year');
         $faculty = request('faculty', 1);
         $articles_count = CopyrightProtectedVariousMaterialInformation::query()
-            ->join('copyright_protected_various_material_information_users', 'copyright_protected_various_material_information.id', '=', 'copyright_protected_various_material_information_users.copyright_protected_various_material_information_id')
-            ->join('users', 'copyright_protected_various_material_information_users.user_id', '=', 'users.id')
+            ->join('copyright_information_users', 'copyright_information.id', '=', 'copyright_information_users.copyright_information_id')
+            ->join('users', 'copyright_information_users.user_id', '=', 'users.id')
             ->where('users.faculty_id', '=', $faculty)
             ->where('is_confirmed', '=', true)
             ->when($year, function (Builder $query) use ($year) {
-                $query->whereYear('copyright_protected_various_material_information.date', '=', $year);
+                $query->whereYear('copyright_information.date', '=', $year);
             })
-            ->groupBy('copyright_protected_various_material_information.id')
-            ->get('copyright_protected_various_material_information.id')->count();
+            ->groupBy('copyright_information.id')
+            ->get('copyright_information.id')->count();
 
         $departments = Department::query()
             ->with('users.copyrightProtectedVariousMaterialInformation')
@@ -195,9 +195,9 @@ class CopyrightProtectedVariousMaterialInformationService
             $department->users->each(function (User $user) use (&$temp_number, $year) {
                 $temp_number += $user
                     ->copyrightProtectedVariousMaterialInformation()
-                    ->where('copyright_protected_various_material_information.is_confirmed', '=', true)
+                    ->where('copyright_information.is_confirmed', '=', true)
                     ->when($year, function (Builder $query) use ($year) {
-                        $query->whereYear('copyright_protected_various_material_information.date', '=', $year);
+                        $query->whereYear('copyright_information.date', '=', $year);
                     })
                     ->count();
             });

@@ -35,7 +35,7 @@ class ScientificResearchEffectivenessService
             ])
             ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
-                    $query->where('scientific_research_effectiveness_users.user_id', '=', $user->id);
+                    $query->where('effectiveness_users.user_id', '=', $user->id);
                 });
             })
             ->where('is_confirmed', '=', true)
@@ -56,7 +56,7 @@ class ScientificResearchEffectivenessService
             ->where('is_confirmed', '=', false)
             ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
-                    $query->where('scientific_research_effectiveness_users.user_id', '=', $user->id);
+                    $query->where('effectiveness_users.user_id', '=', $user->id);
                 });
             })
             ->get();
@@ -165,8 +165,8 @@ class ScientificResearchEffectivenessService
         $year = request('year');
         $faculty = request('faculty', 1);
         $articles_count = ScientificResearchEffectiveness::query()
-            ->join('scientific_research_effectiveness_users', 'scientific_research_effectivenesses.id', '=', 'scientific_research_effectiveness_users.scientific_research_effectiveness_id')
-            ->join('users', 'scientific_research_effectiveness_users.user_id', '=', 'users.id')
+            ->join('effectiveness_users', 'scientific_research_effectivenesses.id', '=', 'effectiveness_users.scientific_research_effectiveness_id')
+            ->join('users', 'effectiveness_users.user_id', '=', 'users.id')
             ->where('users.faculty_id', '=', $faculty)
             ->where('is_confirmed', '=', true)
             ->when($year, function (Builder $query) use ($year) {

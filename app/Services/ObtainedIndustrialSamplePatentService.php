@@ -34,7 +34,7 @@ class ObtainedIndustrialSamplePatentService
             ->orderByDesc('date')
             ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
-                    $query->where('obtained_industrial_sample_patent_users.user_id', '=', $user->id);
+                    $query->where('patent_users.user_id', '=', $user->id);
                 });
             })
             ->where('is_confirmed', '=', true)
@@ -53,7 +53,7 @@ class ObtainedIndustrialSamplePatentService
             ->where('is_confirmed', '=', false)
             ->when(!auth()->user()->hasRole(UserRoles::SUPER_ADMIN), function (Builder $query) use ($user) {
                 $query->whereHas('users', function (Builder $query) use ($user) {
-                    $query->where('obtained_industrial_sample_patent_users.user_id', '=', $user->id);
+                    $query->where('patent_users.user_id', '=', $user->id);
                 });
             })
             ->get();
@@ -174,8 +174,8 @@ class ObtainedIndustrialSamplePatentService
         $year = request('year');
         $faculty = request('faculty', 1);
         $articles_count = ObtainedIndustrialSamplePatent::query()
-            ->join('obtained_industrial_sample_patent_users', 'obtained_industrial_sample_patents.id', '=', 'obtained_industrial_sample_patent_users.obtained_industrial_sample_patent_id')
-            ->join('users', 'obtained_industrial_sample_patent_users.user_id', '=', 'users.id')
+            ->join('patent_users', 'obtained_industrial_sample_patents.id', '=', 'patent_users.obtained_industrial_sample_patent_id')
+            ->join('users', 'patent_users.user_id', '=', 'users.id')
             ->where('users.faculty_id', '=', $faculty)
             ->where('is_confirmed', '=', true)
             ->when($year, function (Builder $query) use ($year) {

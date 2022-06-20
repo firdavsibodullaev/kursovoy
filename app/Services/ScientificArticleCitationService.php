@@ -195,8 +195,8 @@ class ScientificArticleCitationService
         $year = request('year');
         $faculty = request('faculty', 1);
         $articles_count = ScientificArticleCitation::query()
-            ->join('scientific_article_citation_user', 'scientific_article_citations.id', '=', 'scientific_article_citation_user.scientific_article_citation_id')
-            ->join('users', 'scientific_article_citation_user.user_id', '=', 'users.id')
+            ->join('article_citation_user', 'scientific_article_citations.id', '=', 'article_citation_user.citation_id')
+            ->join('users', 'article_citation_user.user_id', '=', 'users.id')
             ->where('users.faculty_id', '=', $faculty)
             ->where('is_confirmed', '=', true)
             ->when($year, function (Builder $query) use ($year) {

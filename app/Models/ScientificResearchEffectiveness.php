@@ -29,7 +29,7 @@ class ScientificResearchEffectiveness extends BaseModel
     {
         return $this->belongsToMany(
             User::class,
-            'scientific_research_effectiveness_users',
+            'effectiveness_users',
             'scientific_research_effectiveness_id',
             'user_id'
         );

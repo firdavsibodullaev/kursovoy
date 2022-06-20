@@ -30,7 +30,7 @@ class ObtainedIndustrialSamplePatent extends BaseModel
     {
         return $this->belongsToMany(
             User::class,
-            'obtained_industrial_sample_patent_users',
+            'patent_users',
             'obtained_industrial_sample_patent_id',
             'user_id'
         );
