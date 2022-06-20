@@ -9,4 +9,6 @@ class ScientificResearchEffectivenessUser extends BaseModel
         'scientific_research_effectiveness_id',
         'user_id'
     ];
+
+    protected $table = 'effectiveness_users';
 }

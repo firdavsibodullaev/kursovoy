@@ -27,6 +27,6 @@ class CreateArticleCitationUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scientific_article_citation_user');
+        Schema::dropIfExists('article_citation_user');
     }
 }

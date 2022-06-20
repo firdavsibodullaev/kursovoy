@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScientificResearchEffectivenessUsersTable extends Migration
+class CreateEffectivenessUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateScientificResearchEffectivenessUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('scientific_research_effectiveness_users', function (Blueprint $table) {
+        Schema::create('effectiveness_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('scientific_research_effectiveness_id')
                 ->constrained('scientific_research_effectivenesses')
@@ -34,6 +34,6 @@ class CreateScientificResearchEffectivenessUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scientific_research_effectiveness_users');
+        Schema::dropIfExists('effectiveness_users');
     }
 }
