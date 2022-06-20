@@ -9,4 +9,6 @@ class CopyrightProtectedVariousMaterialInformationUser extends BaseModel
         'copyright_protected_various_material_information_id',
         'user_id'
     ];
+
+    protected $table = 'copyright_information_users';
 }
