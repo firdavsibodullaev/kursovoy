@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeTypeOfInstituteIdColumnInCopyrightProtectedVariousMaterialInformationTable extends Migration
+class ChangeTypeOfInstituteIdColumnInCopyrightInformationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class ChangeTypeOfInstituteIdColumnInCopyrightProtectedVariousMaterialInformatio
      */
     public function up()
     {
-        Schema::table('copyright_protected_various_material_information', function (Blueprint $table) {
+        Schema::table('copyright_information', function (Blueprint $table) {
             $table->unsignedBigInteger('institute_id')->nullable()->change();
         });
     }
@@ -25,7 +25,7 @@ class ChangeTypeOfInstituteIdColumnInCopyrightProtectedVariousMaterialInformatio
      */
     public function down()
     {
-        Schema::table('copyright_protected_various_material_information', function (Blueprint $table) {
+        Schema::table('copyright_information', function (Blueprint $table) {
             //
         });
     }
