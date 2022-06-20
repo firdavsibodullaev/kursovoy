@@ -67,7 +67,7 @@ Route::name('api.')->group(function () {
             });
 
             // Цитаты статьи
-            Route::prefix('scientific-article-citation')->name('scientific_article_citation')->group(function () {
+            Route::prefix('scientific-article-citation')->name('scientific_article_citation.')->group(function () {
                 Route::get('confirmation', [ScientificArticleCitationController::class, 'getNotConfirmedArticlesList']);
                 Route::get('', [ScientificArticleCitationController::class, 'index']);
                 Route::get('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'show']);
@@ -77,7 +77,7 @@ Route::name('api.')->group(function () {
                 Route::delete('{scientificArticleCitation}', [ScientificArticleCitationController::class, 'destroy']);
             });
 
-            Route::prefix('scientific-article')->name('scientific_article')->group(function () {
+            Route::prefix('scientific-article')->name('scientific_article.')->group(function () {
                 Route::get('', [ScientificArticleController::class, 'index']);
                 Route::get('confirmation', [ScientificArticleController::class, 'getNotConfirmedArticlesList']);
                 Route::get('{scientificArticle}', [ScientificArticleController::class, 'show']);
