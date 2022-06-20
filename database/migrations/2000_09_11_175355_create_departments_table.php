@@ -18,7 +18,7 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->json('full_name');
             $table->json('short_name');
-            $table->foreignId('faculty_id')->constrained('faculties')->nullOnDelete();
+            $table->foreignId('faculty_id')->constrained('faculties')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes(BaseModel::DELETED_AT);
         });
