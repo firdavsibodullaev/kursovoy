@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScientificArticleCitationUserTable extends Migration
+class CreateArticleCitationUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateScientificArticleCitationUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('scientific_article_citation_user', function (Blueprint $table) {
+        Schema::create('article_citation_user', function (Blueprint $table) {
             $table->foreignId('citation_id')->constrained('scientific_article_citations')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
         });

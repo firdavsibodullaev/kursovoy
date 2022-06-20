@@ -10,4 +10,6 @@ class ScientificArticleCitationUser extends Pivot
         'scientific_article_citation_id',
         'user_id'
     ];
+
+    protected $table = 'article_citation_user';
 }
