@@ -138,9 +138,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(
             CopyrightProtectedVariousMaterialInformation::class,
-            'copyright_protected_various_material_information_users',
+            'copyright_information_users',
             'user_id',
-            'copyright_protected_various_material_information_id'
+            'copyright_information_id'
         );
     }
 

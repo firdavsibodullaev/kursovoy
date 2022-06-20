@@ -16,7 +16,7 @@ class CreateCopyrightInformationUsersTable extends Migration
     {
         Schema::create('copyright_information_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('copyright_protected_various_material_information_id')
+            $table->foreignId('copyright_information_id')
                 ->constrained('copyright_information');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
