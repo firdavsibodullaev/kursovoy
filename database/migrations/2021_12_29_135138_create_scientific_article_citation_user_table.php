@@ -15,7 +15,7 @@ class CreateScientificArticleCitationUserTable extends Migration
     public function up()
     {
         Schema::create('scientific_article_citation_user', function (Blueprint $table) {
-            $table->foreignId('scientific_article_citation_id')->constrained('scientific_article_citations')->cascadeOnDelete();
+            $table->foreignId('citation_id')->constrained('scientific_article_citations')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
         });
     }
