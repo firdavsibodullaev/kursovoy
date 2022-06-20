@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCopyrightProtectedVariousMaterialInformationTable extends Migration
+class CreateCopyrightInformationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateCopyrightProtectedVariousMaterialInformationTable extends Migration
      */
     public function up()
     {
-        Schema::create('copyright_protected_various_material_information', function (Blueprint $table) {
+        Schema::create('copyright_information', function (Blueprint $table) {
             $table->id();
             $table->foreignId('institute_id')->constrained('institutes');
             $table->tinyText('name');
@@ -32,6 +32,6 @@ class CreateCopyrightProtectedVariousMaterialInformationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('copyright_protected_various_material_information');
+        Schema::dropIfExists('copyright_information');
     }
 }

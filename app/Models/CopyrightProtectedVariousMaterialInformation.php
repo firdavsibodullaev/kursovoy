@@ -23,6 +23,8 @@ class CopyrightProtectedVariousMaterialInformation extends BaseModel
         'is_confirmed'
     ];
 
+    protected $table = 'copyright_information';
+
     /**
      * @return BelongsTo
      */
