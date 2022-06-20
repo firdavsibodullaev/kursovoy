@@ -9,4 +9,6 @@ class ObtainedIndustrialSamplePatentUser extends BaseModel
         'user_id',
         'obtained_industrial_sample_patent_id'
     ];
+
+    protected $table = 'patent_users';
 }

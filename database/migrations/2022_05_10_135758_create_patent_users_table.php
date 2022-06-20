@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObtainedIndustrialSamplePatentUsersTable extends Migration
+class CreatePatentUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateObtainedIndustrialSamplePatentUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('obtained_industrial_sample_patent_users', function (Blueprint $table) {
+        Schema::create('patent_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('obtained_industrial_sample_patent_id')
@@ -31,6 +31,6 @@ class CreateObtainedIndustrialSamplePatentUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obtained_industrial_sample_patent_users');
+        Schema::dropIfExists('patent_users');
     }
 }
