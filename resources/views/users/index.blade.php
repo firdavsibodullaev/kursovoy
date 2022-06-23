@@ -39,7 +39,7 @@
                         <div class="row">
                             @php($sort = request('sort'))
                             @php($col = preg_replace('/^-/','', $sort))
-                            @php($direction = $sort && $sort{0} === '-' ? 'desc' : 'asc')
+                            @php($direction = $sort && $sort[0] === '-' ? 'desc' : 'asc')
                             <div class="col-6">
                                 <select onchange="sort()" class="custom-select" id="sort-columns">
                                     <option disabled {{!$col ? 'selected' : ''}}>Сортировать по...</option>
