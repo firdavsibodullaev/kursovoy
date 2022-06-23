@@ -205,7 +205,7 @@ class User extends Authenticatable implements HasMedia
     {
         try {
             return vsprintf("+%d%d%d %d%d %d%d%d %d%d %d%d", str_split($this->phone));
-        } catch (\Exception $exception) {
+        } catch (\Exception|\Error $exception) {
             return $this->phone;
         }
     }
