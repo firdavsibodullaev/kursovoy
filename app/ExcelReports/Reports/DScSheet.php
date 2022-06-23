@@ -84,7 +84,7 @@ class DScSheet implements ReportSheet
     {
         $worksheet->mergeCells("B{$footer_iter}:H" . ($footer_iter + 1));
 
-        $worksheet->setCellValue("B{$footer_iter}", "Ректор                                                                                 Қ.С.Санақулов")
+        $worksheet->setCellValue("B{$footer_iter}", "Ректор                                                                                 Б.Т.Мардонов")
             ->getStyle("B{$footer_iter}:H" . ($footer_iter + 1))
             ->applyFromArray(self::FOOTER_STYLE)
             ->getFont()
