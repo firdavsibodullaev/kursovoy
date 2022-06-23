@@ -209,24 +209,24 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('department')->name('department.')->group(function () {
         Route::get('', [DepartmentController::class, 'index'])
-            ->can('can:' . PermissionsConstant::DEPARTMENT_LIST)
+            ->middleware('can:' . PermissionsConstant::DEPARTMENT_LIST)
             ->name('index');
         Route::get('create', [DepartmentController::class, 'create'])
-            ->can('can:' . PermissionsConstant::DEPARTMENT_CREATE)
+            ->middleware('can:' . PermissionsConstant::DEPARTMENT_CREATE)
             ->name('create');
         Route::post('', [DepartmentController::class, 'store'])
-            ->can('can:' . PermissionsConstant::DEPARTMENT_CREATE)
+            ->middleware('can:' . PermissionsConstant::DEPARTMENT_CREATE)
             ->name('store');
         Route::get('{department}', [DepartmentController::class, 'edit'])
-            ->can('can:' . PermissionsConstant::DEPARTMENT_EDIT)
+            ->middleware('can:' . PermissionsConstant::DEPARTMENT_EDIT)
             ->whereNumber('department')
             ->name('edit');
         Route::put('{department}', [DepartmentController::class, 'update'])
-            ->can('can:' . PermissionsConstant::DEPARTMENT_EDIT)
+            ->middleware('can:' . PermissionsConstant::DEPARTMENT_EDIT)
             ->whereNumber('department')
             ->name('update');
         Route::delete('{department}', [DepartmentController::class, 'destroy'])
-            ->can('can:' . PermissionsConstant::DEPARTMENT_DELETE)
+            ->middleware('can:' . PermissionsConstant::DEPARTMENT_DELETE)
             ->whereNumber('department')
             ->name('delete');
     });
