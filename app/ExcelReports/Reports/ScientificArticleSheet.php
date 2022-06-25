@@ -53,7 +53,7 @@ class ScientificArticleSheet implements ReportSheet
      */
     public function body(Worksheet &$worksheet): int
     {
-        $iter = 9;
+        $iter = 8;
         $collection = $this->getCollection();
         /**
          * @var int $key
@@ -61,8 +61,7 @@ class ScientificArticleSheet implements ReportSheet
          */
         foreach ($collection as $key => $item) {
             unset($collection[$key]);
-            $iter += $key;
-
+            $iter++;
             $worksheet->setCellValue("A{$iter}", $key + 1)
                 ->setCellValue("B{$iter}", br2nl($item->users_formatted))
                 ->setCellValue("C{$iter}", $item->country->name)
